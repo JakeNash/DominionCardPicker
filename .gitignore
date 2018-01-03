@@ -7,5 +7,5 @@ out
 npm-debug.log
 gradlew
 gradlew.bat
-src/main/java/resources/static/built/*
+src/main/resources/static/built/*
 gradle/*
