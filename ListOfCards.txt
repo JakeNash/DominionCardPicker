@@ -1,0 +1,140 @@
+Basic:
+    0: Copper, Curse
+    2: Estate
+    3: Silver
+    5: Duchy
+    6: Gold
+    8: Province
+
+Dominion:
+    2: Cellar, Chapel, Moat
+    3: Harbinger, Merchant, Vassal, Village, Workshop, Chancellor, Woodcutter
+    4: Bureaucrat, Gardens, Militia, Moneylender, Poacher, Remodel, Smithy, Throne Room, Feast, Spy, Thief
+    5: Bandit, Council Room, Festival, Laboratory, Library, Market, Mine, Sentry, Witch
+    6: Artisan, Adventurer
+
+Intrigue:
+    2: Courtyard, Lurker, Pawn, Secret Chamber
+    3: Masquerade, Shanty Town, Steward, Swindler, Wishing Well, Great Hall
+    4: Baron, Bridge, Conspirator, Diplomat, Ironworks, Mill, Mining Village, Secret Passage, Coppersmith, Scout
+    5: Courtier, Duke, Minion, Patrol, Replace, Torturer, Trading Post, Upgrade, Saboteur, Tribute
+    6: Harem, Nobles
+
+Seaside:
+    2: Embargo, Haven, Lighthouse, Native Village, Pearl Diver
+    3: Ambassador, Fishing Village, Lookout, Smugglers, Warehouse
+    4: Caravan, Cutpurse, Island, Navigator, Pirate Ship, Salvager, Sea Hag, Treasure Map
+    5: Bazaar, Explorer, Ghost Ship, Merchant Ship, Outpost, Tactician, Treasury, Wharf
+
+Alchemy:
+    2: Herbalist
+    4: Potion
+    5: Apprentice
+    Potion: Transmute, Vineyard
+    2 + Potion: Apothecary, Scrying Pool, University
+    3 + Potion: Alchemist, Familiar, Philosopher's Stone
+    4 + Potion: Golem
+    6 + Potion: Possession
+
+Prosperity:
+    3: Loan, Trade Route, Watchtower
+    4: Bishop, Monument, Quarry, Talisman, Worker's Village
+    5: City, Contraband, Counting House, Mint, Mountebank, Rabble, Royal Seal, Vault, Venture
+    6: Goons, Grand Market, Hoard
+    7: Bank, Expand, Forge, King's Court
+    8*: Peddler
+    9: Platinum
+    11: Colony
+
+Cornucopia:
+    0*: Prizes
+    2: Hamlet
+    3: Fortune Teller, Menagerie
+    4: Farming Village, Horse Traders, Remake, Tournament, Young Witch
+    5: Harvest, Horn of Plenty, Hunting Party, Jester
+    6: Fairgrounds
+
+Hinterlands:
+    2: Crossroads, Duchess, Fool's Gold
+    3: Develop, Oasis, Oracle, Scheme, Tunnel
+    4: Jack of all Trades, Noble Brigand, Nomad Camp, Silk Road, Spice Merchant, Trader
+    5: Cache, Cartographer, Embassy, Haggler, Highway, Ill-Gotten Gains, Inn, Mandarin, Margrave, Stables
+    6: Border Village, Farmland
+
+Dark Ages:
+    0: Ruins
+    0*: Madman, Mercenary, Spoils
+    1: Shelters
+    1: Poor House
+    2: Beggar, Squire, Vagrant
+    3: Forager, Hermit, Market Square, Sage, Storeroom, Urchin
+    4: Armory, Death Cart, Feodum, Fortress, Ironmonger, Marauder, Procession, Rats, Scavenger, Wandering Minstrel
+    5: Band of Misfits, Bandit Camp, Catacombs, Count, Counterfeit, Cultist, Graverobber, Junk Dealer, Knights, Mystic, Pillage, Rebuild, Rogue
+    6: Altar, Hunting Grounds
+
+Guilds:
+    2: Candlestick Maker
+    2+: Stonemason
+    3+: Doctor, Masterpiece
+    4: Advisor, Plaza, Taxman
+    4+: Herald
+    5: Baker, Butcher, Journeyman, Merchant Guild, Soothsayer
+
+Adventures:
+    2: Coin of the Realm, Page, Peasant, Ratcatcher, Raze
+    3: Amulet, Caravan Guard, Dungeon, Gear, Guide
+    3*: Soldier, Treasure Hunter
+    4: Duplicate, Magpie, Messenger, Miser, Port, Ranger, Transmogrify
+    4*: Fugitive, Warrior
+    5: Artificer, Bridge Troll, Distant Lands, Giant, Haunted Woods, Lost City, Relic, Royal Carriage, Storyteller, Swamp Hag, Treasure Trove, Wine Merchant
+    5*: Disciple, Hero
+    6: Hireling
+    6*: Teacher, Champion
+    Events:
+        0: Alms, Borrow, Quest
+        1: Save
+        2: Scouting Party, Travelling Fair
+        3: Bonfire, Expedition, Ferry, Plan
+        4: Mission, Pilgrimage
+        5: Ball, Raid, Seaway, Trade
+        6: Lost Arts, Training
+        7: Inheritance
+        8: Pathfinding
+
+Empires:
+    4 Debt: Engineer
+    8 Debt: City Quarter, Overlord, Royal Blacksmith
+    2: Encampment/Plunder, Patrician/Emporium, Settlers/Bustling Village
+    3: Castles, Catapult/Rocks, Chariot Race, Enchantress, Farmers' Market, Gladiator/Fortune
+    4: Sacrifice, Temple, Villa
+    5: Archive, Capital, Charm, Crown, Forum, Groundskeeper, Legionary, Wild Hunt
+    Events:
+        5 Debt: Triumph
+        8 Debt: Annex, Donate
+        0: Advance
+        2: Delve, Tax
+        3: Banquet
+        4: Ritual, Salt the Earth
+        4 + 3 Debt: Wedding
+        5: Windfall
+        6: Conquest
+        14: Dominate
+    Landmarks:
+        Aqueduct, Arena, Bandit Fort, Basilica, Baths, Battlefield, Colonnade, Defiled Shrine, Fountain, Keep, Labyrinth, Mountain Pass, Museum, Obelisk, Orchard, Palace, Tomb, Tower, Triumphal Arch, Wall, Wolf Den
+
+Nocturne:
+    0: Haunted Mirror, Magic Lamp
+    0*: Will-o'-Wisp, Wish
+    2: Druid, Faithful Hound, Guardian, Monastery, Pixie, Tracker, Goat, Pasture, Pouch
+    2*: Bat, Imp
+    3: Changeling, Fool, Ghost Town, Leprechaun, Night Watchman, Secret Cave, Zombie Apprentice, Zombie Mason, Zombie Spy
+    4: Bard, Blessed Village, Cemetery, Conclave, Devil's Workshop, Exorcist, Necromancer, Shepherd, Skulk, Cursed Gold, Lucky Coin
+    4*: Ghost
+    5: Cobbler, Crypt, Cursed Village, Den of Sin, Idol, Pooka, Sacred Grove, Tormentor, Tragic Hero, Vampire, Werewolf
+    6: Raider
+    Boons:
+        The Earth's Gift, The Field's Gift, The Flame's Gift, The Forest's Gift, The Moon's Gift, The Mountain's Gift, The River's Gift, The Sea's Gift, The Sky's Gift, The Sun's Gift, The Swamp's Gift, The Wind's Gift
+    Hexes:
+        Bad Omens, Delusion, Envy, Famine, Fear, Greed, Haunting, Locusts, Misery, Plague, Poverty, War
+    States:
+        Lost in the Woods, Deluded/Envious, Miserable/Twice Miserable
