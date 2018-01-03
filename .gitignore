@@ -1,0 +1,9 @@
+.idea
+node_modules
+build
+.gradle
+out
+npm-debug.log
+gradlew
+gradlew.bat
+src/main/java/resources/static/built
