@@ -4,7 +4,7 @@
   "description": "Dominion Card Picker",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:JakeNash/DominionCardPicker.git"
   },
   "keywords": [
     "rest",
