@@ -79,7 +79,7 @@ public class DatabaseLoader implements CommandLineRunner {
 	    List<String> kingdomNameList = new ArrayList<>();
 
         for(Kingdom kingdom : kingdomList) {
-            kingdomNameList.add(kingdom.getId());
+            kingdomNameList.add(kingdom.getName());
         }
 
         return kingdomNameList;

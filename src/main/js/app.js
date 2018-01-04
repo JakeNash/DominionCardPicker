@@ -16,11 +16,13 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {cards: [], attributes: [], page: 1, pageSize: 2, links: {},
-		              kingdoms: [], kingdomAttributes: [], kingdomPage: 1, kingdomPageSize: 2, kingdomLinks: {}};
+		              kingdoms: [], kingdomAttributes: [], kingdomPage: 1, kingdomPageSize: 2, kingdomLinks: {},
+		              matchingKingdoms: [], wantedCard: "Cellar"};
 		this.updatePageSize = this.updatePageSize.bind(this);
 		this.onNavigate = this.onNavigate.bind(this);
 		this.updateKingdomPageSize = this.updateKingdomPageSize.bind(this);
 		this.onKingdomNavigate = this.onKingdomNavigate.bind(this);
+		this.updateMatchingKingdomWantedCard = this.updateMatchingKingdomWantedCard.bind(this);
 	}
 
 	loadFromServer(pageSize) {
@@ -91,6 +93,25 @@ class App extends React.Component {
         });
     }
 
+    loadMatchingKingdomsFromServer(wantedCard) {
+        follow(client, root, [
+            {rel: 'kingdoms'}, {rel: 'search'}, {rel: 'findByCards', params: {card: wantedCard}}]
+        ).then(kingdomCollection => {
+            return kingdomCollection.entity._embedded.kingdoms.map(kingdom =>
+                client({
+                    method: 'GET',
+                    path: kingdom._links.self.href
+                    })
+            );
+        }).then(kingdomPromises => {
+            return when.all(kingdomPromises);
+        }).done(kingdoms => {
+            this.setState({
+                matchingKingdoms: kingdoms
+            });
+        });
+    }
+
 	onNavigate(navUri) {
 		client({
 			method: 'GET',
@@ -157,9 +178,16 @@ class App extends React.Component {
 	    }
 	}
 
+	updateMatchingKingdomWantedCard(wantedCard) {
+	    if (wantedCard !== this.state.wantedCard) {
+	        this.loadMatchingKingdomsFromServer(wantedCard);
+	    }
+	}
+
 	componentDidMount() {
 		this.loadFromServer(this.state.pageSize);
 		this.loadKingdomsFromServer(this.state.kingdomPageSize);
+		this.loadMatchingKingdomsFromServer(this.state.wantedCard);
 	}
 
 	render() {
@@ -171,14 +199,17 @@ class App extends React.Component {
 							 pageSize={this.state.pageSize}
 							 attributes={this.state.attributes}
 							 onNavigate={this.onNavigate}
-							 updatePageSize={this.updatePageSize}/>
+							 updatePageSize={this.updatePageSize} />
 				<KingdomList page={this.state.kingdomPage}
 				             kingdoms={this.state.kingdoms}
 				             links={this.state.kingdomLinks}
 				             pageSize={this.state.kingdomPageSize}
 				             attributes={this.state.kingdomAttributes}
 				             onNavigate={this.onKingdomNavigate}
-				             updatePageSize={this.updateKingdomPageSize}/>
+				             updatePageSize={this.updateKingdomPageSize} />
+				<MatchingKingdomList kingdoms={this.state.matchingKingdoms}
+				                     wantedCard={this.state.wantedCard}
+				                     updateWantedCard={this.updateMatchingKingdomWantedCard} />
 			</div>
 		)
 	}
@@ -286,8 +317,16 @@ class Card extends React.Component {
                 <td>{this.props.card.entity.cost}</td>
                 <td>{this.props.card.entity.name}</td>
                 <td>{this.props.card.entity.box}</td>
-                <td>{this.props.card.entity.types}</td>
-                <td>{this.props.card.entity.kingdoms}</td>
+                <td>{this.props.card.entity.types.map((type, i) =>
+                    <span key={i}>
+                    {!!i && ", "}
+                    {type}
+                </span>)}</td>
+                <td>{this.props.card.entity.kingdoms.map((kingdom, i) =>
+                    <span key={i}>
+                    {!!i && ", "}
+                    {kingdom}
+                </span>)}</td>
             </tr>
         )
     }
@@ -341,7 +380,6 @@ class KingdomList extends React.Component {
 		var kingdoms = this.props.kingdoms.map(kingdom =>
 			<Kingdom key={kingdom.entity._links.self.href}
 					 kingdom={kingdom}
-					 attributes={this.props.attributes}
 					 />
 		);
 
@@ -380,6 +418,47 @@ class KingdomList extends React.Component {
 	}
 }
 
+class MatchingKingdomList extends React.Component {
+    constructor(props) {
+        super(props);
+		this.handleInput = this.handleInput.bind(this);
+    }
+
+    handleInput(e) {
+        e.preventDefault();
+        var wantedCard = ReactDOM.findDOMNode(this.refs.wantedCard).value;
+        if (/^[a-zA-Z ]+$/.test(wantedCard)) {
+            this.props.updateWantedCard(wantedCard);
+        } else {
+            ReactDOM.findDOMNode(this.wantedCard).value = wantedCard.substring(0, wantedCard.length - 1);
+        }
+    }
+
+    render() {
+        var kingdoms = this.props.kingdoms.map(kingdom =>
+            <Kingdom key={kingdom.entity._links.self.href}
+                     kingdom={kingdom}
+                     />
+        );
+
+        return (
+            <div>
+                <h3>Matching Kingdoms</h3>
+                <input ref="wantedCard" defaultValue={this.props.wantedCard} onInput={this.handleInput}/>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <th>Cards</th>
+                        </tr>
+                        {kingdoms}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+}
+
 class Kingdom extends React.Component {
 
     constructor(props) {
@@ -390,7 +469,11 @@ class Kingdom extends React.Component {
         return (
             <tr>
                 <td>{this.props.kingdom.entity.name}</td>
-                <td>{this.props.kingdom.entity.cards}</td>
+                <td>{this.props.kingdom.entity.cards.map((card, i) =>
+                    <span key={i}>
+                    {!!i && ", "}
+                    {card}
+                </span>)}</td>
             </tr>
         )
     }
