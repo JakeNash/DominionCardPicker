@@ -13,27 +13,25 @@ public class Card {
     private String name;
     private String box;
     private List<String> types;
-    private List<String> kingdoms;
     private List<String> otherSetup;
 
     private @Version @JsonIgnore Long version;
 
     private Card() {}
 
-    public Card(String cost, String name, String box, List<String> types, List<String> kingdoms) {
+    public Card(String cost, String name, String box, List<String> types) {
         this.cost = cost;
         this.name = name;
         this.box = box;
         this.types = types;
-        this.kingdoms = kingdoms;
+        this.otherSetup = null;
     }
 
-    public Card(String cost, String name, String box, List<String> types, List<String> kingdoms, List<String> otherSetup) {
+    public Card(String cost, String name, String box, List<String> types, List<String> otherSetup) {
         this.cost = cost;
         this.name = name;
         this.box = box;
         this.types = types;
-        this.kingdoms = kingdoms;
         this.otherSetup = otherSetup;
     }
 
@@ -83,14 +81,6 @@ public class Card {
 
     public void setVersion(Long version) {
         this.version = version;
-    }
-
-    public List<String> getKingdoms() {
-        return kingdoms;
-    }
-
-    public void setKingdoms(List<String> kingdoms) {
-        this.kingdoms = kingdoms;
     }
 
     public List<String> getOtherSetup() {

@@ -10,6 +10,7 @@ import java.util.List;
 
 import static picker.BoxName.*;
 import static picker.CardName.*;
+import static picker.TypeName.*;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
@@ -18,17 +19,22 @@ public class DatabaseLoader implements CommandLineRunner {
 	private final KingdomRepository kingdomRepository;
 
 	// Written card types
-    private final List<String> treasureCard = Collections.singletonList(TypeName.TREASURE.getName());
+    private final List<String> treasureCard = Collections.singletonList(TREASURE.getName());
     private final List<String> curseCard = Collections.singletonList(TypeName.CURSE.getName());
-    private final List<String> victoryCard = Collections.singletonList(TypeName.VICTORY.getName());
-    private final List<String> actionCard = Collections.singletonList(TypeName.ACTION.getName());
-    private final List<String> reactionCard = Collections.singletonList(TypeName.REACTION.getName());
-    private final List<String> attackCard = Collections.singletonList(TypeName.ATTACK.getName());
+    private final List<String> victoryCard = Collections.singletonList(VICTORY.getName());
+    private final List<String> actionCard = Collections.singletonList(ACTION.getName());
+    private final List<String> reactionCard = Collections.singletonList(REACTION.getName());
+    private final List<String> attackCard = Collections.singletonList(ATTACK.getName());
+    private final List<String> durationCard = Collections.singletonList(DURATION.getName());
+
+    // Type list for complex cards
+    private List<String> typeList;
 
 	@Autowired
 	public DatabaseLoader(CardRepository cardRepository, KingdomRepository kingdomRepository) {
 		this.cardRepository = cardRepository;
 		this.kingdomRepository = kingdomRepository;
+		typeList = new ArrayList<>();
 	}
 
 	@Override
@@ -37,32 +43,25 @@ public class DatabaseLoader implements CommandLineRunner {
 		cardRepository.deleteAll();
 		kingdomRepository.deleteAll();
 
-        KingdomSorter kingdomSorter = new KingdomSorter(kingdomRepository);
-        kingdomSorter.createKingdoms();
-
-		saveBasicSupplyCards();
+        saveBasicSupplyCards();
         saveSimpleCards();
-		saveComplexCards();
+        saveComplexCards();
+
+        KingdomSorter kingdomSorter = new KingdomSorter(kingdomRepository, cardRepository);
+        kingdomSorter.createKingdoms();
 	}
 
 	private void saveCard(String cost, String cardName, String boxName, List<String> types) {
-	    cardRepository.save(new Card(cost, cardName, boxName, types, extractKingdomNames(cardName)));
+	    cardRepository.save(new Card(cost, cardName, boxName, types));
     }
 
-    private List<String> extractKingdomNames(String card) {
-        List<Kingdom> kingdomList = kingdomRepository.findByCards(card);
-        List<String> kingdomNameList = new ArrayList<>();
-
-        for(Kingdom kingdom : kingdomList) {
-            kingdomNameList.add(kingdom.getName());
-        }
-
-        return kingdomNameList;
+    private void saveCard(String cost, String cardName, String boxName, List<String> types, List<String> otherSetup) {
+	    cardRepository.save(new Card(cost, cardName, boxName, types, otherSetup));
     }
 
     private void saveBasicSupplyCards() {
         saveCard("0", COPPER.getName(), BASIC.getName(), treasureCard);
-        saveCard("0", CURSE.getName(), BASIC.getName(), curseCard);
+        saveCard("0", CardName.CURSE.getName(), BASIC.getName(), curseCard);
         saveCard("2", ESTATE.getName(), BASIC.getName(), victoryCard);
         saveCard("3", SILVER.getName(), BASIC.getName(), treasureCard);
         saveCard("5", DUCHY.getName(), BASIC.getName(), victoryCard);
@@ -165,7 +164,21 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
     private void saveSimpleSeasideCards() {
+	    List<String> embargoSetup = Collections.singletonList("Embargo tokens");
+	    List<String> nativeVillageSetup = Collections.singletonList("Native Village mats");
 
+        saveCard("2", EMBARGO.getName(), SEASIDE.getName(), actionCard, embargoSetup);
+        saveCard("2", NATIVE_VILLAGE.getName(), SEASIDE.getName(), actionCard, nativeVillageSetup);
+        saveCard("2", PEARL_DIVER.getName(), SEASIDE.getName(), actionCard);
+        saveCard("3", LOOKOUT.getName(), SEASIDE.getName(), actionCard);
+        saveCard("3", SMUGGLERS.getName(), SEASIDE.getName(), actionCard);
+        saveCard("3", WAREHOUSE.getName(), SEASIDE.getName(), actionCard);
+        saveCard("4", NAVIGATOR.getName(), SEASIDE.getName(), actionCard);
+        saveCard("4", SALVAGER.getName(), SEASIDE.getName(), actionCard);
+        saveCard("4", TREASURE_MAP.getName(), SEASIDE.getName(), actionCard);
+        saveCard("5", BAZAAR.getName(), SEASIDE.getName(), actionCard);
+        saveCard("5", EXPLORER.getName(), SEASIDE.getName(), actionCard);
+        saveCard("5", TREASURY.getName(), SEASIDE.getName(), actionCard);
     }
 
     private void saveSimpleAlchemyCards() {
@@ -205,111 +218,151 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
     private void saveComplexCards() {
-        List<String> typeList = new ArrayList<>();
-
-        saveActionReactionCards(typeList);
-        saveActionAttackCards(typeList);
-        saveActionVictoryCards(typeList);
-        saveTreasureVictoryCards(typeList);
+        saveActionReactionCards();
+        saveActionAttackCards();
+        saveActionVictoryCards();
+        saveTreasureVictoryCards();
+        saveActionDurationCards();
     }
 
-    private void saveActionReactionCards(List<String> typeList) {
+    private void saveActionReactionCards() {
         typeList.clear();
         typeList.addAll(actionCard);
         typeList.addAll(reactionCard);
 
-        saveActionReactionDominionCards(typeList);
+        saveActionReactionDominionCards();
 
-        saveActionReactionOldIntrigueCards(typeList);
-        saveActionReactionNewIntrigueCards(typeList);
+        saveActionReactionOldIntrigueCards();
+        saveActionReactionNewIntrigueCards();
     }
 
-    private void saveActionReactionDominionCards(List<String> typeList) {
+    private void saveActionReactionDominionCards() {
         saveCard("2", MOAT.getName(), DOMINION.getName(), typeList);
     }
 
-    private void saveActionReactionOldIntrigueCards(List<String> typeList) {
+    private void saveActionReactionOldIntrigueCards() {
 	    saveCard("2", SECRET_CHAMBER.getName(), OLD_INTRIGUE.getName(), typeList);
     }
 
-    private void saveActionReactionNewIntrigueCards(List<String> typeList) {
+    private void saveActionReactionNewIntrigueCards() {
 	    saveCard("4", DIPLOMAT.getName(), NEW_INTRIGUE.getName(), typeList);
     }
 
-    private void saveActionAttackCards(List<String> typeList) {
+    private void saveActionAttackCards() {
         typeList.clear();
         typeList.addAll(actionCard);
         typeList.addAll(attackCard);
 
-        saveActionAttackDominionCards(typeList);
-        saveActionAttackOldDominionCards(typeList);
-        saveActionAttackNewDominionCards(typeList);
+        saveActionAttackDominionCards();
+        saveActionAttackOldDominionCards();
+        saveActionAttackNewDominionCards();
 
-        saveActionAttackIntrigueCards(typeList);
-        saveActionAttackOldIntrigueCards(typeList);
-        saveActionAttackNewIntrigueCards(typeList);
+        saveActionAttackIntrigueCards();
+        saveActionAttackOldIntrigueCards();
+        saveActionAttackNewIntrigueCards();
+
+        saveActionAttackSeasideCards();
     }
 
-    private void saveActionAttackDominionCards(List<String> typeList) {
+    private void saveActionAttackDominionCards() {
         saveCard("4", BUREAUCRAT.getName(), DOMINION.getName(), typeList);
         saveCard("4", MILITIA.getName(), DOMINION.getName(), typeList);
         saveCard("5", WITCH.getName(), DOMINION.getName(), typeList);
     }
 
-    private void saveActionAttackOldDominionCards(List<String> typeList) {
+    private void saveActionAttackOldDominionCards() {
         saveCard("4", SPY.getName(), OLD_DOMINION.getName(), typeList);
         saveCard("4", THIEF.getName(), OLD_DOMINION.getName(), typeList);
     }
 
-    private void saveActionAttackNewDominionCards(List<String> typeList) {
+    private void saveActionAttackNewDominionCards() {
         saveCard("5", BANDIT.getName(), NEW_DOMINION.getName(), typeList);
     }
 
-    private void saveActionAttackIntrigueCards(List<String> typeList) {
+    private void saveActionAttackIntrigueCards() {
 	    saveCard("3", SWINDLER.getName(), INTRIGUE.getName(), typeList);
 	    saveCard("5", MINION.getName(), INTRIGUE.getName(), typeList);
 	    saveCard("5", TORTURER.getName(), INTRIGUE.getName(), typeList);
     }
 
-    private void saveActionAttackOldIntrigueCards(List<String> typeList) {
+    private void saveActionAttackOldIntrigueCards() {
 	    saveCard("5", SABOTEUR.getName(), OLD_INTRIGUE.getName(), typeList);
     }
 
-    private void saveActionAttackNewIntrigueCards(List<String> typeList) {
+    private void saveActionAttackNewIntrigueCards() {
 	    saveCard("5", REPLACE.getName(), NEW_INTRIGUE.getName(), typeList);
     }
 
-    private void saveActionVictoryCards(List<String> typeList) {
+    private void saveActionAttackSeasideCards() {
+	    List<String> pirateShipSetup = new ArrayList<>();
+	    pirateShipSetup.add("Pirate Ship mats");
+	    pirateShipSetup.add("Coin tokens");
+
+	    saveCard("3", AMBASSADOR.getName(), SEASIDE.getName(), typeList);
+	    saveCard("4", CUTPURSE.getName(), SEASIDE.getName(), typeList);
+	    saveCard("4", PIRATE_SHIP.getName(), SEASIDE.getName(), typeList, pirateShipSetup);
+	    saveCard("4", SEA_HAG.getName(), SEASIDE.getName(), typeList);
+	    saveCard("5", GHOST_SHIP.getName(), SEASIDE.getName(), typeList);
+    }
+
+    private void saveActionVictoryCards() {
 	    typeList.clear();
 	    typeList.addAll(actionCard);
 	    typeList.addAll(victoryCard);
 
-	    saveActionVictoryIntrigueCards(typeList);
-	    saveActionVictoryOldIntrigueCards(typeList);
-	    saveActionVictoryNewIntrigueCards(typeList);
+	    saveActionVictoryIntrigueCards();
+	    saveActionVictoryOldIntrigueCards();
+	    saveActionVictoryNewIntrigueCards();
+
+	    saveActionVictorySeasideCards();
     }
 
-    private void saveActionVictoryIntrigueCards(List<String> typeList) {
+    private void saveActionVictoryIntrigueCards() {
 	    saveCard("6", NOBLES.getName(), INTRIGUE.getName(), typeList);
     }
 
-    private void saveActionVictoryOldIntrigueCards(List<String> typeList) {
+    private void saveActionVictoryOldIntrigueCards() {
 	    saveCard("3", GREAT_HALL.getName(), OLD_INTRIGUE.getName(), typeList);
     }
 
-    private void saveActionVictoryNewIntrigueCards(List<String> typeList) {
+    private void saveActionVictoryNewIntrigueCards() {
 	    saveCard("4", MILL.getName(), NEW_INTRIGUE.getName(), typeList);
     }
 
-    private void saveTreasureVictoryCards(List<String> typeList) {
+    private void saveActionVictorySeasideCards() {
+	    List<String> islandSetup = Collections.singletonList("Island mats");
+
+	    saveCard("4", ISLAND.getName(), SEASIDE.getName(), typeList, islandSetup);
+    }
+
+    private void saveTreasureVictoryCards() {
         typeList.clear();
         typeList.addAll(treasureCard);
         typeList.addAll(victoryCard);
 
-        saveTreasureVictoryIntrigueCards(typeList);
+        saveTreasureVictoryIntrigueCards();
     }
 
-    private void saveTreasureVictoryIntrigueCards(List<String> typeList) {
+    private void saveTreasureVictoryIntrigueCards() {
 	    saveCard("6", HAREM.getName(), INTRIGUE.getName(), typeList);
+    }
+
+    private void saveActionDurationCards() {
+	    typeList.clear();
+	    typeList.addAll(actionCard);
+	    typeList.addAll(durationCard);
+
+	    saveActionDurationSeasideCards();
+    }
+
+    private void saveActionDurationSeasideCards() {
+        saveCard("2", HAVEN.getName(), SEASIDE.getName(), typeList);
+        saveCard("2", LIGHTHOUSE.getName(), SEASIDE.getName(), typeList);
+        saveCard("3", FISHING_VILLAGE.getName(), SEASIDE.getName(), typeList);
+        saveCard("4", CARAVAN.getName(), SEASIDE.getName(), typeList);
+        saveCard("5", MERCHANT_SHIP.getName(), SEASIDE.getName(), typeList);
+        saveCard("5", OUTPOST.getName(), SEASIDE.getName(), typeList);
+        saveCard("5", TACTICIAN.getName(), SEASIDE.getName(), typeList);
+        saveCard("5", WHARF.getName(), SEASIDE.getName(), typeList);
     }
 }

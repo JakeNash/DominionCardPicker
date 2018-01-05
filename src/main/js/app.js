@@ -17,7 +17,7 @@ class App extends React.Component {
 		super(props);
 		this.state = {cards: [], attributes: [], page: 1, pageSize: 2, links: {},
 		              kingdoms: [], kingdomAttributes: [], kingdomPage: 1, kingdomPageSize: 2, kingdomLinks: {},
-		              matchingKingdoms: [], wantedCard: "Cellar"};
+		              matchingKingdoms: [], wantedCard: "Enter Card Here"};
 		this.updatePageSize = this.updatePageSize.bind(this);
 		this.onNavigate = this.onNavigate.bind(this);
 		this.updateKingdomPageSize = this.updateKingdomPageSize.bind(this);
@@ -292,7 +292,7 @@ class CardList extends React.Component {
 							<th>Name</th>
 							<th>Box</th>
 							<th>Types</th>
-							<th>Kingdoms</th>
+							<th>Other Setup</th>
 						</tr>
 						{cards}
 					</tbody>
@@ -312,6 +312,17 @@ class Card extends React.Component {
     }
 
     render() {
+        let otherSetup = null;
+        if (this.props.card.entity.otherSetup !== null) {
+            otherSetup = <td>{this.props.card.entity.otherSetup.map((setup, i) =>
+                            <span key={i}>
+                            {!!i && ", "}
+                            {setup}
+                         </span>)}</td>
+        } else {
+            otherSetup = <td></td>
+        }
+
         return (
             <tr>
                 <td>{this.props.card.entity.cost}</td>
@@ -322,11 +333,7 @@ class Card extends React.Component {
                     {!!i && ", "}
                     {type}
                 </span>)}</td>
-                <td>{this.props.card.entity.kingdoms.map((kingdom, i) =>
-                    <span key={i}>
-                    {!!i && ", "}
-                    {kingdom}
-                </span>)}</td>
+                {otherSetup}
             </tr>
         )
     }
@@ -406,6 +413,7 @@ class KingdomList extends React.Component {
 						<tr>
 							<th>Name</th>
 							<th>Cards</th>
+							<th>Other Setup</th>
 						</tr>
 						{kingdoms}
 					</tbody>
@@ -450,6 +458,7 @@ class MatchingKingdomList extends React.Component {
                         <tr>
                             <th>Name</th>
                             <th>Cards</th>
+                            <th>Other Setup</th>
                         </tr>
                         {kingdoms}
                     </tbody>
@@ -466,6 +475,17 @@ class Kingdom extends React.Component {
     }
 
     render() {
+        let otherSetup = null;
+        if (this.props.kingdom.entity.otherSetup !== null) {
+            otherSetup = <td>{this.props.kingdom.entity.otherSetup.map((setup, i) =>
+                            <span key={i}>
+                            {!!i && ", "}
+                            {setup}
+                         </span>)}</td>
+        } else {
+            otherSetup = <td></td>
+        }
+
         return (
             <tr>
                 <td>{this.props.kingdom.entity.name}</td>
@@ -474,6 +494,7 @@ class Kingdom extends React.Component {
                     {!!i && ", "}
                     {card}
                 </span>)}</td>
+                {otherSetup}
             </tr>
         )
     }

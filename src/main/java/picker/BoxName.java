@@ -9,6 +9,7 @@ public enum BoxName {
     INTRIGUE("Intrigue"),
     OLD_INTRIGUE("Intrigue 1st Edition"),
     NEW_INTRIGUE("Intrigue 2nd Edition"),
+    SEASIDE("Seaside"),
     ;
 
     private String name;

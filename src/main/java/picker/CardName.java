@@ -88,6 +88,32 @@ public enum CardName {
     REPLACE("Replace"),
 
     // Seaside
+    EMBARGO("Embargo"),
+    HAVEN("Haven"),
+    LIGHTHOUSE("Lighthouse"),
+    NATIVE_VILLAGE("Native Village"),
+    PEARL_DIVER("Pearl Diver"),
+    AMBASSADOR("Ambassador"),
+    FISHING_VILLAGE("Fishing Village"),
+    LOOKOUT("Lookout"),
+    SMUGGLERS("Smugglers"),
+    WAREHOUSE("Warehouse"),
+    CARAVAN("Caravan"),
+    CUTPURSE("Cutpurse"),
+    ISLAND("Island"),
+    NAVIGATOR("Navigator"),
+    PIRATE_SHIP("Pirate Ship"),
+    SALVAGER("Salvager"),
+    SEA_HAG("Sea Hag"),
+    TREASURE_MAP("Treasure Map"),
+    BAZAAR("Bazaar"),
+    EXPLORER("Explorer"),
+    GHOST_SHIP("Ghost Ship"),
+    MERCHANT_SHIP("Merchant Ship"),
+    OUTPOST("Outpost"),
+    TACTICIAN("Tactician"),
+    TREASURY("Treasury"),
+    WHARF("Wharf"),
 
     // Alchemy
 

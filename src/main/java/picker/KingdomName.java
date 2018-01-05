@@ -41,14 +41,23 @@ public enum KingdomName {
     DECONSTRUCTION_2("Deconstruction 2nd Edition"),
 
     // Seaside
+    HIGH_SEAS("High Seas"),
+    BURIED_TREASURE("Buried Treasure"),
+    SHIPWRECKS("Shipswrecks"),
 
     // Old Seaside + Dominion
+    REACH_FOR_TOMORROW_1("Reach for Tomorrow 1st Edition"),
+    REPETITION_1("Repetition 1st Edition"),
+    GIVE_AND_TAKE("Give and Take"),
 
     // New Seaside + Dominion
+    REACH_FOR_TOMORROW_2("Reach for Tomorrow 2nd Edition"),
+    REPETITION_2("Repetition 2nd Edition"),
 
-    // Old Seaside + Intrigue
-
-    // New Seaside + Intrigue
+    // Seaside + Intrigue
+    A_STAR_TO_STEER_BY("A Star to Steer By"),
+    SHORE_PATROL("Shore Patrol"),
+    BRIDGE_CROSSING("Bridge Crossing"),
 
     // Alchemy
 

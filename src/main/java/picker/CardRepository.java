@@ -7,5 +7,4 @@ import java.util.List;
 public interface CardRepository extends MongoRepository<Card, String> {
 
     Card findByName(String name);
-    List<Card> findByKingdoms(String kingdom);
 }

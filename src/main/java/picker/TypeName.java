@@ -7,7 +7,9 @@ public enum TypeName {
     VICTORY("Victory"),
     ACTION("Action"),
     REACTION("Reaction"),
-    ATTACK("Attack");
+    ATTACK("Attack"),
+    DURATION("Duration"),
+    ;
 
     private String name;
 

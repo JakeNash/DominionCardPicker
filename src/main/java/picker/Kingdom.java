@@ -12,6 +12,7 @@ public class Kingdom {
     String id;
     private String name;
     private List<String> cards;
+    private List<String> otherSetup;
 
     private @Version @JsonIgnore Long version;
 
@@ -21,6 +22,13 @@ public class Kingdom {
     public Kingdom(String name, List<String> cards) {
         this.name = name;
         this.cards = cards;
+        this.otherSetup = null;
+    }
+
+    public Kingdom(String name, List<String> cards, List<String> otherSetup) {
+        this.name = name;
+        this.cards = cards;
+        this.otherSetup = otherSetup;
     }
 
     public String getId() {
@@ -45,6 +53,14 @@ public class Kingdom {
 
     public void setCards(List<String> cards) {
         this.cards = cards;
+    }
+
+    public List<String> getOtherSetup() {
+        return otherSetup;
+    }
+
+    public void setOtherSetup(List<String> otherSetup) {
+        this.otherSetup = otherSetup;
     }
 
     public Long getVersion() {
