@@ -47,7 +47,66 @@ public enum CardName {
     MERCHANT("Merchant"),
     POACHER("Poacher"),
     SENTRY("Sentry"),
-    VASSAL("Vassal");
+    VASSAL("Vassal"),
+
+    // Intrigue
+    COURTYARD("Courtyard"),
+    PAWN("Pawn"),
+    MASQUERADE("Masquerade"),
+    SHANTY_TOWN("Shanty Town"),
+    STEWARD("Steward"),
+    SWINDLER("Swindler"),
+    WISHING_WELL("Wishing Well"),
+    BARON("Baron"),
+    BRIDGE("Bridge"),
+    CONSPIRATOR("Conspirator"),
+    IRONWORKS("Ironworks"),
+    MINING_VILLAGE("Mining Village"),
+    DUKE("Duke"),
+    MINION("Minion"),
+    TORTURER("Torturer"),
+    TRADING_POST("Trading Post"),
+    UPGRADE("Upgrade"),
+    HAREM("Harem"),
+    NOBLES("Nobles"),
+
+    // Intrigue 1st Edition
+    SECRET_CHAMBER("Secret Chamber"),
+    GREAT_HALL("Great Hall"),
+    COPPERSMITH("Coppersmith"),
+    SCOUT("Scout"),
+    SABOTEUR("Saboteur"),
+    TRIBUTE("Tribute"),
+
+    // Intrigue 2nd Edition
+    LURKER("Lurker"),
+    DIPLOMAT("Diplomat"),
+    MILL("Mill"),
+    SECRET_PASSAGE("Secret Passage"),
+    COURTIER("Courtier"),
+    PATROL("Patrol"),
+    REPLACE("Replace"),
+
+    // Seaside
+
+    // Alchemy
+
+    // Prosperity
+
+    // Cornucopia
+
+    // Hinterlands
+
+    // Dark Ages
+
+    // Guilds
+
+    // Adventures
+
+    // Empires
+
+    // Nocturne
+    ;
 
     private String name;
 

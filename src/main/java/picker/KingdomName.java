@@ -5,20 +5,232 @@ public enum KingdomName {
     // Basic cards
     BASIC("Basic"),
 
-    // Recommended Old Dominion
+    // Old Dominion
     FIRST_GAME_1("First Game 1st Edition"),
     BIG_MONEY("Big Money"),
     INTERACTION("Interaction"),
     SIZE_DISTORTION_1("Size Distortion 1st Edition"),
     VILLAGE_SQUARE("Village Square"),
 
-    // Recommended New Dominion
+    // New Dominion
     FIRST_GAME_2("First Game 2nd Edition"),
     SIZE_DISTORTION_2("Size Distortion 2nd Edition"),
     DECK_TOP("Deck Top"),
     SLEIGHT_OF_HAND("Sleight of Hand"),
     IMPROVEMENTS("Improvements"),
-    SILVER_AND_GOLD("Silver & Gold");
+    SILVER_AND_GOLD("Silver & Gold"),
+
+    // Old Intrigue
+    VICTORY_DANCE_1("Victory Dance 1st Edition"),
+    SECRET_SCHEMES("Secret Schemes"),
+    BEST_WISHES_1("Best Wishes 1st Edition"),
+
+    // New Intrigue
+    VICTORY_DANCE_2("Victory Dance 2nd Edition"),
+    THE_PLOT_THICKENS("The Plot Thickens"),
+    BEST_WISHES_2("Best Wishes 2nd Edition"),
+
+    // Old Intrigue + Dominion
+    DECONSTRUCTION_1("Deconstruction 1st Edition"),
+    HAND_MADNESS("Hand Madness"),
+    UNDERLINGS_1("Underlings 1st Edition"),
+
+    // New Intrigue + Dominion
+    UNDERLINGS_2("Underlings 2nd Edition"),
+    GRAND_SCHEME("Grand Scheme"),
+    DECONSTRUCTION_2("Deconstruction 2nd Edition"),
+
+    // Seaside
+
+    // Old Seaside + Dominion
+
+    // New Seaside + Dominion
+
+    // Old Seaside + Intrigue
+
+    // New Seaside + Intrigue
+
+    // Alchemy
+
+    // Old Alchemy + Dominion
+
+    // New Alchemy + Dominion
+
+    // New Alchemy + Intrigue
+
+    // Old Alchemy + Intrigue
+
+    // Alchemy + Seaside
+
+    // Prosperity
+
+    // Old Prosperity + Dominion
+
+    // New Prosperity + Dominion
+
+    // Old Prosperity + Intrigue
+
+    // New Prosperity + Intrigue
+
+    // Prosperity + Seaside
+
+    // Prosperity + Alchemy
+
+    // Cornucopia
+
+    // Old Cornucopia + Dominion
+
+    // New Cornucopia + Dominion
+
+    // Old Cornucopia + Intrigue
+
+    // New Cornucopia + Intrigue
+
+    // Cornucopia + Seaside
+
+    // Cornucopia + Alchemy
+
+    // Cornucopia + Prosperity
+
+    // Hinterlands
+
+    // Old Hinterlands + Dominion
+
+    // New Hinterlands + Dominion
+
+    // Old Hinterlands + Intrigue
+
+    // New Hinterlands + Intrigue
+
+    // Hinterlands + Seaside
+
+    // Hinterlands + Alchemy
+
+    // Hinterlands + Prosperity
+
+    // Hinterlands + Cornucopia
+
+    // Dark Ages
+
+    // Old Dark Ages + Dominion
+
+    // New Dark Ages + Dominion
+
+    // Old Dark Ages + Intrigue
+
+    // New Dark Ages + Intrigue
+
+    // Dark Ages + Seaside
+
+    // Dark Ages + Alchemy
+
+    // Dark Ages + Prosperity
+
+    // Dark Ages + Cornucopia
+
+    // Dark Ages + Hinterlands
+
+    // Guilds
+
+    // Old Guilds + Dominion
+
+    // New Guilds + Dominion
+
+    // Old Guilds + Intrigue
+
+    // New Guilds + Intrigue
+
+    // Guilds + Seaside
+
+    // Guilds + Alchemy
+
+    // Guilds + Prosperity
+
+    // Guilds + Cornucopia
+
+    // Guilds + Hinterlands
+
+    // Guilds + Dark Ages
+
+    // Adventures
+
+    // Old Adventures + Dominion
+
+    // New Adventures + Dominion
+
+    // Old Adventures + Intrigue
+
+    // New Adventures + Intrigue
+
+    // Adventures + Seaside
+
+    // Adventures + Alchemy
+
+    // Adventures + Prosperity
+
+    // Adventures + Cornucopia
+
+    // Adventures + Hinterlands
+
+    // Adventures + Dark Ages
+
+    // Adventures + Guilds
+
+    // Empires
+
+    // Old Empires + Dominion
+
+    // New Empires + Dominion
+
+    // Old Empires + Intrigue
+
+    // New Empires + Intrigue
+
+    // Empires + Seaside
+
+    // Empires + Alchemy
+
+    // Empires + Prosperity
+
+    // Empires + Cornucopia
+
+    // Empires + Hinterlands
+
+    // Empires + Dark Ages
+
+    // Empires + Guilds
+
+    // Empires + Adventures
+
+    // Nocturne
+
+    // Old Nocturne + Dominion
+
+    // New Nocturne + Dominion
+
+    // Old Nocturne + Intrigue
+
+    // New Nocturne + Intrigue
+
+    // Nocturne + Seaside
+
+    // Nocturne + Alchemy
+
+    // Nocturne + Prosperity
+
+    // Nocturne + Cornucopia
+
+    // Nocturne + Hinterlands
+
+    // Nocturne + Dark Ages
+
+    // Nocturne + Guilds
+
+    // Nocturne + Adventures
+
+    // Nocturne + Empires
+
+    ;
 
     private String name;
 

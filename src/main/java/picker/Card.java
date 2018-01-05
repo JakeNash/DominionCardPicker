@@ -14,6 +14,7 @@ public class Card {
     private String box;
     private List<String> types;
     private List<String> kingdoms;
+    private List<String> otherSetup;
 
     private @Version @JsonIgnore Long version;
 
@@ -25,6 +26,15 @@ public class Card {
         this.box = box;
         this.types = types;
         this.kingdoms = kingdoms;
+    }
+
+    public Card(String cost, String name, String box, List<String> types, List<String> kingdoms, List<String> otherSetup) {
+        this.cost = cost;
+        this.name = name;
+        this.box = box;
+        this.types = types;
+        this.kingdoms = kingdoms;
+        this.otherSetup = otherSetup;
     }
 
     public String getId() {
@@ -81,5 +91,13 @@ public class Card {
 
     public void setKingdoms(List<String> kingdoms) {
         this.kingdoms = kingdoms;
+    }
+
+    public List<String> getOtherSetup() {
+        return otherSetup;
+    }
+
+    public void setOtherSetup(List<String> otherSetup) {
+        this.otherSetup = otherSetup;
     }
 }

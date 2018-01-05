@@ -5,7 +5,11 @@ public enum BoxName {
     BASIC("Basic"),
     DOMINION("Dominion"),
     OLD_DOMINION("Dominion 1st Edition"),
-    NEW_DOMINION("Dominion 2nd Edition");
+    NEW_DOMINION("Dominion 2nd Edition"),
+    INTRIGUE("Intrigue"),
+    OLD_INTRIGUE("Intrigue 1st Edition"),
+    NEW_INTRIGUE("Intrigue 2nd Edition"),
+    ;
 
     private String name;
 
