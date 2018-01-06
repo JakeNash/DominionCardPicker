@@ -6,11 +6,13 @@ import org.springframework.stereotype.Component;
 
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static picker.BoxName.*;
 import static picker.CardName.*;
+import static picker.SetupText.*;
 import static picker.TypeName.*;
 
 @Component
@@ -33,7 +35,18 @@ public class DatabaseLoader implements CommandLineRunner {
     // Type list for complex cards
     private List<String> typeList;
 
-	@Autowired
+    // Setup lists
+    private List<String> embargoSetup = Collections.singletonList(EMBARGO_SETUP.getText());
+    private List<String> nativeVillageSetup = Collections.singletonList(NATIVE_VILLAGE_SETUP.getText());
+    private List<String> pirateShipSetup = Arrays.asList(PIRATE_SHIP_SETUP.getText(), COIN_TOKEN_SETUP.getText());
+    private List<String> islandSetup = Collections.singletonList(ISLAND_SETUP.getText());
+    private List<String> potionSetup = Collections.singletonList(POTION_SETUP.getText());
+    private List<String> prosperitySetup = Arrays.asList(PLATINUM_SETUP.getText(), COLONY_SETUP.getText());
+    private List<String> tradeRouteSetup = Arrays.asList(TRADE_ROUTE_SETUP.getText(), COIN_TOKEN_SETUP.getText(), PLATINUM_SETUP.getText(), COLONY_SETUP.getText());
+    private List<String> victoryTokenSetup = Collections.singletonList(VICTORY_TOKEN_SETUP.getText());
+    private List<String> victoryAndProsperitySetup = Arrays.asList(VICTORY_TOKEN_SETUP.getText(), PLATINUM_SETUP.getText(), COLONY_SETUP.getText());
+
+    @Autowired
 	public DatabaseLoader(CardRepository cardRepository, KingdomRepository kingdomRepository) {
 		this.cardRepository = cardRepository;
 		this.kingdomRepository = kingdomRepository;
@@ -182,8 +195,6 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveSimpleSeasideCards() {
 	    box = SEASIDE.getName();
-	    List<String> embargoSetup = Collections.singletonList("Embargo tokens");
-	    List<String> nativeVillageSetup = Collections.singletonList("Native Village mats");
 
         saveCard("2", EMBARGO.getName(), actionCard, embargoSetup);
         saveCard("2", NATIVE_VILLAGE.getName(), actionCard, nativeVillageSetup);
@@ -201,7 +212,6 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveSimpleAlchemyCards() {
 	    box = ALCHEMY.getName();
-	    List<String> potionSetup = Collections.singletonList("Potion");
 
 	    saveCard("4", POTION.getName(), treasureCard);
 	    saveCard("Potion", TRANSMUTE.getName(), actionCard, potionSetup);
@@ -218,17 +228,6 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveSimpleProsperityCards() {
 	    box = PROSPERITY.getName();
-	    List<String> prosperitySetup = new ArrayList<>();
-	    prosperitySetup.add("Platinum");
-	    prosperitySetup.add("Colony");
-	    List<String> tradeRouteSetup = new ArrayList<>();
-	    tradeRouteSetup.add("Trade Route mat");
-	    tradeRouteSetup.add("Coin tokens");
-	    tradeRouteSetup.addAll(prosperitySetup);
-	    List<String> victoryTokenSetup = Collections.singletonList("Victory tokens");
-	    List<String> victoryAndProsperitySetup = new ArrayList<>();
-	    victoryAndProsperitySetup.addAll(victoryTokenSetup);
-	    victoryAndProsperitySetup.addAll(prosperitySetup);
 
         saveCard("9", PLATINUM.getName(), treasureCard);
         saveCard("11", COLONY.getName(), victoryCard);
@@ -324,9 +323,6 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveActionReactionProsperityCards() {
 	    box = PROSPERITY.getName();
-	    List<String> prosperitySetup = new ArrayList<>();
-	    prosperitySetup.add("Platinum");
-	    prosperitySetup.add("Colony");
 
 	    saveCard("3", WATCHTOWER.getName(), typeList, prosperitySetup);
     }
@@ -394,9 +390,6 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveActionAttackSeasideCards() {
 	    box = SEASIDE.getName();
-	    List<String> pirateShipSetup = new ArrayList<>();
-	    pirateShipSetup.add("Pirate Ship mats");
-	    pirateShipSetup.add("Coin tokens");
 
 	    saveCard("3", AMBASSADOR.getName(), typeList);
 	    saveCard("4", CUTPURSE.getName(), typeList);
@@ -407,7 +400,6 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveActionAttackAlchemyCards() {
 	    box = ALCHEMY.getName();
-	    List<String> potionSetup = Collections.singletonList("Potion");
 
 	    saveCard("2 & Potion", SCRYING_POOL.getName(), typeList, potionSetup);
 	    saveCard("3 & Potion", FAMILIAR.getName(), typeList, potionSetup);
@@ -415,13 +407,6 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveActionAttackProsperityCards() {
 	    box = PROSPERITY.getName();
-	    List<String> prosperitySetup = new ArrayList<>();
-	    prosperitySetup.add("Platinum");
-	    prosperitySetup.add("Colony");
-	    List<String> victoryTokenSetup = Collections.singletonList("Victory tokens");
-	    List<String> victoryAndProsperitySetup = new ArrayList<>();
-	    victoryAndProsperitySetup.addAll(victoryTokenSetup);
-	    victoryAndProsperitySetup.addAll(prosperitySetup);
 
 	    saveCard("5", MOUNTEBANK.getName(), typeList, prosperitySetup);
 	    saveCard("5", RABBLE.getName(), typeList, prosperitySetup);
@@ -460,7 +445,6 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveActionVictorySeasideCards() {
 	    box = SEASIDE.getName();
-	    List<String> islandSetup = Collections.singletonList("Island mats");
 
 	    saveCard("4", ISLAND.getName(), typeList, islandSetup);
     }
