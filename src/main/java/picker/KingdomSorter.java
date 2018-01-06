@@ -913,31 +913,287 @@ public class KingdomSorter {
     }
 
     private void addProsperityKingdoms() {
+        // Beginners
+        cardList.clear();
+        cardList.add(BANK.getName());
+        cardList.add(COUNTING_HOUSE.getName());
+        cardList.add(EXPAND.getName());
+        cardList.add(GOONS.getName());
+        cardList.add(MONUMENT.getName());
+        cardList.add(RABBLE.getName());
+        cardList.add(ROYAL_SEAL.getName());
+        cardList.add(VENTURE.getName());
+        cardList.add(WATCHTOWER.getName());
+        cardList.add(WORKERS_VILLAGE.getName());
 
+        saveKingdom(BEGINNERS.getName());
+
+        // Friendly Interactive
+        cardList.clear();
+        cardList.add(BISHOP.getName());
+        cardList.add(CITY.getName());
+        cardList.add(CONTRABAND.getName());
+        cardList.add(FORGE.getName());
+        cardList.add(HOARD.getName());
+        cardList.add(PEDDLER.getName());
+        cardList.add(ROYAL_SEAL.getName());
+        cardList.add(TRADE_ROUTE.getName());
+        cardList.add(VAULT.getName());
+        cardList.add(WORKERS_VILLAGE.getName());
+
+        saveKingdom(FRIENDLY_INTERACTIVE.getName());
+
+        // Big Actions
+        cardList.clear();
+        cardList.add(CITY.getName());
+        cardList.add(EXPAND.getName());
+        cardList.add(GRAND_MARKET.getName());
+        cardList.add(KINGS_COURT.getName());
+        cardList.add(LOAN.getName());
+        cardList.add(MINT.getName());
+        cardList.add(QUARRY.getName());
+        cardList.add(RABBLE.getName());
+        cardList.add(TALISMAN.getName());
+        cardList.add(VAULT.getName());
+
+        saveKingdom(BIG_ACTIONS.getName());
     }
 
     private void addOldProsperityAndDominionKingdoms() {
+        // Biggest Money
+        cardList.clear();
+        cardList.add(BANK.getName());
+        cardList.add(GRAND_MARKET.getName());
+        cardList.add(MINT.getName());
+        cardList.add(ROYAL_SEAL.getName());
+        cardList.add(VENTURE.getName());
+        cardList.add(ADVENTURER.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(MINE.getName());
+        cardList.add(MONEYLENDER.getName());
+        cardList.add(SPY.getName());
 
+        saveKingdom(BIGGEST_MONEY_1.getName());
+
+        // The King's Army
+        cardList.clear();
+        cardList.add(EXPAND.getName());
+        cardList.add(GOONS.getName());
+        cardList.add(KINGS_COURT.getName());
+        cardList.add(RABBLE.getName());
+        cardList.add(VAULT.getName());
+        cardList.add(BUREAUCRAT.getName());
+        cardList.add(COUNCIL_ROOM.getName());
+        cardList.add(MOAT.getName());
+        cardList.add(SPY.getName());
+        cardList.add(VILLAGE.getName());
+
+        saveKingdom(THE_KINGS_ARMY_1.getName());
+
+        // The Good Life
+        cardList.clear();
+        cardList.add(CONTRABAND.getName());
+        cardList.add(COUNTING_HOUSE.getName());
+        cardList.add(HOARD.getName());
+        cardList.add(MONUMENT.getName());
+        cardList.add(MOUNTEBANK.getName());
+        cardList.add(BUREAUCRAT.getName());
+        cardList.add(CELLAR.getName());
+        cardList.add(CHANCELLOR.getName());
+        cardList.add(GARDENS.getName());
+        cardList.add(VILLAGE.getName());
+
+        saveKingdom(THE_GOOD_LIFE_1.getName());
     }
 
     private void addNewProsperityAndDominionKingdoms() {
+        // Biggest Money
+        cardList.clear();
+        cardList.add(ARTISAN.getName());
+        cardList.add(HARBINGER.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(MINE.getName());
+        cardList.add(MONEYLENDER.getName());
+        cardList.add(BANK.getName());
+        cardList.add(GRAND_MARKET.getName());
+        cardList.add(MINT.getName());
+        cardList.add(ROYAL_SEAL.getName());
+        cardList.add(VENTURE.getName());
 
+        saveKingdom(BIGGEST_MONEY_2.getName());
+
+        // The King's Army
+        cardList.clear();
+        cardList.add(BUREAUCRAT.getName());
+        cardList.add(COUNCIL_ROOM.getName());
+        cardList.add(MERCHANT.getName());
+        cardList.add(MOAT.getName());
+        cardList.add(VILLAGE.getName());
+        cardList.add(EXPAND.getName());
+        cardList.add(GOONS.getName());
+        cardList.add(KINGS_COURT.getName());
+        cardList.add(RABBLE.getName());
+        cardList.add(VAULT.getName());
+
+        saveKingdom(THE_KINGS_ARMY_2.getName());
+
+        // The Good Life
+        cardList.clear();
+        cardList.add(ARTISAN.getName());
+        cardList.add(BUREAUCRAT.getName());
+        cardList.add(CELLAR.getName());
+        cardList.add(GARDENS.getName());
+        cardList.add(VILLAGE.getName());
+        cardList.add(CONTRABAND.getName());
+        cardList.add(COUNTING_HOUSE.getName());
+        cardList.add(HOARD.getName());
+        cardList.add(MONUMENT.getName());
+        cardList.add(MOUNTEBANK.getName());
+
+        saveKingdom(THE_GOOD_LIFE_2.getName());
     }
 
     private void addOldProsperityAndIntrigueKingdoms() {
+        // Paths to Victory
+        cardList.clear();
+        cardList.add(BISHOP.getName());
+        cardList.add(COUNTING_HOUSE.getName());
+        cardList.add(GOONS.getName());
+        cardList.add(MONUMENT.getName());
+        cardList.add(PEDDLER.getName());
+        cardList.add(BARON.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(PAWN.getName());
+        cardList.add(SHANTY_TOWN.getName());
+        cardList.add(UPGRADE.getName());
 
+        saveKingdom(PATHS_TO_VICTORY.getName());
+
+        // All Along the Watchtower
+        cardList.clear();
+        cardList.add(HOARD.getName());
+        cardList.add(TALISMAN.getName());
+        cardList.add(TRADE_ROUTE.getName());
+        cardList.add(VAULT.getName());
+        cardList.add(WATCHTOWER.getName());
+        cardList.add(BRIDGE.getName());
+        cardList.add(GREAT_HALL.getName());
+        cardList.add(MINING_VILLAGE.getName());
+        cardList.add(PAWN.getName());
+        cardList.add(TORTURER.getName());
+
+        saveKingdom(ALL_ALONG_THE_WATCHTOWER_1.getName());
+
+        // Lucky Seven
+        cardList.clear();
+        cardList.add(BANK.getName());
+        cardList.add(EXPAND.getName());
+        cardList.add(FORGE.getName());
+        cardList.add(KINGS_COURT.getName());
+        cardList.add(VAULT.getName());
+        cardList.add(BRIDGE.getName());
+        cardList.add(COPPERSMITH.getName());
+        cardList.add(SWINDLER.getName());
+        cardList.add(TRIBUTE.getName());
+        cardList.add(WISHING_WELL.getName());
+
+        saveKingdom(LUCKY_SEVEN_1.getName());
     }
 
     private void addNewProsperityAndIntrigueKingdoms() {
+        // All Along the Watchtower
+        cardList.clear();
+        cardList.add(HOARD.getName());
+        cardList.add(TALISMAN.getName());
+        cardList.add(TRADE_ROUTE.getName());
+        cardList.add(VAULT.getName());
+        cardList.add(WATCHTOWER.getName());
+        cardList.add(BRIDGE.getName());
+        cardList.add(MILL.getName());
+        cardList.add(MINING_VILLAGE.getName());
+        cardList.add(PAWN.getName());
+        cardList.add(TORTURER.getName());
 
+        saveKingdom(ALL_ALONG_THE_WATCHTOWER_2.getName());
+
+        // Lucky Seven
+        cardList.clear();
+        cardList.add(BANK.getName());
+        cardList.add(EXPAND.getName());
+        cardList.add(FORGE.getName());
+        cardList.add(KINGS_COURT.getName());
+        cardList.add(VAULT.getName());
+        cardList.add(BRIDGE.getName());
+        cardList.add(LURKER.getName());
+        cardList.add(PATROL.getName());
+        cardList.add(SWINDLER.getName());
+        cardList.add(WISHING_WELL.getName());
+
+        saveKingdom(LUCKY_SEVEN_2.getName());
     }
 
     private void addProsperityAndSeasideKingdoms() {
+        // Exploding Kingdom
+        cardList.clear();
+        cardList.add(BISHOP.getName());
+        cardList.add(CITY.getName());
+        cardList.add(GRAND_MARKET.getName());
+        cardList.add(KINGS_COURT.getName());
+        cardList.add(QUARRY.getName());
+        cardList.add(FISHING_VILLAGE.getName());
+        cardList.add(LOOKOUT.getName());
+        cardList.add(OUTPOST.getName());
+        cardList.add(TACTICIAN.getName());
+        cardList.add(WHARF.getName());
 
+        saveKingdom(EXPLODING_KINGDOM.getName());
+
+        // Pirate Bay
+        cardList.clear();
+        cardList.add(EXPAND.getName());
+        cardList.add(HOARD.getName());
+        cardList.add(MINT.getName());
+        cardList.add(TRADE_ROUTE.getName());
+        cardList.add(WATCHTOWER.getName());
+        cardList.add(BAZAAR.getName());
+        cardList.add(LIGHTHOUSE.getName());
+        cardList.add(PIRATE_SHIP.getName());
+        cardList.add(SMUGGLERS.getName());
+        cardList.add(WAREHOUSE.getName());
+
+        saveKingdom(PIRATE_BAY.getName());
     }
 
     private void addProsperityAndAlchemyKingdoms() {
+        // Counting Contest
+        cardList.clear();
+        cardList.add(BANK.getName());
+        cardList.add(COUNTING_HOUSE.getName());
+        cardList.add(HOARD.getName());
+        cardList.add(GOONS.getName());
+        cardList.add(RABBLE.getName());
+        cardList.add(QUARRY.getName());
+        cardList.add(PHILOSOPHERS_STONE.getName());
+        cardList.add(GOLEM.getName());
+        cardList.add(HERBALIST.getName());
+        cardList.add(APOTHECARY.getName());
 
+        saveKingdom(COUNTING_CONTEST.getName());
+
+        // Lower Learning
+        cardList.clear();
+        cardList.add(TALISMAN.getName());
+        cardList.add(MINT.getName());
+        cardList.add(BISHOP.getName());
+        cardList.add(WORKERS_VILLAGE.getName());
+        cardList.add(PEDDLER.getName());
+        cardList.add(VAULT.getName());
+        cardList.add(FAMILIAR.getName());
+        cardList.add(APPRENTICE.getName());
+        cardList.add(UNIVERSITY.getName());
+        cardList.add(VINEYARD.getName());
+
+        saveKingdom(LOWER_LEARNING.getName());
     }
 
     private void addCornucopiaKingdoms() {

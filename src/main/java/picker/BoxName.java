@@ -11,6 +11,7 @@ public enum BoxName {
     NEW_INTRIGUE("Intrigue 2nd Edition"),
     SEASIDE("Seaside"),
     ALCHEMY("Alchemy"),
+    PROSPERITY("Prosperity"),
     ;
 
     private String name;

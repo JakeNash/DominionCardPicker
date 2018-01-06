@@ -83,18 +83,36 @@ public enum KingdomName {
     GUMMED_UP("Gummed Up"),
 
     // Prosperity
+    BEGINNERS("Beginners"),
+    FRIENDLY_INTERACTIVE("Friendly Interactive"),
+    BIG_ACTIONS("Big Actions"),
 
     // Old Prosperity + Dominion
+    BIGGEST_MONEY_1("Biggest Money 1st Edition"),
+    THE_KINGS_ARMY_1("The King's Army 1st Edition"),
+    THE_GOOD_LIFE_1("The Good Life 1st Edition"),
 
     // New Prosperity + Dominion
+    BIGGEST_MONEY_2("Biggest Money 2nd Edition"),
+    THE_KINGS_ARMY_2("The King's Army 2nd Edition"),
+    THE_GOOD_LIFE_2("The Good Life 2nd Edition"),
 
     // Old Prosperity + Intrigue
+    PATHS_TO_VICTORY("Paths to Victory"),
+    ALL_ALONG_THE_WATCHTOWER_1("All Along the Watchtower 1st Edition"),
+    LUCKY_SEVEN_1("Lucky Seven 1st Edition"),
 
     // New Prosperity + Intrigue
+    ALL_ALONG_THE_WATCHTOWER_2("All Along the Watchtower 2nd Edition"),
+    LUCKY_SEVEN_2("Lucky Seven 2nd Edition"),
 
     // Prosperity + Seaside
+    EXPLODING_KINGDOM("Exploding Kingdom"),
+    PIRATE_BAY("Pirate Bay"),
 
     // Prosperity + Alchemy
+    COUNTING_CONTEST("Counting Contest"),
+    LOWER_LEARNING("Lower Learning"),
 
     // Cornucopia
 

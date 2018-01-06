@@ -131,6 +131,33 @@ public enum CardName {
     POSSESSION("Possession"),
 
     // Prosperity
+    PLATINUM("Platinum"),
+    COLONY("Colony"),
+    LOAN("Loan"),
+    TRADE_ROUTE("Trade Route"),
+    WATCHTOWER("Watchtower"),
+    BISHOP("Bishop"),
+    MONUMENT("Monument"),
+    QUARRY("Quarry"),
+    TALISMAN("Talisman"),
+    WORKERS_VILLAGE("Worker's Village"),
+    CITY("City"),
+    CONTRABAND("Contraband"),
+    COUNTING_HOUSE("Counting House"),
+    MINT("Mint"),
+    MOUNTEBANK("Mountebank"),
+    RABBLE("Rabble"),
+    ROYAL_SEAL("Royal Seal"),
+    VAULT("Vault"),
+    VENTURE("Venture"),
+    GOONS("Goons"),
+    GRAND_MARKET("Grand Market"),
+    HOARD("Hoard"),
+    BANK("Bank"),
+    EXPAND("Expand"),
+    FORGE("Forge"),
+    KINGS_COURT("King's Court"),
+    PEDDLER("Peddler"),
 
     // Cornucopia
 
