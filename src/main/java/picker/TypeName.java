@@ -10,6 +10,10 @@ public enum TypeName {
     ATTACK("Attack"),
     DURATION("Duration"),
     PRIZE("Prize"),
+    RUINS("Ruins"),
+    LOOTER("Looter"),
+    KNIGHT("Knight"),
+    SHELTER("Shelter"),
     ;
 
     private String name;

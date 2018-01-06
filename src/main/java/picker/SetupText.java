@@ -14,6 +14,12 @@ public enum SetupText {
     VICTORY_TOKEN_SETUP("Victory tokens"),
     TOURNAMENT_SETUP("Prizes"),
     YOUNG_WITCH_SETUP("Choose a Bane"),
+    SHELTERS_SETUP("Deal Shelters to everyone"),
+    HERMIT_SETUP("Madmen"),
+    URCHIN_SETUP("Mercenaries"),
+    RUINS_SETUP("Shuffle Ruins & place face down except top card"),
+    SPOILS_SETUP("Spoils"),
+    KNIGHTS_SETUP("Shuffle Knights & place face down except top card"),
     ;
 
     private String text;

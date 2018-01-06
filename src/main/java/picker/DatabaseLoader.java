@@ -30,6 +30,10 @@ public class DatabaseLoader implements CommandLineRunner {
     private final List<String> attackCard = Collections.singletonList(ATTACK.getName());
     private final List<String> durationCard = Collections.singletonList(DURATION.getName());
     private final List<String> prizeCard = Collections.singletonList(PRIZE.getName());
+    private final List<String> ruinsCard = Collections.singletonList(RUINS.getName());
+    private final List<String> looterCard = Collections.singletonList(LOOTER.getName());
+    private final List<String> knightCard = Collections.singletonList(KNIGHTS.getName());
+    private final List<String> shelterCard = Collections.singletonList(SHELTER.getName());
 
     private String box;
     
@@ -48,6 +52,13 @@ public class DatabaseLoader implements CommandLineRunner {
     private List<String> victoryAndProsperitySetup = Arrays.asList(VICTORY_TOKEN_SETUP.getText(), PLATINUM_SETUP.getText(), COLONY_SETUP.getText());
     private List<String> tournamentSetup = Collections.singletonList(TOURNAMENT_SETUP.getText());
     private List<String> youngWitchSetup = Collections.singletonList(YOUNG_WITCH_SETUP.getText());
+    private List<String> darkAgesSetup = Collections.singletonList(SHELTERS_SETUP.getText());
+    private List<String> hermitSetup = Arrays.asList(HERMIT_SETUP.getText(), SHELTERS_SETUP.getText());
+    private List<String> urchinSetup = Arrays.asList(URCHIN_SETUP.getText(), SHELTERS_SETUP.getText());
+    private List<String> ruinsAndDarkAgesSetup = Arrays.asList(RUINS_SETUP.getText(), SHELTERS_SETUP.getText());
+    private List<String> spoilsAndDarkAgesSetup = Arrays.asList(SPOILS_SETUP.getText(), SHELTERS_SETUP.getText());
+    private List<String> knightsSetup = Arrays.asList(KNIGHTS_SETUP.getText(), SHELTERS_SETUP.getText());
+    private List<String> marauderSetup = Arrays.asList(SPOILS_SETUP.getText(), RUINS_SETUP.getText(), SHELTERS_SETUP.getText());
 
     @Autowired
 	public DatabaseLoader(CardRepository cardRepository, KingdomRepository kingdomRepository) {
@@ -297,7 +308,36 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
     private void saveSimpleDarkAgesCards() {
+        box = DARK_AGES.getName();
 
+        saveCard("1", POOR_HOUSE.getName(), actionCard, darkAgesSetup);
+        saveCard("2", SQUIRE.getName(), actionCard, darkAgesSetup);
+        saveCard("2", VAGRANT.getName(), actionCard, darkAgesSetup);
+        saveCard("3", FORAGER.getName(), actionCard, darkAgesSetup);
+        saveCard("3", HERMIT.getName(), actionCard, hermitSetup);
+        saveCard("3", SAGE.getName(), actionCard, darkAgesSetup);
+        saveCard("3", STOREROOM.getName(), actionCard, darkAgesSetup);
+        saveCard("4", ARMORY.getName(), actionCard, darkAgesSetup);
+        saveCard("4", FEODUM.getName(), victoryCard, darkAgesSetup);
+        saveCard("4", FORTRESS.getName(), actionCard, darkAgesSetup);
+        saveCard("4", IRONMONGER.getName(), actionCard, darkAgesSetup);
+        saveCard("4", PROCESSION.getName(), actionCard, darkAgesSetup);
+        saveCard("4", RATS.getName(), actionCard, darkAgesSetup);
+        saveCard("4", SCAVENGER.getName(), actionCard, darkAgesSetup);
+        saveCard("4", WANDERING_MINSTREL.getName(), actionCard, darkAgesSetup);
+        saveCard("5", BAND_OF_MISFITS.getName(), actionCard, darkAgesSetup);
+        saveCard("5", BANDIT_CAMP.getName(), actionCard, spoilsAndDarkAgesSetup);
+        saveCard("5", CATACOMBS.getName(), actionCard, darkAgesSetup);
+        saveCard("5", COUNT.getName(), actionCard, darkAgesSetup);
+        saveCard("5", COUNTERFEIT.getName(), treasureCard, darkAgesSetup);
+        saveCard("5", GRAVEROBBER.getName(), actionCard, darkAgesSetup);
+        saveCard("5", JUNK_DEALER.getName(), actionCard, darkAgesSetup);
+        saveCard("5", MYSTIC.getName(), actionCard, darkAgesSetup);
+        saveCard("5", REBUILD.getName(), actionCard, darkAgesSetup);
+        saveCard("6", ALTAR.getName(), actionCard, darkAgesSetup);
+        saveCard("6", HUNTING_GROUNDS.getName(), actionCard, darkAgesSetup);
+        saveCard("0*", MADMAN.getName(), actionCard, darkAgesSetup);
+        saveCard("0*", SPOILS.getName(), treasureCard, darkAgesSetup);
     }
 
     private void saveSimpleGuildsCards() {
@@ -327,6 +367,14 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionAttackPrizeCards();
         saveTreasureReactionCards();
         saveVictoryReactionCards();
+        saveActionRuinsCards();
+        saveActionLooterCards();
+        saveActionAttackLooterCards();
+        saveActionAttackKnightCards();
+        saveActionAttackKnightVictoryCards();
+        saveReactionShelterCards();
+        saveActionShelterCards();
+        saveVictoryShelterCards();
     }
 
     private void saveActionReactionCards() {
@@ -344,6 +392,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionReactionCornucopiaCards();
 
         saveActionReactionHinterlandsCards();
+
+        saveActionReactionDarkAgesCards();
     }
 
     private void saveActionReactionDominionCards() {
@@ -382,6 +432,13 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("4", TRADER.getName(), typeList);
     }
 
+    private void saveActionReactionDarkAgesCards() {
+        box = DARK_AGES.getName();
+
+        saveCard("2", BEGGAR.getName(), typeList, darkAgesSetup);
+        saveCard("3", MARKET_SQUARE.getName(), typeList, darkAgesSetup);
+    }
+
     private void saveActionAttackCards() {
         typeList.clear();
         typeList.addAll(actionCard);
@@ -404,6 +461,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionAttackCornucopiaCards();
 
         saveActionAttackHinterlandsCards();
+
+        saveActionAttackDarkAgesCards();
     }
 
     private void saveActionAttackDominionCards() {
@@ -486,6 +545,15 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("3", ORACLE.getName(), typeList);
         saveCard("4", NOBLE_BRIGAND.getName(), typeList);
         saveCard("5", MARGRAVE.getName(), typeList);
+    }
+
+    private void saveActionAttackDarkAgesCards() {
+        box = DARK_AGES.getName();
+
+        saveCard("3", URCHIN.getName(), typeList, urchinSetup);
+        saveCard("5", PILLAGE.getName(), typeList, spoilsAndDarkAgesSetup);
+        saveCard("5", ROGUE.getName(), typeList, darkAgesSetup);
+        saveCard("0*", MERCENARY.getName(), typeList, darkAgesSetup);
     }
 
     private void saveActionVictoryCards() {
@@ -630,5 +698,135 @@ public class DatabaseLoader implements CommandLineRunner {
         box = HINTERLANDS.getName();
 
         saveCard("3", TUNNEL.getName(), typeList);
+    }
+
+    private void saveActionRuinsCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(ruinsCard);
+
+        saveActionRuinsDarkAgesCards();
+    }
+
+    private void saveActionRuinsDarkAgesCards() {
+        box = DARK_AGES.getName();
+
+        saveCard("0", ABANDONED_MINE.getName(), typeList, darkAgesSetup);
+        saveCard("0", RUINED_LIBRARY.getName(), typeList, darkAgesSetup);
+        saveCard("0", RUINED_MARKET.getName(), typeList, darkAgesSetup);
+        saveCard("0", RUINED_VILLAGE.getName(), typeList, darkAgesSetup);
+        saveCard("0", SURVIVORS.getName(), typeList, darkAgesSetup);
+    }
+
+    private void saveActionLooterCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(looterCard);
+
+        saveActionLooterDarkAgesCards();
+    }
+
+    private void saveActionLooterDarkAgesCards() {
+        box = DARK_AGES.getName();
+
+        saveCard("4", DEATH_CART.getName(), typeList, ruinsAndDarkAgesSetup);
+    }
+
+    private void saveActionAttackLooterCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(attackCard);
+        typeList.addAll(looterCard);
+
+        saveActionAttackLooterDarAgesCards();
+    }
+
+    private void saveActionAttackLooterDarAgesCards() {
+        box = DARK_AGES.getName();
+
+        saveCard("4", MARAUDER.getName(), typeList, marauderSetup);
+        saveCard("5", CULTIST.getName(), typeList, ruinsAndDarkAgesSetup);
+    }
+
+    private void saveActionAttackKnightCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(attackCard);
+        typeList.addAll(knightCard);
+
+        saveActionAttackKnightDarkAgesCards();
+    }
+
+    private void saveActionAttackKnightDarkAgesCards() {
+        box = DARK_AGES.getName();
+
+        saveCard("5", KNIGHTS.getName(), typeList, knightsSetup);
+        saveCard("5", DAME_ANNA.getName(), typeList, knightsSetup);
+        saveCard("5", DAME_MOLLY.getName(), typeList, knightsSetup);
+        saveCard("5", DAME_NATALIE.getName(), typeList, knightsSetup);
+        saveCard("5", DAME_SYLVIA.getName(), typeList, knightsSetup);
+        saveCard("5", SIR_BAILEY.getName(), typeList, knightsSetup);
+        saveCard("5", SIR_DESTRY.getName(), typeList, knightsSetup);
+        saveCard("4", SIR_MARTIN.getName(), typeList, knightsSetup);
+        saveCard("5", SIR_MICHAEL.getName(), typeList, knightsSetup);
+        saveCard("5", SIR_VANDER.getName(), typeList, knightsSetup);
+    }
+
+    private void saveActionAttackKnightVictoryCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(attackCard);
+        typeList.addAll(knightCard);
+        typeList.addAll(victoryCard);
+
+        saveActionAttackKnightVictoryDarkAgesCards();
+    }
+
+    private void saveActionAttackKnightVictoryDarkAgesCards() {
+        box = DARK_AGES.getName();
+
+        saveCard("5", DAME_JOSEPHINE.getName(), typeList, knightsSetup);
+    }
+
+    private void saveReactionShelterCards() {
+        typeList.clear();
+        typeList.addAll(reactionCard);
+        typeList.addAll(shelterCard);
+
+        saveReactionSHelterDarkAgesCards();
+    }
+
+    private void saveReactionSHelterDarkAgesCards() {
+        box = DARK_AGES.getName();
+
+        saveCard("1", HOVEL.getName(), typeList);
+    }
+
+    private void saveActionShelterCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(shelterCard);
+
+        saveActionShelterDarkAgesCards();
+    }
+
+    private void saveActionShelterDarkAgesCards() {
+        box = DARK_AGES.getName();
+
+        saveCard("1", NECROPOLIS.getName(), typeList);
+    }
+
+    private void saveVictoryShelterCards() {
+        typeList.clear();
+        typeList.addAll(victoryCard);
+        typeList.addAll(shelterCard);
+
+        saveVictoryShelterDarkAgesCards();
+    }
+
+    private void saveVictoryShelterDarkAgesCards() {
+        box = DARK_AGES.getName();
+
+        saveCard("1", OVERGROWN_ESTATE.getName(), typeList);
     }
 }

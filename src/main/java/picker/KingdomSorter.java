@@ -71,8 +71,7 @@ public class KingdomSorter {
         addHinterlandsAndCornucopiaKingdoms();
 
         addDarkAgesKingdoms();
-        addOldDarkAgesAndDominionKingdoms();
-        addNewDarkAgesAndDominionKingdoms();
+        addDarkAgesAndDominionKingdoms();
         addOldDarkAgesAndIntrigueKingdoms();
         addNewDarkAgesAndIntrigueKingdoms();
         addDarkAgesAndSeasideKingdoms();
@@ -1697,43 +1696,291 @@ public class KingdomSorter {
     }
 
     private void addDarkAgesKingdoms() {
+        // Grim Parade
+        cardList.clear();
+        cardList.add(ARMORY.getName());
+        cardList.add(BAND_OF_MISFITS.getName());
+        cardList.add(CATACOMBS.getName());
+        cardList.add(CULTIST.getName());
+        cardList.add(FORAGER.getName());
+        cardList.add(FORTRESS.getName());
+        cardList.add(HUNTING_GROUNDS.getName());
+        cardList.add(KNIGHTS.getName());
+        cardList.add(MARKET_SQUARE.getName());
+        cardList.add(PROCESSION.getName());
 
+        saveKingdom(GRIM_PARADE.getName());
+
+        // Chess With Death
+        cardList.clear();
+        cardList.add(BANDIT_CAMP.getName());
+        cardList.add(GRAVEROBBER.getName());
+        cardList.add(JUNK_DEALER.getName());
+        cardList.add(MYSTIC.getName());
+        cardList.add(PILLAGE.getName());
+        cardList.add(RATS.getName());
+        cardList.add(SAGE.getName());
+        cardList.add(SCAVENGER.getName());
+        cardList.add(STOREROOM.getName());
+        cardList.add(VAGRANT.getName());
+
+        saveKingdom(CHESS_WITH_DEATH.getName());
     }
 
-    private void addOldDarkAgesAndDominionKingdoms() {
+    private void addDarkAgesAndDominionKingdoms() {
+        // High and Low
+        cardList.clear();
+        cardList.add(CELLAR.getName());
+        cardList.add(MONEYLENDER.getName());
+        cardList.add(THRONE_ROOM.getName());
+        cardList.add(WITCH.getName());
+        cardList.add(WORKSHOP.getName());
+        cardList.add(HERMIT.getName());
+        cardList.add(HUNTING_GROUNDS.getName());
+        cardList.add(MYSTIC.getName());
+        cardList.add(POOR_HOUSE.getName());
+        cardList.add(WANDERING_MINSTREL.getName());
 
-    }
+        saveKingdom(HIGH_AND_LOW.getName());
 
-    private void addNewDarkAgesAndDominionKingdoms() {
+        // Chivalry and Revelry
+        cardList.clear();
+        cardList.add(FESTIVAL.getName());
+        cardList.add(GARDENS.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(LIBRARY.getName());
+        cardList.add(REMODEL.getName());
+        cardList.add(ALTAR.getName());
+        cardList.add(KNIGHTS.getName());
+        cardList.add(RATS.getName());
+        cardList.add(SCAVENGER.getName());
+        cardList.add(SQUIRE.getName());
 
+        saveKingdom(CHIVALRY_AND_REVELRY.getName());
     }
 
     private void addOldDarkAgesAndIntrigueKingdoms() {
+        // Prophecy
+        cardList.clear();
+        cardList.add(ARMORY.getName());
+        cardList.add(IRONMONGER.getName());
+        cardList.add(MYSTIC.getName());
+        cardList.add(REBUILD.getName());
+        cardList.add(VAGRANT.getName());
+        cardList.add(BARON.getName());
+        cardList.add(CONSPIRATOR.getName());
+        cardList.add(GREAT_HALL.getName());
+        cardList.add(NOBLES.getName());
+        cardList.add(WISHING_WELL.getName());
 
+        saveKingdom(PROPHECY_1.getName());
+
+        // Invasion
+        cardList.clear();
+        cardList.add(BEGGAR.getName());
+        cardList.add(MARAUDER.getName());
+        cardList.add(ROGUE.getName());
+        cardList.add(SQUIRE.getName());
+        cardList.add(URCHIN.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(MINING_VILLAGE.getName());
+        cardList.add(SWINDLER.getName());
+        cardList.add(TORTURER.getName());
+        cardList.add(UPGRADE.getName());
+
+        saveKingdom(INVASION_1.getName());
     }
 
     private void addNewDarkAgesAndIntrigueKingdoms() {
+        // Prophecy
+        cardList.clear();
+        cardList.add(ARMORY.getName());
+        cardList.add(IRONMONGER.getName());
+        cardList.add(MYSTIC.getName());
+        cardList.add(REBUILD.getName());
+        cardList.add(VAGRANT.getName());
+        cardList.add(BARON.getName());
+        cardList.add(CONSPIRATOR.getName());
+        cardList.add(NOBLES.getName());
+        cardList.add(SECRET_PASSAGE.getName());
+        cardList.add(WISHING_WELL.getName());
 
+        saveKingdom(PROPHECY_2.getName());
+
+        // Invasion
+        cardList.clear();
+        cardList.add(BEGGAR.getName());
+        cardList.add(MARAUDER.getName());
+        cardList.add(ROGUE.getName());
+        cardList.add(SQUIRE.getName());
+        cardList.add(URCHIN.getName());
+        cardList.add(DIPLOMAT.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(SWINDLER.getName());
+        cardList.add(TORTURER.getName());
+        cardList.add(UPGRADE.getName());
+
+        saveKingdom(INVASION_2.getName());
     }
 
     private void addDarkAgesAndSeasideKingdoms() {
+        // Watery Graves
+        cardList.clear();
+        cardList.add(COUNT.getName());
+        cardList.add(GRAVEROBBER.getName());
+        cardList.add(HERMIT.getName());
+        cardList.add(SCAVENGER.getName());
+        cardList.add(URCHIN.getName());
+        cardList.add(NATIVE_VILLAGE.getName());
+        cardList.add(PIRATE_SHIP.getName());
+        cardList.add(SALVAGER.getName());
+        cardList.add(TREASURE_MAP.getName());
+        cardList.add(TREASURY.getName());
 
+        saveKingdom(WATERY_GRAVES.getName());
+
+        // Peasants
+        cardList.clear();
+        cardList.add(DEATH_CART.getName());
+        cardList.add(FEODUM.getName());
+        cardList.add(POOR_HOUSE.getName());
+        cardList.add(URCHIN.getName());
+        cardList.add(VAGRANT.getName());
+        cardList.add(FISHING_VILLAGE.getName());
+        cardList.add(HAVEN.getName());
+        cardList.add(ISLAND.getName());
+        cardList.add(LOOKOUT.getName());
+        cardList.add(WAREHOUSE.getName());
+
+        saveKingdom(PEASANTS.getName());
     }
 
     private void addDarkAgesAndAlchemyKingdoms() {
+        // Infestations
+        cardList.clear();
+        cardList.add(ARMORY.getName());
+        cardList.add(CULTIST.getName());
+        cardList.add(FEODUM.getName());
+        cardList.add(MARKET_SQUARE.getName());
+        cardList.add(RATS.getName());
+        cardList.add(WANDERING_MINSTREL.getName());
+        cardList.add(APPRENTICE.getName());
+        cardList.add(SCRYING_POOL.getName());
+        cardList.add(TRANSMUTE.getName());
+        cardList.add(VINEYARD.getName());
 
+        saveKingdom(INFESTATIONS.getName());
+
+        // Lamentations
+        cardList.clear();
+        cardList.add(BEGGAR.getName());
+        cardList.add(CATACOMBS.getName());
+        cardList.add(COUNTERFEIT.getName());
+        cardList.add(FORAGER.getName());
+        cardList.add(IRONMONGER.getName());
+        cardList.add(PILLAGE.getName());
+        cardList.add(APOTHECARY.getName());
+        cardList.add(GOLEM.getName());
+        cardList.add(HERBALIST.getName());
+        cardList.add(UNIVERSITY.getName());
+
+        saveKingdom(LAMENTATIONS.getName());
     }
 
     private void addDarkAgesAndProsperityKingdoms() {
+        // One Man's Trash
+        cardList.clear();
+        cardList.add(COUNTERFEIT.getName());
+        cardList.add(FORAGER.getName());
+        cardList.add(GRAVEROBBER.getName());
+        cardList.add(MARKET_SQUARE.getName());
+        cardList.add(ROGUE.getName());
+        cardList.add(CITY.getName());
+        cardList.add(GRAND_MARKET.getName());
+        cardList.add(MONUMENT.getName());
+        cardList.add(TALISMAN.getName());
+        cardList.add(VENTURE.getName());
 
+        saveKingdom(ONE_MANS_TRASH.getName());
+
+        // Honor Among Thieves
+        cardList.clear();
+        cardList.add(BANDIT_CAMP.getName());
+        cardList.add(PROCESSION.getName());
+        cardList.add(REBUILD.getName());
+        cardList.add(ROGUE.getName());
+        cardList.add(SQUIRE.getName());
+        cardList.add(FORGE.getName());
+        cardList.add(HOARD.getName());
+        cardList.add(PEDDLER.getName());
+        cardList.add(QUARRY.getName());
+        cardList.add(WATCHTOWER.getName());
+
+        saveKingdom(HONOR_AMONG_THIEVES.getName());
     }
 
     private void addDarkAgesAndCornucopiaKingdoms() {
+        // Dark Carnival
+        cardList.clear();
+        cardList.add(BAND_OF_MISFITS.getName());
+        cardList.add(CULTIST.getName());
+        cardList.add(FORTRESS.getName());
+        cardList.add(HERMIT.getName());
+        cardList.add(JUNK_DEALER.getName());
+        cardList.add(KNIGHTS.getName());
+        cardList.add(FAIRGROUNDS.getName());
+        cardList.add(HAMLET.getName());
+        cardList.add(HORN_OF_PLENTY.getName());
+        cardList.add(MENAGERIE.getName());
 
+        saveKingdom(DARK_CARNIVAL.getName());
+
+        // To the Victor
+        cardList.clear();
+        cardList.add(BANDIT_CAMP.getName());
+        cardList.add(COUNTERFEIT.getName());
+        cardList.add(DEATH_CART.getName());
+        cardList.add(MARAUDER.getName());
+        cardList.add(PILLAGE.getName());
+        cardList.add(SAGE.getName());
+        cardList.add(HARVEST.getName());
+        cardList.add(HUNTING_PARTY.getName());
+        cardList.add(REMAKE.getName());
+        cardList.add(TOURNAMENT.getName());
+
+        saveKingdom(TO_THE_VICTOR.getName());
     }
 
     private void addDarkAgesAndHinterlandsKingdoms() {
+        // Far From Home
+        cardList.clear();
+        cardList.add(BEGGAR.getName());
+        cardList.add(COUNT.getName());
+        cardList.add(FEODUM.getName());
+        cardList.add(MARAUDER.getName());
+        cardList.add(WANDERING_MINSTREL.getName());
+        cardList.add(CARTOGRAPHER.getName());
+        cardList.add(DEVELOP.getName());
+        cardList.add(EMBASSY.getName());
+        cardList.add(FOOLS_GOLD.getName());
+        cardList.add(HAGGLER.getName());
 
+        saveKingdom(FAR_FROM_HOME.getName());
+
+        // Expeditions
+        cardList.clear();
+        cardList.add(ALTAR.getName());
+        cardList.add(CATACOMBS.getName());
+        cardList.add(IRONMONGER.getName());
+        cardList.add(POOR_HOUSE.getName());
+        cardList.add(STOREROOM.getName());
+        cardList.add(CROSSROADS.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(HIGHWAY.getName());
+        cardList.add(SPICE_MERCHANT.getName());
+        cardList.add(TUNNEL.getName());
+
+        saveKingdom(EXPEDITIONS.getName());
     }
 
     private void addGuildsKingdoms() {

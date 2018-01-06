@@ -176,24 +176,40 @@ public enum KingdomName {
     TRAVELING_CIRCUS("Traveling Circus"),
 
     // Dark Ages
+    GRIM_PARADE("Grim Parade"),
+    CHESS_WITH_DEATH("Chess With Death"),
 
-    // Old Dark Ages + Dominion
-
-    // New Dark Ages + Dominion
+    // Dark Ages + Dominion
+    HIGH_AND_LOW("High and Low"),
+    CHIVALRY_AND_REVELRY("Chivalry and Revelry"),
 
     // Old Dark Ages + Intrigue
+    PROPHECY_1("Prophecy 1st Edition"),
+    INVASION_1("Invasion 1st Edition"),
 
     // New Dark Ages + Intrigue
+    PROPHECY_2("Prophecy 2nd Edition"),
+    INVASION_2("Invasion 2nd Edition"),
 
     // Dark Ages + Seaside
+    WATERY_GRAVES("Watery Graves"),
+    PEASANTS("Peasants"),
 
     // Dark Ages + Alchemy
+    INFESTATIONS("Infestations"),
+    LAMENTATIONS("Lamentations"),
 
     // Dark Ages + Prosperity
+    ONE_MANS_TRASH("One Man's Trash"),
+    HONOR_AMONG_THIEVES("Honor Among Thieves"),
 
     // Dark Ages + Cornucopia
+    DARK_CARNIVAL("Dark Carnival"),
+    TO_THE_VICTOR("To the Victor"),
 
     // Dark Ages + Hinterlands
+    FAR_FROM_HOME("Far From Home"),
+    EXPEDITIONS("Expeditions"),
 
     // Guilds
 
