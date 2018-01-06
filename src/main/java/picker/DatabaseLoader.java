@@ -29,6 +29,7 @@ public class DatabaseLoader implements CommandLineRunner {
     private final List<String> reactionCard = Collections.singletonList(REACTION.getName());
     private final List<String> attackCard = Collections.singletonList(ATTACK.getName());
     private final List<String> durationCard = Collections.singletonList(DURATION.getName());
+    private final List<String> prizeCard = Collections.singletonList(PRIZE.getName());
 
     private String box;
     
@@ -45,6 +46,8 @@ public class DatabaseLoader implements CommandLineRunner {
     private List<String> tradeRouteSetup = Arrays.asList(TRADE_ROUTE_SETUP.getText(), COIN_TOKEN_SETUP.getText(), PLATINUM_SETUP.getText(), COLONY_SETUP.getText());
     private List<String> victoryTokenSetup = Collections.singletonList(VICTORY_TOKEN_SETUP.getText());
     private List<String> victoryAndProsperitySetup = Arrays.asList(VICTORY_TOKEN_SETUP.getText(), PLATINUM_SETUP.getText(), COLONY_SETUP.getText());
+    private List<String> tournamentSetup = Collections.singletonList(TOURNAMENT_SETUP.getText());
+    private List<String> youngWitchSetup = Collections.singletonList(YOUNG_WITCH_SETUP.getText());
 
     @Autowired
 	public DatabaseLoader(CardRepository cardRepository, KingdomRepository kingdomRepository) {
@@ -255,7 +258,17 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
     private void saveSimpleCornucopiaCards() {
+        box = CORNUCOPIA.getName();
 
+        saveCard("2", HAMLET.getName(), actionCard);
+        saveCard("3", MENAGERIE.getName(), actionCard);
+        saveCard("4", FARMING_VILLAGE.getName(), actionCard);
+        saveCard("4", REMAKE.getName(), actionCard);
+        saveCard("4", TOURNAMENT.getName(), actionCard, tournamentSetup);
+        saveCard("5", HARVEST.getName(), actionCard);
+        saveCard("5", HORN_OF_PLENTY.getName(), treasureCard);
+        saveCard("5", HUNTING_PARTY.getName(), actionCard);
+        saveCard("6", FAIRGROUNDS.getName(), victoryCard);
     }
 
     private void saveSimpleHinterlandsCards() {
@@ -288,6 +301,9 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionVictoryCards();
         saveTreasureVictoryCards();
         saveActionDurationCards();
+        saveActionPrizeCards();
+        saveTreasurePrizeCards();
+        saveActionAttackPrizeCards();
     }
 
     private void saveActionReactionCards() {
@@ -301,6 +317,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionReactionNewIntrigueCards();
 
         saveActionReactionProsperityCards();
+
+        saveActionReactionCornucopiaCards();
     }
 
     private void saveActionReactionDominionCards() {
@@ -327,6 +345,12 @@ public class DatabaseLoader implements CommandLineRunner {
 	    saveCard("3", WATCHTOWER.getName(), typeList, prosperitySetup);
     }
 
+    private void saveActionReactionCornucopiaCards() {
+        box = CORNUCOPIA.getName();
+
+        saveCard("4", HORSE_TRADERS.getName(), typeList);
+    }
+
     private void saveActionAttackCards() {
         typeList.clear();
         typeList.addAll(actionCard);
@@ -345,6 +369,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionAttackAlchemyCards();
 
         saveActionAttackProsperityCards();
+
+        saveActionAttackCornucopiaCards();
     }
 
     private void saveActionAttackDominionCards() {
@@ -411,6 +437,14 @@ public class DatabaseLoader implements CommandLineRunner {
 	    saveCard("5", MOUNTEBANK.getName(), typeList, prosperitySetup);
 	    saveCard("5", RABBLE.getName(), typeList, prosperitySetup);
 	    saveCard("6", GOONS.getName(), typeList, victoryAndProsperitySetup);
+    }
+
+    private void saveActionAttackCornucopiaCards() {
+        box = CORNUCOPIA.getName();
+
+        saveCard("3", FORTUNE_TELLER.getName(), typeList);
+        saveCard("4", YOUNG_WITCH.getName(), typeList, youngWitchSetup);
+        saveCard("5", JESTER.getName(), typeList);
     }
 
     private void saveActionVictoryCards() {
@@ -482,5 +516,50 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("5", OUTPOST.getName(), typeList);
         saveCard("5", TACTICIAN.getName(), typeList);
         saveCard("5", WHARF.getName(), typeList);
+    }
+
+    private void saveActionPrizeCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(prizeCard);
+
+        saveActionPrizeCornucopiaCards();
+    }
+
+    private void saveActionPrizeCornucopiaCards() {
+        box = CORNUCOPIA.getName();
+
+        saveCard("0*", BAG_OF_GOLD.getName(), typeList);
+        saveCard("0*", PRINCESS.getName(), typeList);
+        saveCard("0*", TRUSTY_STEED.getName(), typeList);
+    }
+
+    private void saveTreasurePrizeCards() {
+        typeList.clear();
+        typeList.addAll(treasureCard);
+        typeList.addAll(prizeCard);
+
+        saveTreasurePrizeCornucopiaCards();
+    }
+
+    private void saveTreasurePrizeCornucopiaCards() {
+        box = CORNUCOPIA.getName();
+
+        saveCard("0*", DIADEM.getName(), typeList);
+    }
+
+    private void saveActionAttackPrizeCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(attackCard);
+        typeList.addAll(prizeCard);
+
+        saveActionAttackPrizeCornucopiaCards();
+    }
+
+    private void saveActionAttackPrizeCornucopiaCards() {
+        box = CORNUCOPIA.getName();
+
+        saveCard("0*", FOLLOWERS.getName(), typeList);
     }
 }

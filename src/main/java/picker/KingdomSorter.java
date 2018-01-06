@@ -53,13 +53,11 @@ public class KingdomSorter {
         addProsperityAndSeasideKingdoms();
         addProsperityAndAlchemyKingdoms();
 
-        addCornucopiaKingdoms();
         addOldCornucopiaAndDominionKingdoms();
         addNewCornucopiaAndDominionKingdoms();
         addOldCornucopiaAndIntrigueKingdoms();
         addNewCornucopiaAndIntrigueKingdoms();
         addCornucopiaAndSeasideKingdoms();
-        addCornucopiaAndAlchemyKingdoms();
         addCornucopiaAndProsperityKingdoms();
 
         addHinterlandsKingdoms();
@@ -143,6 +141,9 @@ public class KingdomSorter {
         otherSetupList.clear();
 
         for (String card : cardList) {
+            if (card.startsWith("Bane: ")) {
+                card = card.substring(6);
+            }
             Card foundCard = cardRepository.findByName(card);
             String box = foundCard.getBox();
             if (!boxList.contains(box)) {
@@ -1196,36 +1197,215 @@ public class KingdomSorter {
         saveKingdom(LOWER_LEARNING.getName());
     }
 
-    private void addCornucopiaKingdoms() {
-
-    }
-
     private void addOldCornucopiaAndDominionKingdoms() {
+        // Bounty of the Hunt
+        cardList.clear();
+        cardList.add(HARVEST.getName());
+        cardList.add(HORN_OF_PLENTY.getName());
+        cardList.add(HUNTING_PARTY.getName());
+        cardList.add(MENAGERIE.getName());
+        cardList.add(TOURNAMENT.getName());
+        cardList.add(CELLAR.getName());
+        cardList.add(FESTIVAL.getName());
+        cardList.add(MILITIA.getName());
+        cardList.add(MONEYLENDER.getName());
+        cardList.add(SMITHY.getName());
 
+        saveKingdom(BOUNTY_OF_THE_HUNT.getName());
+
+        // Bad Omens
+        cardList.clear();
+        cardList.add(FORTUNE_TELLER.getName());
+        cardList.add(HAMLET.getName());
+        cardList.add(HORN_OF_PLENTY.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(REMAKE.getName());
+        cardList.add(ADVENTURER.getName());
+        cardList.add(BUREAUCRAT.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(SPY.getName());
+        cardList.add(THRONE_ROOM.getName());
+
+        saveKingdom(BAD_OMENS_1.getName());
+
+        // The Jester's Workshop
+        cardList.clear();
+        cardList.add(FAIRGROUNDS.getName());
+        cardList.add(FARMING_VILLAGE.getName());
+        cardList.add(HORSE_TRADERS.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(YOUNG_WITCH.getName());
+        cardList.add(FEAST.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(MARKET.getName());
+        cardList.add(REMODEL.getName());
+        cardList.add(WORKSHOP.getName());
+        cardList.add("Bane: " + CHANCELLOR.getName());
+
+        saveKingdom(THE_JESTERS_WORKSHOP_1.getName());
     }
 
     private void addNewCornucopiaAndDominionKingdoms() {
+        // Bad Omens
+        cardList.clear();
+        cardList.add(BUREAUCRAT.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(MERCHANT.getName());
+        cardList.add(POACHER.getName());
+        cardList.add(THRONE_ROOM.getName());
+        cardList.add(FORTUNE_TELLER.getName());
+        cardList.add(HAMLET.getName());
+        cardList.add(HORN_OF_PLENTY.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(REMAKE.getName());
 
+        saveKingdom(BAD_OMENS_2.getName());
+
+        // The Jester's Workshop
+        cardList.clear();
+        cardList.add(ARTISAN.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(MARKET.getName());
+        cardList.add(REMODEL.getName());
+        cardList.add(WORKSHOP.getName());
+        cardList.add(FAIRGROUNDS.getName());
+        cardList.add(FARMING_VILLAGE.getName());
+        cardList.add(HORSE_TRADERS.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(YOUNG_WITCH.getName());
+        cardList.add("Bane: " + MERCHANT.getName());
+
+        saveKingdom(THE_JESTERS_WORKSHOP_2.getName());
     }
 
     private void addOldCornucopiaAndIntrigueKingdoms() {
+        // Last Laughs
+        cardList.clear();
+        cardList.add(FARMING_VILLAGE.getName());
+        cardList.add(HARVEST.getName());
+        cardList.add(HORSE_TRADERS.getName());
+        cardList.add(HUNTING_PARTY.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(MINION.getName());
+        cardList.add(NOBLES.getName());
+        cardList.add(PAWN.getName());
+        cardList.add(STEWARD.getName());
+        cardList.add(SWINDLER.getName());
 
+        saveKingdom(LAST_LAUGHS.getName());
+
+        // The Spice of Life
+        cardList.clear();
+        cardList.add(FAIRGROUNDS.getName());
+        cardList.add(HORSE_TRADERS.getName());
+        cardList.add(REMAKE.getName());
+        cardList.add(TOURNAMENT.getName());
+        cardList.add(YOUNG_WITCH.getName());
+        cardList.add(COPPERSMITH.getName());
+        cardList.add(COURTYARD.getName());
+        cardList.add(GREAT_HALL.getName());
+        cardList.add(MINING_VILLAGE.getName());
+        cardList.add(TRIBUTE.getName());
+        cardList.add("Bane: " + WISHING_WELL.getName());
+
+        saveKingdom(THE_SPICE_OF_LIFE_1.getName());
+
+        // Small Victories
+        cardList.clear();
+        cardList.add(FORTUNE_TELLER.getName());
+        cardList.add(HAMLET.getName());
+        cardList.add(HUNTING_PARTY.getName());
+        cardList.add(REMAKE.getName());
+        cardList.add(TOURNAMENT.getName());
+        cardList.add(CONSPIRATOR.getName());
+        cardList.add(DUKE.getName());
+        cardList.add(GREAT_HALL.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(PAWN.getName());
+
+        saveKingdom(SMALL_VICTORIES_1.getName());
     }
 
     private void addNewCornucopiaAndIntrigueKingdoms() {
+        // The Spice of Life
+        cardList.clear();
+        cardList.add(FAIRGROUNDS.getName());
+        cardList.add(HORN_OF_PLENTY.getName());
+        cardList.add(REMAKE.getName());
+        cardList.add(TOURNAMENT.getName());
+        cardList.add(YOUNG_WITCH.getName());
+        cardList.add(COURTIER.getName());
+        cardList.add(COURTYARD.getName());
+        cardList.add(DIPLOMAT.getName());
+        cardList.add(MINING_VILLAGE.getName());
+        cardList.add(REPLACE.getName());
+        cardList.add("Bane: " + WISHING_WELL.getName());
 
+        saveKingdom(THE_SPICE_OF_LIFE_2.getName());
+
+        // Small Victories
+        cardList.clear();
+        cardList.add(FORTUNE_TELLER.getName());
+        cardList.add(HAMLET.getName());
+        cardList.add(HUNTING_PARTY.getName());
+        cardList.add(REMAKE.getName());
+        cardList.add(TOURNAMENT.getName());
+        cardList.add(CONSPIRATOR.getName());
+        cardList.add(DUKE.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(PAWN.getName());
+        cardList.add(SECRET_PASSAGE.getName());
+
+        saveKingdom(SMALL_VICTORIES_2.getName());
     }
 
     private void addCornucopiaAndSeasideKingdoms() {
+        // Collector
+        cardList.clear();
+        cardList.add(EMBARGO.getName());
+        cardList.add(FISHING_VILLAGE.getName());
+        cardList.add(MERCHANT_SHIP.getName());
+        cardList.add(NAVIGATOR.getName());
+        cardList.add(SMUGGLERS.getName());
+        cardList.add(FAIRGROUNDS.getName());
+        cardList.add(FARMING_VILLAGE.getName());
+        cardList.add(FORTUNE_TELLER.getName());
+        cardList.add(HARVEST.getName());
+        cardList.add(HUNTING_PARTY.getName());
 
-    }
+        saveKingdom(COLLECTOR.getName());
 
-    private void addCornucopiaAndAlchemyKingdoms() {
+        // Collider
+        cardList.clear();
+        cardList.add(LIGHTHOUSE.getName());
+        cardList.add(SALVAGER.getName());
+        cardList.add(TREASURE_MAP.getName());
+        cardList.add(TREASURY.getName());
+        cardList.add(WAREHOUSE.getName());
+        cardList.add(MENAGERIE.getName());
+        cardList.add(HORN_OF_PLENTY.getName());
+        cardList.add(HORSE_TRADERS.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(TOURNAMENT.getName());
 
+        saveKingdom(COLLIDER.getName());
     }
 
     private void addCornucopiaAndProsperityKingdoms() {
+        // Detours
+        cardList.clear();
+        cardList.add(RABBLE.getName());
+        cardList.add(PEDDLER.getName());
+        cardList.add(HOARD.getName());
+        cardList.add(TRADE_ROUTE.getName());
+        cardList.add(VENTURE.getName());
+        cardList.add(FARMING_VILLAGE.getName());
+        cardList.add(HORN_OF_PLENTY.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(REMAKE.getName());
+        cardList.add(TOURNAMENT.getName());
 
+        saveKingdom(DETOURS.getName());
     }
 
     private void addHinterlandsKingdoms() {

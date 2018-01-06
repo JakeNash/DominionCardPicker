@@ -7,11 +7,13 @@ public enum SetupText {
     PIRATE_SHIP_SETUP("Pirate Ship mats"),
     COIN_TOKEN_SETUP("Coin tokens"),
     ISLAND_SETUP("Island mats"),
-    POTION_SETUP("Potion"),
-    PLATINUM_SETUP("Platinum"),
-    COLONY_SETUP("Colony"),
+    POTION_SETUP("Potions"),
+    PLATINUM_SETUP("Platinums"),
+    COLONY_SETUP("Colonies"),
     TRADE_ROUTE_SETUP("Trade Route mat"),
     VICTORY_TOKEN_SETUP("Victory tokens"),
+    TOURNAMENT_SETUP("Prizes"),
+    YOUNG_WITCH_SETUP("Choose a Bane"),
     ;
 
     private String text;

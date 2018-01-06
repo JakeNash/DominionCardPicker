@@ -114,21 +114,30 @@ public enum KingdomName {
     COUNTING_CONTEST("Counting Contest"),
     LOWER_LEARNING("Lower Learning"),
 
-    // Cornucopia
-
     // Old Cornucopia + Dominion
+    BOUNTY_OF_THE_HUNT("Bounty of the Hunt"),
+    BAD_OMENS_1("Bad Omens 1st Edition"),
+    THE_JESTERS_WORKSHOP_1("The Jester's Workshop 1st Edition"),
 
     // New Cornucopia + Dominion
+    BAD_OMENS_2("Bad Omens 2nd Edition"),
+    THE_JESTERS_WORKSHOP_2("the Jester's Workshop 2nd Edition"),
 
     // Old Cornucopia + Intrigue
+    LAST_LAUGHS("Last Laughs"),
+    THE_SPICE_OF_LIFE_1("The Spice of Life 1st Edition"),
+    SMALL_VICTORIES_1("Small Victories 1st Edition"),
 
     // New Cornucopia + Intrigue
+    THE_SPICE_OF_LIFE_2("The Spice of Life 2nd Edition"),
+    SMALL_VICTORIES_2("Small Victories 2nd Edition"),
 
     // Cornucopia + Seaside
-
-    // Cornucopia + Alchemy
+    COLLECTOR("Collector"),
+    COLLIDER("Collider"),
 
     // Cornucopia + Prosperity
+    DETOURS("Detours"),
 
     // Hinterlands
 

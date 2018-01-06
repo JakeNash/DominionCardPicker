@@ -160,6 +160,24 @@ public enum CardName {
     PEDDLER("Peddler"),
 
     // Cornucopia
+    HAMLET("Hamlet"),
+    FORTUNE_TELLER("Fortune Teller"),
+    MENAGERIE("Menagerie"),
+    FARMING_VILLAGE("Farming Village"),
+    HORSE_TRADERS("Horse Traders"),
+    REMAKE("Remake"),
+    TOURNAMENT("Tournament"),
+    YOUNG_WITCH("Young Witch"),
+    HARVEST("Harvest"),
+    HORN_OF_PLENTY("Horn of Plenty"),
+    HUNTING_PARTY("Hunting Party"),
+    JESTER("Jester"),
+    FAIRGROUNDS("Fairgrounds"),
+    BAG_OF_GOLD("Bag of Gold"),
+    DIADEM("Diadem"),
+    FOLLOWERS("Followers"),
+    PRINCESS("Princess"),
+    TRUSTY_STEED("Trusty Steed"),
 
     // Hinterlands
 
