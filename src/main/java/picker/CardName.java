@@ -116,6 +116,19 @@ public enum CardName {
     WHARF("Wharf"),
 
     // Alchemy
+    POTION("Potion"),
+    HERBALIST("Herbalist"),
+    APPRENTICE("Apprentice"),
+    TRANSMUTE("Transmute"),
+    VINEYARD("Vineyard"),
+    APOTHECARY("Apothecary"),
+    SCRYING_POOL("Scrying Pool"),
+    UNIVERSITY("University"),
+    ALCHEMIST("Alchemist"),
+    FAMILIAR("Familiar"),
+    PHILOSOPHERS_STONE("Philosopher's Stone"),
+    GOLEM("Golem"),
+    POSSESSION("Possession"),
 
     // Prosperity
 

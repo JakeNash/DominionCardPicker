@@ -59,17 +59,28 @@ public enum KingdomName {
     SHORE_PATROL("Shore Patrol"),
     BRIDGE_CROSSING("Bridge Crossing"),
 
-    // Alchemy
-
     // Old Alchemy + Dominion
+    FORBIDDEN_ARTS_1("Forbidden Arts 1st Edition"),
+    POTION_MIXERS_1("Potion Mixers 1st Edition"),
+    CHEMISTRY_LESSON_1("Chemistry Lesson 1st Edition"),
 
     // New Alchemy + Dominion
-
-    // New Alchemy + Intrigue
+    FORBIDDEN_ARTS_2("Forbidden Arts 2nd Edition"),
+    POTION_MIXERS_2("Potion Mixers 2nd Edition"),
+    CHEMISTRY_LESSON_2("Chemistry Lesson 2nd Edition"),
 
     // Old Alchemy + Intrigue
+    SERVANTS_1("Servants 1st Edition"),
+    SECRET_RESEARCH("Secret Research"),
+    POOLS_TOOLS_AND_FOOLS_1("Pools, Tools, and Fools 1st Edition"),
+
+    // New Alchemy + Intrigue
+    SERVANTS_2("Servants 2nd Edition"),
+    POOLS_TOOLS_AND_FOOLS_2("Pools, Tools, and Fools 2nd Edition"),
 
     // Alchemy + Seaside
+    FOREWARNED("Forewarned"),
+    GUMMED_UP("Gummed Up"),
 
     // Prosperity
 

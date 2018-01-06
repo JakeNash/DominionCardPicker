@@ -182,7 +182,19 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
     private void saveSimpleAlchemyCards() {
+	    List<String> potionSetup = Collections.singletonList("Potion");
 
+	    saveCard("4", POTION.getName(), ALCHEMY.getName(), treasureCard);
+	    saveCard("Potion", TRANSMUTE.getName(), ALCHEMY.getName(), actionCard, potionSetup);
+	    saveCard("Potion", VINEYARD.getName(), ALCHEMY.getName(), victoryCard, potionSetup);
+	    saveCard("2", HERBALIST.getName(), ALCHEMY.getName(), actionCard);
+	    saveCard("2 & Potion", APOTHECARY.getName(), ALCHEMY.getName(), actionCard, potionSetup);
+	    saveCard("2 & Potion", UNIVERSITY.getName(), ALCHEMY.getName(), actionCard, potionSetup);
+	    saveCard("3 & Potion", ALCHEMIST.getName(), ALCHEMY.getName(), actionCard, potionSetup);
+	    saveCard("3 & Potion", PHILOSOPHERS_STONE.getName(), ALCHEMY.getName(), treasureCard, potionSetup);
+	    saveCard("4 & Potion", GOLEM.getName(), ALCHEMY.getName(), actionCard, potionSetup);
+	    saveCard("5", APPRENTICE.getName(), ALCHEMY.getName(), actionCard);
+	    saveCard("6 & Potion", POSSESSION.getName(), ALCHEMY.getName(), actionCard, potionSetup);
     }
 
     private void saveSimpleProsperityCards() {
@@ -262,6 +274,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionAttackNewIntrigueCards();
 
         saveActionAttackSeasideCards();
+
+        saveActionAttackAlchemyCards();
     }
 
     private void saveActionAttackDominionCards() {
@@ -303,6 +317,13 @@ public class DatabaseLoader implements CommandLineRunner {
 	    saveCard("4", PIRATE_SHIP.getName(), SEASIDE.getName(), typeList, pirateShipSetup);
 	    saveCard("4", SEA_HAG.getName(), SEASIDE.getName(), typeList);
 	    saveCard("5", GHOST_SHIP.getName(), SEASIDE.getName(), typeList);
+    }
+
+    private void saveActionAttackAlchemyCards() {
+	    List<String> potionSetup = Collections.singletonList("Potion");
+
+	    saveCard("2 & Potion", SCRYING_POOL.getName(), ALCHEMY.getName(), typeList, potionSetup);
+	    saveCard("3 & Potion", FAMILIAR.getName(), ALCHEMY.getName(), typeList, potionSetup);
     }
 
     private void saveActionVictoryCards() {

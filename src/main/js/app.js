@@ -413,6 +413,7 @@ class KingdomList extends React.Component {
 						<tr>
 							<th>Name</th>
 							<th>Cards</th>
+							<th>Boxes</th>
 							<th>Other Setup</th>
 						</tr>
 						{kingdoms}
@@ -435,7 +436,7 @@ class MatchingKingdomList extends React.Component {
     handleInput(e) {
         e.preventDefault();
         var wantedCard = ReactDOM.findDOMNode(this.refs.wantedCard).value;
-        if (/^[a-zA-Z ]+$/.test(wantedCard)) {
+        if (/^[a-zA-Z '-]+$/.test(wantedCard)) {
             this.props.updateWantedCard(wantedCard);
         } else {
             ReactDOM.findDOMNode(this.wantedCard).value = wantedCard.substring(0, wantedCard.length - 1);
@@ -458,6 +459,7 @@ class MatchingKingdomList extends React.Component {
                         <tr>
                             <th>Name</th>
                             <th>Cards</th>
+                            <th>Boxes</th>
                             <th>Other Setup</th>
                         </tr>
                         {kingdoms}
@@ -493,6 +495,11 @@ class Kingdom extends React.Component {
                     <span key={i}>
                     {!!i && ", "}
                     {card}
+                </span>)}</td>
+                <td>{this.props.kingdom.entity.boxes.map((box, i) =>
+                    <span key={i}>
+                    {!!i && ", "}
+                    {box}
                 </span>)}</td>
                 {otherSetup}
             </tr>
