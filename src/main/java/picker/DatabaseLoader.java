@@ -272,7 +272,28 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
     private void saveSimpleHinterlandsCards() {
+        box = HINTERLANDS.getName();
 
+        saveCard("2", CROSSROADS.getName(), actionCard);
+        saveCard("2", DUCHESS.getName(), actionCard);
+        saveCard("3", DEVELOP.getName(), actionCard);
+        saveCard("3", OASIS.getName(), actionCard);
+        saveCard("3", SCHEME.getName(), actionCard);
+        saveCard("4", JACK_OF_ALL_TRADES.getName(), actionCard);
+        saveCard("4", NOMAD_CAMP.getName(), actionCard);
+        saveCard("4", SILK_ROAD.getName(), victoryCard);
+        saveCard("4", SPICE_MERCHANT.getName(), actionCard);
+        saveCard("5", CACHE.getName(), treasureCard);
+        saveCard("5", CARTOGRAPHER.getName(), actionCard);
+        saveCard("5", EMBASSY.getName(), actionCard);
+        saveCard("5", HAGGLER.getName(), actionCard);
+        saveCard("5", HIGHWAY.getName(), actionCard);
+        saveCard("5", ILL_GOTTEN_GAINS.getName(), treasureCard);
+        saveCard("5", INN.getName(), actionCard);
+        saveCard("5", MANDARIN.getName(), actionCard);
+        saveCard("5", STABLES.getName(), actionCard);
+        saveCard("6", BORDER_VILLAGE.getName(), actionCard);
+        saveCard("6", FARMLAND.getName(), victoryCard);
     }
 
     private void saveSimpleDarkAgesCards() {
@@ -304,6 +325,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionPrizeCards();
         saveTreasurePrizeCards();
         saveActionAttackPrizeCards();
+        saveTreasureReactionCards();
+        saveVictoryReactionCards();
     }
 
     private void saveActionReactionCards() {
@@ -319,6 +342,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionReactionProsperityCards();
 
         saveActionReactionCornucopiaCards();
+
+        saveActionReactionHinterlandsCards();
     }
 
     private void saveActionReactionDominionCards() {
@@ -351,6 +376,12 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("4", HORSE_TRADERS.getName(), typeList);
     }
 
+    private void saveActionReactionHinterlandsCards() {
+        box = HINTERLANDS.getName();
+
+        saveCard("4", TRADER.getName(), typeList);
+    }
+
     private void saveActionAttackCards() {
         typeList.clear();
         typeList.addAll(actionCard);
@@ -371,6 +402,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionAttackProsperityCards();
 
         saveActionAttackCornucopiaCards();
+
+        saveActionAttackHinterlandsCards();
     }
 
     private void saveActionAttackDominionCards() {
@@ -445,6 +478,14 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("3", FORTUNE_TELLER.getName(), typeList);
         saveCard("4", YOUNG_WITCH.getName(), typeList, youngWitchSetup);
         saveCard("5", JESTER.getName(), typeList);
+    }
+
+    private void saveActionAttackHinterlandsCards() {
+        box = HINTERLANDS.getName();
+
+        saveCard("3", ORACLE.getName(), typeList);
+        saveCard("4", NOBLE_BRIGAND.getName(), typeList);
+        saveCard("5", MARGRAVE.getName(), typeList);
     }
 
     private void saveActionVictoryCards() {
@@ -561,5 +602,33 @@ public class DatabaseLoader implements CommandLineRunner {
         box = CORNUCOPIA.getName();
 
         saveCard("0*", FOLLOWERS.getName(), typeList);
+    }
+
+    private void saveTreasureReactionCards() {
+        typeList.clear();
+        typeList.addAll(treasureCard);
+        typeList.addAll(reactionCard);
+
+        saveTreasureReactionHinterlandsCards();
+    }
+
+    private void saveTreasureReactionHinterlandsCards() {
+        box = HINTERLANDS.getName();
+
+        saveCard("2", FOOLS_GOLD.getName(), typeList);
+    }
+
+    private void saveVictoryReactionCards() {
+        typeList.clear();
+        typeList.addAll(victoryCard);
+        typeList.addAll(reactionCard);
+
+        saveVictoryReactionHinterlandsCards();
+    }
+
+    private void saveVictoryReactionHinterlandsCards() {
+        box = HINTERLANDS.getName();
+
+        saveCard("3", TUNNEL.getName(), typeList);
     }
 }

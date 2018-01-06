@@ -180,6 +180,32 @@ public enum CardName {
     TRUSTY_STEED("Trusty Steed"),
 
     // Hinterlands
+    CROSSROADS("Crossroads"),
+    DUCHESS("Duchess"),
+    FOOLS_GOLD("Fool's Gold"),
+    DEVELOP("Develop"),
+    OASIS("Oasis"),
+    ORACLE("Oracle"),
+    SCHEME("Scheme"),
+    TUNNEL("Tunnel"),
+    JACK_OF_ALL_TRADES("Jack of All Trades"),
+    NOBLE_BRIGAND("Noble Brigand"),
+    NOMAD_CAMP("Nomad Camp"),
+    SILK_ROAD("Silk Road"),
+    SPICE_MERCHANT("Spice Merchant"),
+    TRADER("Trader"),
+    CACHE("Cache"),
+    CARTOGRAPHER("Cartographer"),
+    EMBASSY("Embassy"),
+    HAGGLER("Haggler"),
+    HIGHWAY("Highway"),
+    ILL_GOTTEN_GAINS("Ill-Gotten Gains"),
+    INN("Inn"),
+    MANDARIN("Mandarin"),
+    MARGRAVE("Margrave"),
+    STABLES("Stables"),
+    BORDER_VILLAGE("Border Village"),
+    FARMLAND("Farmland"),
 
     // Dark Ages
 

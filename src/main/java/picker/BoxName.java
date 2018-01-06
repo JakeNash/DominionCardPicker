@@ -13,6 +13,7 @@ public enum BoxName {
     ALCHEMY("Alchemy"),
     PROSPERITY("Prosperity"),
     CORNUCOPIA("Cornucopia"),
+    HINTERLANDS("Hinterlands"),
     ;
 
     private String name;

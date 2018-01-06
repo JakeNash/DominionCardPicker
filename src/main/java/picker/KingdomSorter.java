@@ -1409,39 +1409,291 @@ public class KingdomSorter {
     }
 
     private void addHinterlandsKingdoms() {
+        // Introduction
+        cardList.clear();
+        cardList.add(CACHE.getName());
+        cardList.add(CROSSROADS.getName());
+        cardList.add(DEVELOP.getName());
+        cardList.add(HAGGLER.getName());
+        cardList.add(JACK_OF_ALL_TRADES.getName());
+        cardList.add(MARGRAVE.getName());
+        cardList.add(NOMAD_CAMP.getName());
+        cardList.add(OASIS.getName());
+        cardList.add(SPICE_MERCHANT.getName());
+        cardList.add(STABLES.getName());
 
+        saveKingdom(INTRODUCTION.getName());
+
+        // Fair Trades
+        cardList.clear();
+        cardList.add(BORDER_VILLAGE.getName());
+        cardList.add(CARTOGRAPHER.getName());
+        cardList.add(DEVELOP.getName());
+        cardList.add(DUCHESS.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(ILL_GOTTEN_GAINS.getName());
+        cardList.add(NOBLE_BRIGAND.getName());
+        cardList.add(SILK_ROAD.getName());
+        cardList.add(STABLES.getName());
+        cardList.add(TRADER.getName());
+
+        saveKingdom(FAIR_TRADES.getName());
+
+        // Bargains
+        cardList.clear();
+        cardList.add(BORDER_VILLAGE.getName());
+        cardList.add(CACHE.getName());
+        cardList.add(DUCHESS.getName());
+        cardList.add(FOOLS_GOLD.getName());
+        cardList.add(HAGGLER.getName());
+        cardList.add(HIGHWAY.getName());
+        cardList.add(NOMAD_CAMP.getName());
+        cardList.add(SCHEME.getName());
+        cardList.add(SPICE_MERCHANT.getName());
+        cardList.add(TRADER.getName());
+
+        saveKingdom(BARGAINS.getName());
+
+        // Gambits
+        cardList.clear();
+        cardList.add(CARTOGRAPHER.getName());
+        cardList.add(CROSSROADS.getName());
+        cardList.add(EMBASSY.getName());
+        cardList.add(INN.getName());
+        cardList.add(JACK_OF_ALL_TRADES.getName());
+        cardList.add(MANDARIN.getName());
+        cardList.add(NOMAD_CAMP.getName());
+        cardList.add(OASIS.getName());
+        cardList.add(ORACLE.getName());
+        cardList.add(TUNNEL.getName());
+
+        saveKingdom(GAMBITS.getName());
     }
 
     private void addOldHinterlandsAndDominionKingdoms() {
+        // Highway Robbery
+        cardList.clear();
+        cardList.add(CELLAR.getName());
+        cardList.add(LIBRARY.getName());
+        cardList.add(MONEYLENDER.getName());
+        cardList.add(THRONE_ROOM.getName());
+        cardList.add(WORKSHOP.getName());
+        cardList.add(HIGHWAY.getName());
+        cardList.add(INN.getName());
+        cardList.add(MARGRAVE.getName());
+        cardList.add(NOBLE_BRIGAND.getName());
+        cardList.add(OASIS.getName());
 
+        saveKingdom(HIGHWAY_ROBBERY.getName());
+
+        // Adventures Abroad
+        cardList.clear();
+        cardList.add(ADVENTURER.getName());
+        cardList.add(CHANCELLOR.getName());
+        cardList.add(FESTIVAL.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(REMODEL.getName());
+        cardList.add(CROSSROADS.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(FOOLS_GOLD.getName());
+        cardList.add(ORACLE.getName());
+        cardList.add(SPICE_MERCHANT.getName());
+
+        saveKingdom(ADVENTURES_ABROAD_1.getName());
     }
 
     private void addNewHinterlandsAndDominionKingdoms() {
+        // Adventures Abroad
+        cardList.clear();
+        cardList.add(FESTIVAL.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(REMODEL.getName());
+        cardList.add(SENTRY.getName());
+        cardList.add(VASSAL.getName());
+        cardList.add(CROSSROADS.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(FOOLS_GOLD.getName());
+        cardList.add(ORACLE.getName());
+        cardList.add(SPICE_MERCHANT.getName());
 
+        saveKingdom(ADVENTURES_ABROAD_2.getName());
     }
 
     private void addOldHinterlandsAndIntrigueKingdoms() {
+        // Money for Nothing
+        cardList.clear();
+        cardList.add(COPPERSMITH.getName());
+        cardList.add(GREAT_HALL.getName());
+        cardList.add(PAWN.getName());
+        cardList.add(SHANTY_TOWN.getName());
+        cardList.add(TORTURER.getName());
+        cardList.add(CACHE.getName());
+        cardList.add(CARTOGRAPHER.getName());
+        cardList.add(JACK_OF_ALL_TRADES.getName());
+        cardList.add(SILK_ROAD.getName());
+        cardList.add(TUNNEL.getName());
 
+        saveKingdom(MONEY_FOR_NOTHING_1.getName());
+
+        // The Duke's Ball
+        cardList.clear();
+        cardList.add(CONSPIRATOR.getName());
+        cardList.add(DUKE.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(MASQUERADE.getName());
+        cardList.add(UPGRADE.getName());
+        cardList.add(DUCHESS.getName());
+        cardList.add(HAGGLER.getName());
+        cardList.add(INN.getName());
+        cardList.add(NOBLE_BRIGAND.getName());
+        cardList.add(SCHEME.getName());
+
+        saveKingdom(THE_DUKES_BALL.getName());
     }
 
     private void addNewHinterlandsAndIntrigueKingdoms() {
+        // Money for Nothing
+        cardList.clear();
+        cardList.add(REPLACE.getName());
+        cardList.add(PATROL.getName());
+        cardList.add(PAWN.getName());
+        cardList.add(SHANTY_TOWN.getName());
+        cardList.add(TORTURER.getName());
+        cardList.add(CACHE.getName());
+        cardList.add(CARTOGRAPHER.getName());
+        cardList.add(JACK_OF_ALL_TRADES.getName());
+        cardList.add(SILK_ROAD.getName());
+        cardList.add(TUNNEL.getName());
 
+        saveKingdom(MONEY_FOR_NOTHING_2.getName());
     }
 
     private void addHinterlandsAndSeasideKingdoms() {
+        // Travelers
+        cardList.clear();
+        cardList.add(CUTPURSE.getName());
+        cardList.add(ISLAND.getName());
+        cardList.add(LOOKOUT.getName());
+        cardList.add(MERCHANT_SHIP.getName());
+        cardList.add(WAREHOUSE.getName());
+        cardList.add(CARTOGRAPHER.getName());
+        cardList.add(CROSSROADS.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(SILK_ROAD.getName());
+        cardList.add(STABLES.getName());
 
+        saveKingdom(TRAVELERS.getName());
+
+        // Diplomacy
+        cardList.clear();
+        cardList.add(AMBASSADOR.getName());
+        cardList.add(BAZAAR.getName());
+        cardList.add(CARAVAN.getName());
+        cardList.add(EMBARGO.getName());
+        cardList.add(SMUGGLERS.getName());
+        cardList.add(EMBASSY.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(ILL_GOTTEN_GAINS.getName());
+        cardList.add(NOBLE_BRIGAND.getName());
+        cardList.add(TRADER.getName());
+
+        saveKingdom(DIPLOMACY.getName());
     }
 
     private void addHinterlandsAndAlchemyKingdoms() {
+        // Schemes and Dreams
+        cardList.clear();
+        cardList.add(APOTHECARY.getName());
+        cardList.add(APPRENTICE.getName());
+        cardList.add(HERBALIST.getName());
+        cardList.add(PHILOSOPHERS_STONE.getName());
+        cardList.add(TRANSMUTE.getName());
+        cardList.add(DUCHESS.getName());
+        cardList.add(FOOLS_GOLD.getName());
+        cardList.add(ILL_GOTTEN_GAINS.getName());
+        cardList.add(JACK_OF_ALL_TRADES.getName());
+        cardList.add(SCHEME.getName());
 
+        saveKingdom(SCHEMES_AND_DREAMS.getName());
+
+        // Wine Country
+        cardList.clear();
+        cardList.add(APPRENTICE.getName());
+        cardList.add(FAMILIAR.getName());
+        cardList.add(GOLEM.getName());
+        cardList.add(UNIVERSITY.getName());
+        cardList.add(VINEYARD.getName());
+        cardList.add(CROSSROADS.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(HAGGLER.getName());
+        cardList.add(HIGHWAY.getName());
+        cardList.add(NOMAD_CAMP.getName());
+
+        saveKingdom(WINE_COUNTRY.getName());
     }
 
     private void addHinterlandsAndProsperityKingdoms() {
+        // Instant Gratification
+        cardList.clear();
+        cardList.add(BISHOP.getName());
+        cardList.add(EXPAND.getName());
+        cardList.add(HOARD.getName());
+        cardList.add(MINT.getName());
+        cardList.add(WATCHTOWER.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(HAGGLER.getName());
+        cardList.add(ILL_GOTTEN_GAINS.getName());
+        cardList.add(NOBLE_BRIGAND.getName());
+        cardList.add(TRADER.getName());
 
+        saveKingdom(INSTANT_GRATIFICATION.getName());
+
+        // Treasure Trove
+        cardList.clear();
+        cardList.add(BANK.getName());
+        cardList.add(MONUMENT.getName());
+        cardList.add(ROYAL_SEAL.getName());
+        cardList.add(TRADE_ROUTE.getName());
+        cardList.add(VENTURE.getName());
+        cardList.add(CACHE.getName());
+        cardList.add(DEVELOP.getName());
+        cardList.add(FOOLS_GOLD.getName());
+        cardList.add(ILL_GOTTEN_GAINS.getName());
+        cardList.add(MANDARIN.getName());
+
+        saveKingdom(TREASURE_TROVE.getName());
     }
 
     private void addHinterlandsAndCornucopiaKingdoms() {
+        // Blue Harvest
+        cardList.clear();
+        cardList.add(HAMLET.getName());
+        cardList.add(HORN_OF_PLENTY.getName());
+        cardList.add(HORSE_TRADERS.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(TOURNAMENT.getName());
+        cardList.add(FOOLS_GOLD.getName());
+        cardList.add(MANDARIN.getName());
+        cardList.add(NOBLE_BRIGAND.getName());
+        cardList.add(TRADER.getName());
+        cardList.add(TUNNEL.getName());
 
+        saveKingdom(BLUE_HARVEST.getName());
+
+        // Traveling Circus
+        cardList.clear();
+        cardList.add(FAIRGROUNDS.getName());
+        cardList.add(FARMING_VILLAGE.getName());
+        cardList.add(HUNTING_PARTY.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(MENAGERIE.getName());
+        cardList.add(BORDER_VILLAGE.getName());
+        cardList.add(EMBASSY.getName());
+        cardList.add(FOOLS_GOLD.getName());
+        cardList.add(NOMAD_CAMP.getName());
+        cardList.add(OASIS.getName());
+
+        saveKingdom(TRAVELING_CIRCUS.getName());
     }
 
     private void addDarkAgesKingdoms() {

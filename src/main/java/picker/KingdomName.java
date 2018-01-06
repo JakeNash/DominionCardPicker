@@ -140,22 +140,40 @@ public enum KingdomName {
     DETOURS("Detours"),
 
     // Hinterlands
+    INTRODUCTION("Introduction"),
+    FAIR_TRADES("Fair Trades"),
+    BARGAINS("Bargains"),
+    GAMBITS("Gambits"),
 
     // Old Hinterlands + Dominion
+    HIGHWAY_ROBBERY("Highway Robbery"),
+    ADVENTURES_ABROAD_1("Adventures Abroad 1st Edition"),
 
     // New Hinterlands + Dominion
+    ADVENTURES_ABROAD_2("Adventures Abroad 2nd Edition"),
 
     // Old Hinterlands + Intrigue
+    MONEY_FOR_NOTHING_1("Money for Nothing 1st Edition"),
+    THE_DUKES_BALL("The Duke's Ball"),
 
     // New Hinterlands + Intrigue
+    MONEY_FOR_NOTHING_2("Money for Nothing 2nd Edition"),
 
     // Hinterlands + Seaside
+    TRAVELERS("Travelers"),
+    DIPLOMACY("Diplomacy"),
 
     // Hinterlands + Alchemy
+    SCHEMES_AND_DREAMS("Schemes and Dreams"),
+    WINE_COUNTRY("Wine Country"),
 
     // Hinterlands + Prosperity
+    INSTANT_GRATIFICATION("Instant Gratification"),
+    TREASURE_TROVE("Treasure Trove"),
 
     // Hinterlands + Cornucopia
+    BLUE_HARVEST("Blue Harvest"),
+    TRAVELING_CIRCUS("Traveling Circus"),
 
     // Dark Ages
 
