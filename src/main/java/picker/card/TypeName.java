@@ -18,6 +18,12 @@ public enum TypeName {
     TRAVELLER("Traveller"),
     CASTLE("Castle"),
     GATHERING("Gathering"),
+    FATE("Fate"),
+    NIGHT("Night"),
+    DOOM("Doom"),
+    HEIRLOOM("Heirloom"),
+    SPIRIT("Spirit"),
+    ZOMBIE("Zombie"),
     ;
 
     private String name;

@@ -11,6 +11,7 @@ import picker.landmark.LandmarkRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import static picker.boon.BoonName.*;
 import static picker.card.CardName.*;
 import static picker.event.EventName.*;
 import static picker.kingdom.KingdomName.*;
@@ -133,10 +134,8 @@ public class KingdomSorter {
         addEmpiresAndAdventuresKingdoms();
 
         addNocturneKingdoms();
-        addOldNocturneAndDominionKingdoms();
-        addNewNocturneAndDominionKingdoms();
-        addOldNocturneAndIntrigueKingdoms();
-        addNewNocturneAndIntrigueKingdoms();
+        addNocturneAndDominionKingdoms();
+        addNocturneAndIntrigueKingdoms();
         addNocturneAndSeasideKingdoms();
         addNocturneAndAlchemyKingdoms();
         addNocturneAndProsperityKingdoms();
@@ -149,23 +148,22 @@ public class KingdomSorter {
     }
 
     private void extractCardInfo() {
-        boxList.clear();
-        otherSetupList.clear();
-
         for (String card : cardList) {
-            if (card.startsWith("Bane: ")) {
-                card = card.substring(6);
-            }
-            Card foundCard = cardRepository.findByName(card);
-            String box = foundCard.getBox();
-            if (!boxList.contains(box)) {
-                boxList.add(box);
-            }
-            List<String> otherSetup = foundCard.getOtherSetup();
-            if (otherSetup != null) {
-                for (String other : otherSetup) {
-                    if (!otherSetupList.contains(other)) {
-                        otherSetupList.add(other);
+            if (!card.startsWith("Boon: ")) {
+                if (card.startsWith("Bane: ")) {
+                    card = card.substring(6);
+                }
+                Card foundCard = cardRepository.findByName(card);
+                String box = foundCard.getBox();
+                if (!boxList.contains(box)) {
+                    boxList.add(box);
+                }
+                List<String> otherSetup = foundCard.getOtherSetup();
+                if (otherSetup != null) {
+                    for (String other : otherSetup) {
+                        if (!otherSetupList.contains(other)) {
+                            otherSetupList.add(other);
+                        }
                     }
                 }
             }
@@ -213,10 +211,14 @@ public class KingdomSorter {
         extractEventInfo();
         extractLandmarkInfo();
         kingdomRepository.save(new Kingdom(name, cardList, eventList, landmarkList, boxList, otherSetupList));
+        cardList.clear();
+        eventList.clear();
+        landmarkList.clear();
+        boxList.clear();
+        otherSetupList.clear();
     }
 
     private void addBasicCards() {
-        cardList.clear();
         cardList.add(COPPER.getName());
         cardList.add(CURSE.getName());
         cardList.add(DUCHY.getName());
@@ -230,7 +232,6 @@ public class KingdomSorter {
 
     private void addOldDominionKingdoms() {
         // First Game
-        cardList.clear();
         cardList.add(CELLAR.getName());
         cardList.add(MARKET.getName());
         cardList.add(MILITIA.getName());
@@ -245,7 +246,6 @@ public class KingdomSorter {
         saveKingdom(FIRST_GAME_1.getName());
 
         // Big Money
-        cardList.clear();
         cardList.add(ADVENTURER.getName());
         cardList.add(BUREAUCRAT.getName());
         cardList.add(CHANCELLOR.getName());
@@ -260,7 +260,6 @@ public class KingdomSorter {
         saveKingdom(BIG_MONEY.getName());
 
         // Interaction
-        cardList.clear();
         cardList.add(BUREAUCRAT.getName());
         cardList.add(CHANCELLOR.getName());
         cardList.add(COUNCIL_ROOM.getName());
@@ -275,7 +274,6 @@ public class KingdomSorter {
         saveKingdom(INTERACTION.getName());
 
         // Size Distortion
-        cardList.clear();
         cardList.add(CELLAR.getName());
         cardList.add(CHAPEL.getName());
         cardList.add(FEAST.getName());
@@ -290,7 +288,6 @@ public class KingdomSorter {
         saveKingdom(SIZE_DISTORTION_1.getName());
 
         // Village Square
-        cardList.clear();
         cardList.add(BUREAUCRAT.getName());
         cardList.add(CELLAR.getName());
         cardList.add(FESTIVAL.getName());
@@ -307,7 +304,6 @@ public class KingdomSorter {
 
     private void addNewDominionKingdoms() {
         // First Game
-        cardList.clear();
         cardList.add(CELLAR.getName());
         cardList.add(MARKET.getName());
         cardList.add(MERCHANT.getName());
@@ -322,7 +318,6 @@ public class KingdomSorter {
         saveKingdom(FIRST_GAME_2.getName());
 
         // Size Distortion
-        cardList.clear();
         cardList.add(ARTISAN.getName());
         cardList.add(BANDIT.getName());
         cardList.add(BUREAUCRAT.getName());
@@ -337,7 +332,6 @@ public class KingdomSorter {
         saveKingdom(SIZE_DISTORTION_2.getName());
 
         // Deck Top
-        cardList.clear();
         cardList.add(ARTISAN.getName());
         cardList.add(BUREAUCRAT.getName());
         cardList.add(COUNCIL_ROOM.getName());
@@ -352,7 +346,6 @@ public class KingdomSorter {
         saveKingdom(DECK_TOP.getName());
 
         // Sleight of Hand
-        cardList.clear();
         cardList.add(CELLAR.getName());
         cardList.add(COUNCIL_ROOM.getName());
         cardList.add(FESTIVAL.getName());
@@ -367,7 +360,6 @@ public class KingdomSorter {
         saveKingdom(SLEIGHT_OF_HAND.getName());
 
         // Improvements
-        cardList.clear();
         cardList.add(ARTISAN.getName());
         cardList.add(CELLAR.getName());
         cardList.add(MARKET.getName());
@@ -382,7 +374,6 @@ public class KingdomSorter {
         saveKingdom(IMPROVEMENTS.getName());
 
         // Silver & Gold
-        cardList.clear();
         cardList.add(BANDIT.getName());
         cardList.add(BUREAUCRAT.getName());
         cardList.add(CHAPEL.getName());
@@ -399,7 +390,6 @@ public class KingdomSorter {
 
     private void addOldIntrigueKingdoms() {
         // Victory Dance
-        cardList.clear();
         cardList.add(BRIDGE.getName());
         cardList.add(DUKE.getName());
         cardList.add(GREAT_HALL.getName());
@@ -414,7 +404,6 @@ public class KingdomSorter {
         saveKingdom(VICTORY_DANCE_1.getName());
 
         // Secret Schemes
-        cardList.clear();
         cardList.add(CONSPIRATOR.getName());
         cardList.add(HAREM.getName());
         cardList.add(IRONWORKS.getName());
@@ -429,7 +418,6 @@ public class KingdomSorter {
         saveKingdom(SECRET_SCHEMES.getName());
 
         // Best Wishes
-        cardList.clear();
         cardList.add(COPPERSMITH.getName());
         cardList.add(COURTYARD.getName());
         cardList.add(MASQUERADE.getName());
@@ -446,7 +434,6 @@ public class KingdomSorter {
 
     private void addNewIntrigueKingdoms() {
         // Victory Dance
-        cardList.clear();
         cardList.add(BARON.getName());
         cardList.add(COURTIER.getName());
         cardList.add(DUKE.getName());
@@ -461,7 +448,6 @@ public class KingdomSorter {
         saveKingdom(VICTORY_DANCE_2.getName());
 
         // The Plot Thickens
-        cardList.clear();
         cardList.add(CONSPIRATOR.getName());
         cardList.add(IRONWORKS.getName());
         cardList.add(LURKER.getName());
@@ -476,7 +462,6 @@ public class KingdomSorter {
         saveKingdom(THE_PLOT_THICKENS.getName());
 
         // Best Wishes
-        cardList.clear();
         cardList.add(BARON.getName());
         cardList.add(CONSPIRATOR.getName());
         cardList.add(COURTYARD.getName());
@@ -493,7 +478,6 @@ public class KingdomSorter {
 
     private void addOldIntrigueAndDominionKingdoms() {
         // Underlings
-        cardList.clear();
         cardList.add(BARON.getName());
         cardList.add(CELLAR.getName());
         cardList.add(FESTIVAL.getName());
@@ -508,7 +492,6 @@ public class KingdomSorter {
         saveKingdom(UNDERLINGS_1.getName());
 
         // Hand Madness
-        cardList.clear();
         cardList.add(BUREAUCRAT.getName());
         cardList.add(CHANCELLOR.getName());
         cardList.add(COUNCIL_ROOM.getName());
@@ -523,7 +506,6 @@ public class KingdomSorter {
         saveKingdom(HAND_MADNESS.getName());
 
         // Deconstruction
-        cardList.clear();
         cardList.add(BRIDGE.getName());
         cardList.add(MINING_VILLAGE.getName());
         cardList.add(REMODEL.getName());
@@ -540,7 +522,6 @@ public class KingdomSorter {
 
     private void addNewIntrigueAndDominionKingdoms() {
         // Underlings
-        cardList.clear();
         cardList.add(CELLAR.getName());
         cardList.add(FESTIVAL.getName());
         cardList.add(LIBRARY.getName());
@@ -555,7 +536,6 @@ public class KingdomSorter {
         saveKingdom(UNDERLINGS_2.getName());
 
         // Grand Scheme
-        cardList.clear();
         cardList.add(ARTISAN.getName());
         cardList.add(COUNCIL_ROOM.getName());
         cardList.add(MARKET.getName());
@@ -570,7 +550,6 @@ public class KingdomSorter {
         saveKingdom(GRAND_SCHEME.getName());
 
         // Deconstruction
-        cardList.clear();
         cardList.add(BANDIT.getName());
         cardList.add(MINE.getName());
         cardList.add(REMODEL.getName());
@@ -587,7 +566,6 @@ public class KingdomSorter {
 
     private void addSeasideKingdoms() {
         // High Seas
-        cardList.clear();
         cardList.add(BAZAAR.getName());
         cardList.add(CARAVAN.getName());
         cardList.add(EMBARGO.getName());
@@ -602,7 +580,6 @@ public class KingdomSorter {
         saveKingdom(HIGH_SEAS.getName());
 
         // Buried Treasure
-        cardList.clear();
         cardList.add(AMBASSADOR.getName());
         cardList.add(CUTPURSE.getName());
         cardList.add(FISHING_VILLAGE.getName());
@@ -617,7 +594,6 @@ public class KingdomSorter {
         saveKingdom(BURIED_TREASURE.getName());
 
         // Shipwrecks
-        cardList.clear();
         cardList.add(GHOST_SHIP.getName());
         cardList.add(MERCHANT_SHIP.getName());
         cardList.add(NATIVE_VILLAGE.getName());
@@ -634,7 +610,6 @@ public class KingdomSorter {
 
     private void addOldSeasideAndDominionKingdoms() {
         // Give and Take
-        cardList.clear();
         cardList.add(AMBASSADOR.getName());
         cardList.add(FISHING_VILLAGE.getName());
         cardList.add(HAVEN.getName());
@@ -649,7 +624,6 @@ public class KingdomSorter {
         saveKingdom(GIVE_AND_TAKE.getName());
 
         // Reach for Tomorrow
-        cardList.clear();
         cardList.add(ADVENTURER.getName());
         cardList.add(CELLAR.getName());
         cardList.add(COUNCIL_ROOM.getName());
@@ -664,7 +638,6 @@ public class KingdomSorter {
         saveKingdom(REACH_FOR_TOMORROW_1.getName());
 
         // Repetition
-        cardList.clear();
         cardList.add(CARAVAN.getName());
         cardList.add(CHANCELLOR.getName());
         cardList.add(EXPLORER.getName());
@@ -681,7 +654,6 @@ public class KingdomSorter {
 
     private void addNewSeasideAndDominionKingdoms() {
         // Reach for Tomorrow
-        cardList.clear();
         cardList.add(ARTISAN.getName());
         cardList.add(CELLAR.getName());
         cardList.add(COUNCIL_ROOM.getName());
@@ -696,7 +668,6 @@ public class KingdomSorter {
         saveKingdom(REACH_FOR_TOMORROW_2.getName());
 
         // Repetition
-        cardList.clear();
         cardList.add(FESTIVAL.getName());
         cardList.add(HARBINGER.getName());
         cardList.add(MILITIA.getName());
@@ -713,7 +684,6 @@ public class KingdomSorter {
 
     private void addSeasideAndIntrigueKingdoms() {
         // A Star to Steer By
-        cardList.clear();
         cardList.add(SECRET_PASSAGE.getName());
         cardList.add(DIPLOMAT.getName());
         cardList.add(SWINDLER.getName());
@@ -728,7 +698,6 @@ public class KingdomSorter {
         saveKingdom(A_STAR_TO_STEER_BY.getName());
 
         // Shore Patrol
-        cardList.clear();
         cardList.add(PATROL.getName());
         cardList.add(REPLACE.getName());
         cardList.add(SHANTY_TOWN.getName());
@@ -743,7 +712,6 @@ public class KingdomSorter {
         saveKingdom(SHORE_PATROL.getName());
 
         // Bridge Crossing
-        cardList.clear();
         cardList.add(LURKER.getName());
         cardList.add(NOBLES.getName());
         cardList.add(DUKE.getName());
@@ -760,7 +728,6 @@ public class KingdomSorter {
 
     private void addOldAlchemyAndDominionKingdoms() {
         // Forbidden Arts
-        cardList.clear();
         cardList.add(APPRENTICE.getName());
         cardList.add(FAMILIAR.getName());
         cardList.add(POSSESSION.getName());
@@ -775,7 +742,6 @@ public class KingdomSorter {
         saveKingdom(FORBIDDEN_ARTS_1.getName());
 
         // Potion Mixers
-        cardList.clear();
         cardList.add(ALCHEMIST.getName());
         cardList.add(APOTHECARY.getName());
         cardList.add(GOLEM.getName());
@@ -790,7 +756,6 @@ public class KingdomSorter {
         saveKingdom(POTION_MIXERS_1.getName());
 
         // Chemistry Lesson
-        cardList.clear();
         cardList.add(ALCHEMIST.getName());
         cardList.add(GOLEM.getName());
         cardList.add(PHILOSOPHERS_STONE.getName());
@@ -807,7 +772,6 @@ public class KingdomSorter {
 
     private void addNewAlchemyAndDominionKingdoms() {
         // Forbidden Arts
-        cardList.clear();
         cardList.add(BANDIT.getName());
         cardList.add(CELLAR.getName());
         cardList.add(COUNCIL_ROOM.getName());
@@ -822,7 +786,6 @@ public class KingdomSorter {
         saveKingdom(FORBIDDEN_ARTS_2.getName());
 
         // Potion Mixers
-        cardList.clear();
         cardList.add(CELLAR.getName());
         cardList.add(FESTIVAL.getName());
         cardList.add(MILITIA.getName());
@@ -837,7 +800,6 @@ public class KingdomSorter {
         saveKingdom(POTION_MIXERS_2.getName());
 
         // Chemistry Lesson
-        cardList.clear();
         cardList.add(BUREAUCRAT.getName());
         cardList.add(MARKET.getName());
         cardList.add(MOAT.getName());
@@ -854,7 +816,6 @@ public class KingdomSorter {
 
     private void addOldAlchemyAndIntrigueKingdoms() {
         // Servants
-        cardList.clear();
         cardList.add(GOLEM.getName());
         cardList.add(POSSESSION.getName());
         cardList.add(SCRYING_POOL.getName());
@@ -869,7 +830,6 @@ public class KingdomSorter {
         saveKingdom(SERVANTS_1.getName());
 
         // Secret Research
-        cardList.clear();
         cardList.add(FAMILIAR.getName());
         cardList.add(HERBALIST.getName());
         cardList.add(PHILOSOPHERS_STONE.getName());
@@ -884,7 +844,6 @@ public class KingdomSorter {
         saveKingdom(SECRET_RESEARCH.getName());
 
         // Pools, Tools, and Fools
-        cardList.clear();
         cardList.add(APOTHECARY.getName());
         cardList.add(APPRENTICE.getName());
         cardList.add(GOLEM.getName());
@@ -901,7 +860,6 @@ public class KingdomSorter {
 
     private void addNewAlchemyAndIntrigueKingdoms() {
         // Servants
-        cardList.clear();
         cardList.add(CONSPIRATOR.getName());
         cardList.add(MILL.getName());
         cardList.add(MINION.getName());
@@ -916,7 +874,6 @@ public class KingdomSorter {
         saveKingdom(SERVANTS_2.getName());
 
         // Pools, Tools, and Fools
-        cardList.clear();
         cardList.add(BARON.getName());
         cardList.add(IRONWORKS.getName());
         cardList.add(LURKER.getName());
@@ -933,7 +890,6 @@ public class KingdomSorter {
 
     private void addAlchemyAndSeasideKingdoms() {
         // Forewarned
-        cardList.clear();
         cardList.add(CUTPURSE.getName());
         cardList.add(EMBARGO.getName());
         cardList.add(GHOST_SHIP.getName());
@@ -948,7 +904,6 @@ public class KingdomSorter {
         saveKingdom(FOREWARNED.getName());
 
         // Gummed Up
-        cardList.clear();
         cardList.add(AMBASSADOR.getName());
         cardList.add(HAVEN.getName());
         cardList.add(SEA_HAG.getName());
@@ -965,7 +920,6 @@ public class KingdomSorter {
 
     private void addProsperityKingdoms() {
         // Beginners
-        cardList.clear();
         cardList.add(BANK.getName());
         cardList.add(COUNTING_HOUSE.getName());
         cardList.add(EXPAND.getName());
@@ -980,7 +934,6 @@ public class KingdomSorter {
         saveKingdom(BEGINNERS.getName());
 
         // Friendly Interactive
-        cardList.clear();
         cardList.add(BISHOP.getName());
         cardList.add(CITY.getName());
         cardList.add(CONTRABAND.getName());
@@ -995,7 +948,6 @@ public class KingdomSorter {
         saveKingdom(FRIENDLY_INTERACTIVE.getName());
 
         // Big Actions
-        cardList.clear();
         cardList.add(CITY.getName());
         cardList.add(EXPAND.getName());
         cardList.add(GRAND_MARKET.getName());
@@ -1012,7 +964,6 @@ public class KingdomSorter {
 
     private void addOldProsperityAndDominionKingdoms() {
         // Biggest Money
-        cardList.clear();
         cardList.add(BANK.getName());
         cardList.add(GRAND_MARKET.getName());
         cardList.add(MINT.getName());
@@ -1027,7 +978,6 @@ public class KingdomSorter {
         saveKingdom(BIGGEST_MONEY_1.getName());
 
         // The King's Army
-        cardList.clear();
         cardList.add(EXPAND.getName());
         cardList.add(GOONS.getName());
         cardList.add(KINGS_COURT.getName());
@@ -1042,7 +992,6 @@ public class KingdomSorter {
         saveKingdom(THE_KINGS_ARMY_1.getName());
 
         // The Good Life
-        cardList.clear();
         cardList.add(CONTRABAND.getName());
         cardList.add(COUNTING_HOUSE.getName());
         cardList.add(HOARD.getName());
@@ -1059,7 +1008,6 @@ public class KingdomSorter {
 
     private void addNewProsperityAndDominionKingdoms() {
         // Biggest Money
-        cardList.clear();
         cardList.add(ARTISAN.getName());
         cardList.add(HARBINGER.getName());
         cardList.add(LABORATORY.getName());
@@ -1074,7 +1022,6 @@ public class KingdomSorter {
         saveKingdom(BIGGEST_MONEY_2.getName());
 
         // The King's Army
-        cardList.clear();
         cardList.add(BUREAUCRAT.getName());
         cardList.add(COUNCIL_ROOM.getName());
         cardList.add(MERCHANT.getName());
@@ -1089,7 +1036,6 @@ public class KingdomSorter {
         saveKingdom(THE_KINGS_ARMY_2.getName());
 
         // The Good Life
-        cardList.clear();
         cardList.add(ARTISAN.getName());
         cardList.add(BUREAUCRAT.getName());
         cardList.add(CELLAR.getName());
@@ -1106,7 +1052,6 @@ public class KingdomSorter {
 
     private void addOldProsperityAndIntrigueKingdoms() {
         // Paths to Victory
-        cardList.clear();
         cardList.add(BISHOP.getName());
         cardList.add(COUNTING_HOUSE.getName());
         cardList.add(GOONS.getName());
@@ -1121,7 +1066,6 @@ public class KingdomSorter {
         saveKingdom(PATHS_TO_VICTORY.getName());
 
         // All Along the Watchtower
-        cardList.clear();
         cardList.add(HOARD.getName());
         cardList.add(TALISMAN.getName());
         cardList.add(TRADE_ROUTE.getName());
@@ -1136,7 +1080,6 @@ public class KingdomSorter {
         saveKingdom(ALL_ALONG_THE_WATCHTOWER_1.getName());
 
         // Lucky Seven
-        cardList.clear();
         cardList.add(BANK.getName());
         cardList.add(EXPAND.getName());
         cardList.add(FORGE.getName());
@@ -1153,7 +1096,6 @@ public class KingdomSorter {
 
     private void addNewProsperityAndIntrigueKingdoms() {
         // All Along the Watchtower
-        cardList.clear();
         cardList.add(HOARD.getName());
         cardList.add(TALISMAN.getName());
         cardList.add(TRADE_ROUTE.getName());
@@ -1168,7 +1110,6 @@ public class KingdomSorter {
         saveKingdom(ALL_ALONG_THE_WATCHTOWER_2.getName());
 
         // Lucky Seven
-        cardList.clear();
         cardList.add(BANK.getName());
         cardList.add(EXPAND.getName());
         cardList.add(FORGE.getName());
@@ -1185,7 +1126,6 @@ public class KingdomSorter {
 
     private void addProsperityAndSeasideKingdoms() {
         // Exploding Kingdom
-        cardList.clear();
         cardList.add(BISHOP.getName());
         cardList.add(CITY.getName());
         cardList.add(GRAND_MARKET.getName());
@@ -1200,7 +1140,6 @@ public class KingdomSorter {
         saveKingdom(EXPLODING_KINGDOM.getName());
 
         // Pirate Bay
-        cardList.clear();
         cardList.add(EXPAND.getName());
         cardList.add(HOARD.getName());
         cardList.add(MINT.getName());
@@ -1217,7 +1156,6 @@ public class KingdomSorter {
 
     private void addProsperityAndAlchemyKingdoms() {
         // Counting Contest
-        cardList.clear();
         cardList.add(BANK.getName());
         cardList.add(COUNTING_HOUSE.getName());
         cardList.add(HOARD.getName());
@@ -1232,7 +1170,6 @@ public class KingdomSorter {
         saveKingdom(COUNTING_CONTEST.getName());
 
         // Lower Learning
-        cardList.clear();
         cardList.add(TALISMAN.getName());
         cardList.add(MINT.getName());
         cardList.add(BISHOP.getName());
@@ -1249,7 +1186,6 @@ public class KingdomSorter {
 
     private void addOldCornucopiaAndDominionKingdoms() {
         // Bounty of the Hunt
-        cardList.clear();
         cardList.add(HARVEST.getName());
         cardList.add(HORN_OF_PLENTY.getName());
         cardList.add(HUNTING_PARTY.getName());
@@ -1264,7 +1200,6 @@ public class KingdomSorter {
         saveKingdom(BOUNTY_OF_THE_HUNT.getName());
 
         // Bad Omens
-        cardList.clear();
         cardList.add(FORTUNE_TELLER.getName());
         cardList.add(HAMLET.getName());
         cardList.add(HORN_OF_PLENTY.getName());
@@ -1279,7 +1214,6 @@ public class KingdomSorter {
         saveKingdom(BAD_OMENS_1.getName());
 
         // The Jester's Workshop
-        cardList.clear();
         cardList.add(FAIRGROUNDS.getName());
         cardList.add(FARMING_VILLAGE.getName());
         cardList.add(HORSE_TRADERS.getName());
@@ -1297,7 +1231,6 @@ public class KingdomSorter {
 
     private void addNewCornucopiaAndDominionKingdoms() {
         // Bad Omens
-        cardList.clear();
         cardList.add(BUREAUCRAT.getName());
         cardList.add(LABORATORY.getName());
         cardList.add(MERCHANT.getName());
@@ -1312,7 +1245,6 @@ public class KingdomSorter {
         saveKingdom(BAD_OMENS_2.getName());
 
         // The Jester's Workshop
-        cardList.clear();
         cardList.add(ARTISAN.getName());
         cardList.add(LABORATORY.getName());
         cardList.add(MARKET.getName());
@@ -1330,7 +1262,6 @@ public class KingdomSorter {
 
     private void addOldCornucopiaAndIntrigueKingdoms() {
         // Last Laughs
-        cardList.clear();
         cardList.add(FARMING_VILLAGE.getName());
         cardList.add(HARVEST.getName());
         cardList.add(HORSE_TRADERS.getName());
@@ -1345,7 +1276,6 @@ public class KingdomSorter {
         saveKingdom(LAST_LAUGHS.getName());
 
         // The Spice of Life
-        cardList.clear();
         cardList.add(FAIRGROUNDS.getName());
         cardList.add(HORSE_TRADERS.getName());
         cardList.add(REMAKE.getName());
@@ -1361,7 +1291,6 @@ public class KingdomSorter {
         saveKingdom(THE_SPICE_OF_LIFE_1.getName());
 
         // Small Victories
-        cardList.clear();
         cardList.add(FORTUNE_TELLER.getName());
         cardList.add(HAMLET.getName());
         cardList.add(HUNTING_PARTY.getName());
@@ -1378,7 +1307,6 @@ public class KingdomSorter {
 
     private void addNewCornucopiaAndIntrigueKingdoms() {
         // The Spice of Life
-        cardList.clear();
         cardList.add(FAIRGROUNDS.getName());
         cardList.add(HORN_OF_PLENTY.getName());
         cardList.add(REMAKE.getName());
@@ -1394,7 +1322,6 @@ public class KingdomSorter {
         saveKingdom(THE_SPICE_OF_LIFE_2.getName());
 
         // Small Victories
-        cardList.clear();
         cardList.add(FORTUNE_TELLER.getName());
         cardList.add(HAMLET.getName());
         cardList.add(HUNTING_PARTY.getName());
@@ -1411,7 +1338,6 @@ public class KingdomSorter {
 
     private void addCornucopiaAndSeasideKingdoms() {
         // Collector
-        cardList.clear();
         cardList.add(EMBARGO.getName());
         cardList.add(FISHING_VILLAGE.getName());
         cardList.add(MERCHANT_SHIP.getName());
@@ -1426,7 +1352,6 @@ public class KingdomSorter {
         saveKingdom(COLLECTOR.getName());
 
         // Collider
-        cardList.clear();
         cardList.add(LIGHTHOUSE.getName());
         cardList.add(SALVAGER.getName());
         cardList.add(TREASURE_MAP.getName());
@@ -1443,7 +1368,6 @@ public class KingdomSorter {
 
     private void addCornucopiaAndProsperityKingdoms() {
         // Detours
-        cardList.clear();
         cardList.add(RABBLE.getName());
         cardList.add(PEDDLER.getName());
         cardList.add(HOARD.getName());
@@ -1460,7 +1384,6 @@ public class KingdomSorter {
 
     private void addHinterlandsKingdoms() {
         // Introduction
-        cardList.clear();
         cardList.add(CACHE.getName());
         cardList.add(CROSSROADS.getName());
         cardList.add(DEVELOP.getName());
@@ -1475,7 +1398,6 @@ public class KingdomSorter {
         saveKingdom(INTRODUCTION.getName());
 
         // Fair Trades
-        cardList.clear();
         cardList.add(BORDER_VILLAGE.getName());
         cardList.add(CARTOGRAPHER.getName());
         cardList.add(DEVELOP.getName());
@@ -1490,7 +1412,6 @@ public class KingdomSorter {
         saveKingdom(FAIR_TRADES.getName());
 
         // Bargains
-        cardList.clear();
         cardList.add(BORDER_VILLAGE.getName());
         cardList.add(CACHE.getName());
         cardList.add(DUCHESS.getName());
@@ -1505,7 +1426,6 @@ public class KingdomSorter {
         saveKingdom(BARGAINS.getName());
 
         // Gambits
-        cardList.clear();
         cardList.add(CARTOGRAPHER.getName());
         cardList.add(CROSSROADS.getName());
         cardList.add(EMBASSY.getName());
@@ -1522,7 +1442,6 @@ public class KingdomSorter {
 
     private void addOldHinterlandsAndDominionKingdoms() {
         // Highway Robbery
-        cardList.clear();
         cardList.add(CELLAR.getName());
         cardList.add(LIBRARY.getName());
         cardList.add(MONEYLENDER.getName());
@@ -1537,7 +1456,6 @@ public class KingdomSorter {
         saveKingdom(HIGHWAY_ROBBERY.getName());
 
         // Adventures Abroad
-        cardList.clear();
         cardList.add(ADVENTURER.getName());
         cardList.add(CHANCELLOR.getName());
         cardList.add(FESTIVAL.getName());
@@ -1554,7 +1472,6 @@ public class KingdomSorter {
 
     private void addNewHinterlandsAndDominionKingdoms() {
         // Adventures Abroad
-        cardList.clear();
         cardList.add(FESTIVAL.getName());
         cardList.add(LABORATORY.getName());
         cardList.add(REMODEL.getName());
@@ -1571,7 +1488,6 @@ public class KingdomSorter {
 
     private void addOldHinterlandsAndIntrigueKingdoms() {
         // Money for Nothing
-        cardList.clear();
         cardList.add(COPPERSMITH.getName());
         cardList.add(GREAT_HALL.getName());
         cardList.add(PAWN.getName());
@@ -1586,7 +1502,6 @@ public class KingdomSorter {
         saveKingdom(MONEY_FOR_NOTHING_1.getName());
 
         // The Duke's Ball
-        cardList.clear();
         cardList.add(CONSPIRATOR.getName());
         cardList.add(DUKE.getName());
         cardList.add(HAREM.getName());
@@ -1603,7 +1518,6 @@ public class KingdomSorter {
 
     private void addNewHinterlandsAndIntrigueKingdoms() {
         // Money for Nothing
-        cardList.clear();
         cardList.add(REPLACE.getName());
         cardList.add(PATROL.getName());
         cardList.add(PAWN.getName());
@@ -1620,7 +1534,6 @@ public class KingdomSorter {
 
     private void addHinterlandsAndSeasideKingdoms() {
         // Travelers
-        cardList.clear();
         cardList.add(CUTPURSE.getName());
         cardList.add(ISLAND.getName());
         cardList.add(LOOKOUT.getName());
@@ -1635,7 +1548,6 @@ public class KingdomSorter {
         saveKingdom(TRAVELERS.getName());
 
         // Diplomacy
-        cardList.clear();
         cardList.add(AMBASSADOR.getName());
         cardList.add(BAZAAR.getName());
         cardList.add(CARAVAN.getName());
@@ -1652,7 +1564,6 @@ public class KingdomSorter {
 
     private void addHinterlandsAndAlchemyKingdoms() {
         // Schemes and Dreams
-        cardList.clear();
         cardList.add(APOTHECARY.getName());
         cardList.add(APPRENTICE.getName());
         cardList.add(HERBALIST.getName());
@@ -1667,7 +1578,6 @@ public class KingdomSorter {
         saveKingdom(SCHEMES_AND_DREAMS.getName());
 
         // Wine Country
-        cardList.clear();
         cardList.add(APPRENTICE.getName());
         cardList.add(FAMILIAR.getName());
         cardList.add(GOLEM.getName());
@@ -1684,7 +1594,6 @@ public class KingdomSorter {
 
     private void addHinterlandsAndProsperityKingdoms() {
         // Instant Gratification
-        cardList.clear();
         cardList.add(BISHOP.getName());
         cardList.add(EXPAND.getName());
         cardList.add(HOARD.getName());
@@ -1699,7 +1608,6 @@ public class KingdomSorter {
         saveKingdom(INSTANT_GRATIFICATION.getName());
 
         // Treasure Trove
-        cardList.clear();
         cardList.add(BANK.getName());
         cardList.add(MONUMENT.getName());
         cardList.add(ROYAL_SEAL.getName());
@@ -1716,7 +1624,6 @@ public class KingdomSorter {
 
     private void addHinterlandsAndCornucopiaKingdoms() {
         // Blue Harvest
-        cardList.clear();
         cardList.add(HAMLET.getName());
         cardList.add(HORN_OF_PLENTY.getName());
         cardList.add(HORSE_TRADERS.getName());
@@ -1731,7 +1638,6 @@ public class KingdomSorter {
         saveKingdom(BLUE_HARVEST.getName());
 
         // Traveling Circus
-        cardList.clear();
         cardList.add(FAIRGROUNDS.getName());
         cardList.add(FARMING_VILLAGE.getName());
         cardList.add(HUNTING_PARTY.getName());
@@ -1748,7 +1654,6 @@ public class KingdomSorter {
 
     private void addDarkAgesKingdoms() {
         // Grim Parade
-        cardList.clear();
         cardList.add(ARMORY.getName());
         cardList.add(BAND_OF_MISFITS.getName());
         cardList.add(CATACOMBS.getName());
@@ -1763,7 +1668,6 @@ public class KingdomSorter {
         saveKingdom(GRIM_PARADE.getName());
 
         // Chess With Death
-        cardList.clear();
         cardList.add(BANDIT_CAMP.getName());
         cardList.add(GRAVEROBBER.getName());
         cardList.add(JUNK_DEALER.getName());
@@ -1780,7 +1684,6 @@ public class KingdomSorter {
 
     private void addDarkAgesAndDominionKingdoms() {
         // High and Low
-        cardList.clear();
         cardList.add(CELLAR.getName());
         cardList.add(MONEYLENDER.getName());
         cardList.add(THRONE_ROOM.getName());
@@ -1795,7 +1698,6 @@ public class KingdomSorter {
         saveKingdom(HIGH_AND_LOW.getName());
 
         // Chivalry and Revelry
-        cardList.clear();
         cardList.add(FESTIVAL.getName());
         cardList.add(GARDENS.getName());
         cardList.add(LABORATORY.getName());
@@ -1812,7 +1714,6 @@ public class KingdomSorter {
 
     private void addOldDarkAgesAndIntrigueKingdoms() {
         // Prophecy
-        cardList.clear();
         cardList.add(ARMORY.getName());
         cardList.add(IRONMONGER.getName());
         cardList.add(MYSTIC.getName());
@@ -1827,7 +1728,6 @@ public class KingdomSorter {
         saveKingdom(PROPHECY_1.getName());
 
         // Invasion
-        cardList.clear();
         cardList.add(BEGGAR.getName());
         cardList.add(MARAUDER.getName());
         cardList.add(ROGUE.getName());
@@ -1844,7 +1744,6 @@ public class KingdomSorter {
 
     private void addNewDarkAgesAndIntrigueKingdoms() {
         // Prophecy
-        cardList.clear();
         cardList.add(ARMORY.getName());
         cardList.add(IRONMONGER.getName());
         cardList.add(MYSTIC.getName());
@@ -1859,7 +1758,6 @@ public class KingdomSorter {
         saveKingdom(PROPHECY_2.getName());
 
         // Invasion
-        cardList.clear();
         cardList.add(BEGGAR.getName());
         cardList.add(MARAUDER.getName());
         cardList.add(ROGUE.getName());
@@ -1876,7 +1774,6 @@ public class KingdomSorter {
 
     private void addDarkAgesAndSeasideKingdoms() {
         // Watery Graves
-        cardList.clear();
         cardList.add(COUNT.getName());
         cardList.add(GRAVEROBBER.getName());
         cardList.add(HERMIT.getName());
@@ -1891,7 +1788,6 @@ public class KingdomSorter {
         saveKingdom(WATERY_GRAVES.getName());
 
         // Peasants
-        cardList.clear();
         cardList.add(DEATH_CART.getName());
         cardList.add(FEODUM.getName());
         cardList.add(POOR_HOUSE.getName());
@@ -1908,7 +1804,6 @@ public class KingdomSorter {
 
     private void addDarkAgesAndAlchemyKingdoms() {
         // Infestations
-        cardList.clear();
         cardList.add(ARMORY.getName());
         cardList.add(CULTIST.getName());
         cardList.add(FEODUM.getName());
@@ -1923,7 +1818,6 @@ public class KingdomSorter {
         saveKingdom(INFESTATIONS.getName());
 
         // Lamentations
-        cardList.clear();
         cardList.add(BEGGAR.getName());
         cardList.add(CATACOMBS.getName());
         cardList.add(COUNTERFEIT.getName());
@@ -1940,7 +1834,6 @@ public class KingdomSorter {
 
     private void addDarkAgesAndProsperityKingdoms() {
         // One Man's Trash
-        cardList.clear();
         cardList.add(COUNTERFEIT.getName());
         cardList.add(FORAGER.getName());
         cardList.add(GRAVEROBBER.getName());
@@ -1955,7 +1848,6 @@ public class KingdomSorter {
         saveKingdom(ONE_MANS_TRASH.getName());
 
         // Honor Among Thieves
-        cardList.clear();
         cardList.add(BANDIT_CAMP.getName());
         cardList.add(PROCESSION.getName());
         cardList.add(REBUILD.getName());
@@ -1972,7 +1864,6 @@ public class KingdomSorter {
 
     private void addDarkAgesAndCornucopiaKingdoms() {
         // Dark Carnival
-        cardList.clear();
         cardList.add(BAND_OF_MISFITS.getName());
         cardList.add(CULTIST.getName());
         cardList.add(FORTRESS.getName());
@@ -1987,7 +1878,6 @@ public class KingdomSorter {
         saveKingdom(DARK_CARNIVAL.getName());
 
         // To the Victor
-        cardList.clear();
         cardList.add(BANDIT_CAMP.getName());
         cardList.add(COUNTERFEIT.getName());
         cardList.add(DEATH_CART.getName());
@@ -2004,7 +1894,6 @@ public class KingdomSorter {
 
     private void addDarkAgesAndHinterlandsKingdoms() {
         // Far From Home
-        cardList.clear();
         cardList.add(BEGGAR.getName());
         cardList.add(COUNT.getName());
         cardList.add(FEODUM.getName());
@@ -2019,7 +1908,6 @@ public class KingdomSorter {
         saveKingdom(FAR_FROM_HOME.getName());
 
         // Expeditions
-        cardList.clear();
         cardList.add(ALTAR.getName());
         cardList.add(CATACOMBS.getName());
         cardList.add(IRONMONGER.getName());
@@ -2036,7 +1924,6 @@ public class KingdomSorter {
 
     private void addOldGuildsAndDominionKingdoms() {
         // Arts and Crafts
-        cardList.clear();
         cardList.add(STONEMASON.getName());
         cardList.add(ADVISOR.getName());
         cardList.add(BAKER.getName());
@@ -2051,7 +1938,6 @@ public class KingdomSorter {
         saveKingdom(ARTS_AND_CRAFTS.getName());
 
         // Clean Living
-        cardList.clear();
         cardList.add(BUTCHER.getName());
         cardList.add(BAKER.getName());
         cardList.add(CANDLESTICK_MAKER.getName());
@@ -2066,7 +1952,6 @@ public class KingdomSorter {
         saveKingdom(CLEAN_LIVING_1.getName());
 
         // Gilding the Lily
-        cardList.clear();
         cardList.add(PLAZA.getName());
         cardList.add(MASTERPIECE.getName());
         cardList.add(CANDLESTICK_MAKER.getName());
@@ -2083,7 +1968,6 @@ public class KingdomSorter {
 
     private void addNewGuildsAndDominionKingdoms() {
         // Clean Living
-        cardList.clear();
         cardList.add(BANDIT.getName());
         cardList.add(MILITIA.getName());
         cardList.add(MONEYLENDER.getName());
@@ -2098,7 +1982,6 @@ public class KingdomSorter {
         saveKingdom(CLEAN_LIVING_2.getName());
 
         // Gilding the Lily
-        cardList.clear();
         cardList.add(LIBRARY.getName());
         cardList.add(MERCHANT.getName());
         cardList.add(REMODEL.getName());
@@ -2115,7 +1998,6 @@ public class KingdomSorter {
 
     private void addOldGuildsAndIntrigueKingdoms() {
         // Name That Card
-        cardList.clear();
         cardList.add(BAKER.getName());
         cardList.add(DOCTOR.getName());
         cardList.add(PLAZA.getName());
@@ -2130,7 +2012,6 @@ public class KingdomSorter {
         saveKingdom(NAME_THAT_CARD_1.getName());
 
         // Tricks of the Trade
-        cardList.clear();
         cardList.add(STONEMASON.getName());
         cardList.add(HERALD.getName());
         cardList.add(SOOTHSAYER.getName());
@@ -2145,7 +2026,6 @@ public class KingdomSorter {
         saveKingdom(TRICKS_OF_THE_TRADE_1.getName());
 
         // Decisions, Decisions
-        cardList.clear();
         cardList.add(MERCHANT_GUILD.getName());
         cardList.add(CANDLESTICK_MAKER.getName());
         cardList.add(MASTERPIECE.getName());
@@ -2162,7 +2042,6 @@ public class KingdomSorter {
 
     private void addNewGuildsAndIntrigueKingdoms() {
         // Name That Card
-        cardList.clear();
         cardList.add(BAKER.getName());
         cardList.add(DOCTOR.getName());
         cardList.add(PLAZA.getName());
@@ -2177,7 +2056,6 @@ public class KingdomSorter {
         saveKingdom(NAME_THAT_CARD_2.getName());
 
         // Tricks of the Trade
-        cardList.clear();
         cardList.add(STONEMASON.getName());
         cardList.add(HERALD.getName());
         cardList.add(SOOTHSAYER.getName());
@@ -2194,7 +2072,6 @@ public class KingdomSorter {
 
     private void addGuildsAndSeasideKingdoms() {
         // Ghosts & Taxes
-        cardList.clear();
         cardList.add(CUTPURSE.getName());
         cardList.add(GHOST_SHIP.getName());
         cardList.add(HAVEN.getName());
@@ -2209,7 +2086,6 @@ public class KingdomSorter {
         saveKingdom(GHOSTS_AND_TAXES.getName());
 
         // Island Builder
-        cardList.clear();
         cardList.add(ISLAND.getName());
         cardList.add(NATIVE_VILLAGE.getName());
         cardList.add(SALVAGER.getName());
@@ -2226,7 +2102,6 @@ public class KingdomSorter {
 
     private void addGuildsAndProsperityKingdoms() {
         // Quarrymen
-        cardList.clear();
         cardList.add(MOUNTEBANK.getName());
         cardList.add(CITY.getName());
         cardList.add(EXPAND.getName());
@@ -2243,7 +2118,6 @@ public class KingdomSorter {
 
     private void addGuildsAndHinterlandsKingdoms() {
         // Exchanges
-        cardList.clear();
         cardList.add(BUTCHER.getName());
         cardList.add(HERALD.getName());
         cardList.add(MASTERPIECE.getName());
@@ -2258,7 +2132,6 @@ public class KingdomSorter {
         saveKingdom(EXCHANGES.getName());
 
         // Road to Riches
-        cardList.clear();
         cardList.add(ADVISOR.getName());
         cardList.add(BAKER.getName());
         cardList.add(CANDLESTICK_MAKER.getName());
@@ -2275,7 +2148,6 @@ public class KingdomSorter {
 
     private void addGuildsAndDarkAgesKingdoms() {
         // Stoneground
-        cardList.clear();
         cardList.add(HUNTING_GROUNDS.getName());
         cardList.add(IRONMONGER.getName());
         cardList.add(PROCESSION.getName());
@@ -2290,7 +2162,6 @@ public class KingdomSorter {
         saveKingdom(STONEGROUND.getName());
 
         // Class Struggle
-        cardList.clear();
         cardList.add(FEODUM.getName());
         cardList.add(FORTRESS.getName());
         cardList.add(KNIGHTS.getName());
@@ -2307,7 +2178,6 @@ public class KingdomSorter {
 
     private void addAdventuresKingdoms() {
         // Gentle Intro
-        cardList.clear();
         cardList.add(AMULET.getName());
         cardList.add(DISTANT_LANDS.getName());
         cardList.add(DUNGEON.getName());
@@ -2318,14 +2188,12 @@ public class KingdomSorter {
         cardList.add(RANGER.getName());
         cardList.add(RATCATCHER.getName());
         cardList.add(CardName.TREASURE_TROVE.getName());
-
-        eventList.clear();
+        
         eventList.add(SCOUTING_PARTY.getName());
 
         saveKingdom(GENTLE_INTRO.getName());
 
         // Expert Intro
-        cardList.clear();
         cardList.add(CARAVAN_GUARD.getName());
         cardList.add(COIN_OF_THE_REALM.getName());
         cardList.add(HAUNTED_WOODS.getName());
@@ -2336,8 +2204,7 @@ public class KingdomSorter {
         cardList.add(SWAMP_HAG.getName());
         cardList.add(TRANSMOGRIFY.getName());
         cardList.add(WINE_MERCHANT.getName());
-
-        eventList.clear();
+        
         eventList.add(MISSION.getName());
         eventList.add(PLAN.getName());
 
@@ -2346,7 +2213,6 @@ public class KingdomSorter {
 
     private void addOldAdventuresAndDominionKingdoms() {
         // Level Up
-        cardList.clear();
         cardList.add(DUNGEON.getName());
         cardList.add(GEAR.getName());
         cardList.add(GUIDE.getName());
@@ -2357,14 +2223,12 @@ public class KingdomSorter {
         cardList.add(SPY.getName());
         cardList.add(THRONE_ROOM.getName());
         cardList.add(WORKSHOP.getName());
-
-        eventList.clear();
+        
         eventList.add(TRAINING.getName());
 
         saveKingdom(LEVEL_UP_1.getName());
 
         // Son of Size Distortion
-        cardList.clear();
         cardList.add(AMULET.getName());
         cardList.add(DUPLICATE.getName());
         cardList.add(GIANT.getName());
@@ -2375,8 +2239,7 @@ public class KingdomSorter {
         cardList.add(MONEYLENDER.getName());
         cardList.add(THIEF.getName());
         cardList.add(WITCH.getName());
-
-        eventList.clear();
+        
         eventList.add(BONFIRE.getName());
         eventList.add(RAID.getName());
 
@@ -2385,7 +2248,6 @@ public class KingdomSorter {
 
     private void addNewAdventuresAndDominionKingdoms() {
         // Level Up
-        cardList.clear();
         cardList.add(MARKET.getName());
         cardList.add(MERCHANT.getName());
         cardList.add(MILITIA.getName());
@@ -2396,14 +2258,12 @@ public class KingdomSorter {
         cardList.add(GUIDE.getName());
         cardList.add(LOST_CITY.getName());
         cardList.add(MISER.getName());
-
-        eventList.clear();
+        
         eventList.add(TRAINING.getName());
 
         saveKingdom(LEVEL_UP_2.getName());
 
         // Son of Size Distortion
-        cardList.clear();
         cardList.add(BANDIT.getName());
         cardList.add(BUREAUCRAT.getName());
         cardList.add(GARDENS.getName());
@@ -2414,8 +2274,7 @@ public class KingdomSorter {
         cardList.add(GIANT.getName());
         cardList.add(MESSENGER.getName());
         cardList.add(CardName.TREASURE_TROVE.getName());
-
-        eventList.clear();
+        
         eventList.add(BONFIRE.getName());
         eventList.add(RAID.getName());
 
@@ -2424,7 +2283,6 @@ public class KingdomSorter {
 
     private void addOldAdventuresAndIntrigueKingdoms() {
         // Royalty Factory
-        cardList.clear();
         cardList.add(BRIDGE_TROLL.getName());
         cardList.add(DUPLICATE.getName());
         cardList.add(PAGE.getName());
@@ -2435,14 +2293,12 @@ public class KingdomSorter {
         cardList.add(NOBLES.getName());
         cardList.add(SECRET_CHAMBER.getName());
         cardList.add(SWINDLER.getName());
-
-        eventList.clear();
+        
         eventList.add(PILGRIMAGE.getName());
 
         saveKingdom(ROYALTY_FACTORY_1.getName());
 
         // Masters of Finance
-        cardList.clear();
         cardList.add(ARTIFICER.getName());
         cardList.add(DISTANT_LANDS.getName());
         cardList.add(GEAR.getName());
@@ -2453,8 +2309,7 @@ public class KingdomSorter {
         cardList.add(SHANTY_TOWN.getName());
         cardList.add(STEWARD.getName());
         cardList.add(UPGRADE.getName());
-
-        eventList.clear();
+        
         eventList.add(BALL.getName());
         eventList.add(BORROW.getName());
 
@@ -2463,7 +2318,6 @@ public class KingdomSorter {
 
     private void addNewAdventuresAndIntrigueKingdoms() {
         // Royalty Factory
-        cardList.clear();
         cardList.add(BRIDGE_TROLL.getName());
         cardList.add(DUPLICATE.getName());
         cardList.add(PAGE.getName());
@@ -2474,8 +2328,7 @@ public class KingdomSorter {
         cardList.add(HAREM.getName());
         cardList.add(NOBLES.getName());
         cardList.add(SWINDLER.getName());
-
-        eventList.clear();
+        
         eventList.add(PILGRIMAGE.getName());
 
         saveKingdom(ROYALTY_FACTORY_2.getName());
@@ -2483,7 +2336,6 @@ public class KingdomSorter {
 
     private void addAdventuresAndSeasideKingdoms() {
         // Prince of Orange
-        cardList.clear();
         cardList.add(AMULET.getName());
         cardList.add(DUNGEON.getName());
         cardList.add(HAUNTED_WOODS.getName());
@@ -2494,14 +2346,12 @@ public class KingdomSorter {
         cardList.add(MERCHANT_SHIP.getName());
         cardList.add(TACTICIAN.getName());
         cardList.add(TREASURE_MAP.getName());
-
-        eventList.clear();
+        
         eventList.add(MISSION.getName());
 
         saveKingdom(PRINCE_OF_ORANGE.getName());
 
         // Gifts and Mathoms
-        cardList.clear();
         cardList.add(BRIDGE_TROLL.getName());
         cardList.add(CARAVAN_GUARD.getName());
         cardList.add(HIRELING.getName());
@@ -2512,8 +2362,7 @@ public class KingdomSorter {
         cardList.add(HAVEN.getName());
         cardList.add(SALVAGER.getName());
         cardList.add(SMUGGLERS.getName());
-
-        eventList.clear();
+        
         eventList.add(EXPEDITION.getName());
         eventList.add(QUEST.getName());
 
@@ -2522,7 +2371,6 @@ public class KingdomSorter {
 
     private void addAdventuresAndAlchemyKingdoms() {
         // Haste Potion
-        cardList.clear();
         cardList.add(MAGPIE.getName());
         cardList.add(MESSENGER.getName());
         cardList.add(PORT.getName());
@@ -2533,14 +2381,12 @@ public class KingdomSorter {
         cardList.add(TRANSMUTE.getName());
         cardList.add(UNIVERSITY.getName());
         cardList.add(VINEYARD.getName());
-
-        eventList.clear();
+        
         eventList.add(PLAN.getName());
 
         saveKingdom(HASTE_POTION.getName());
 
         // Cursecatchers
-        cardList.clear();
         cardList.add(AMULET.getName());
         cardList.add(BRIDGE_TROLL.getName());
         cardList.add(CARAVAN_GUARD.getName());
@@ -2551,8 +2397,7 @@ public class KingdomSorter {
         cardList.add(GOLEM.getName());
         cardList.add(HERBALIST.getName());
         cardList.add(PHILOSOPHERS_STONE.getName());
-
-        eventList.clear();
+        
         eventList.add(SAVE.getName());
         eventList.add(TRADE.getName());
 
@@ -2561,7 +2406,6 @@ public class KingdomSorter {
 
     private void addAdventuresAndProsperityKingdoms() {
         // Last Will and Monument
-        cardList.clear();
         cardList.add(COIN_OF_THE_REALM.getName());
         cardList.add(DUNGEON.getName());
         cardList.add(MESSENGER.getName());
@@ -2572,14 +2416,12 @@ public class KingdomSorter {
         cardList.add(MONUMENT.getName());
         cardList.add(RABBLE.getName());
         cardList.add(VAULT.getName());
-
-        eventList.clear();
+        
         eventList.add(INHERITANCE.getName());
 
         saveKingdom(LAST_WILL_AND_MONUMENT.getName());
 
         // Think Big
-        cardList.clear();
         cardList.add(DISTANT_LANDS.getName());
         cardList.add(GIANT.getName());
         cardList.add(HIRELING.getName());
@@ -2590,8 +2432,7 @@ public class KingdomSorter {
         cardList.add(HOARD.getName());
         cardList.add(KINGS_COURT.getName());
         cardList.add(PEDDLER.getName());
-
-        eventList.clear();
+        
         eventList.add(BALL.getName());
         eventList.add(FERRY.getName());
 
@@ -2600,7 +2441,6 @@ public class KingdomSorter {
 
     private void addAdventuresAndCornucopiaKingdoms() {
         // The Hero's Return
-        cardList.clear();
         cardList.add(ARTIFICER.getName());
         cardList.add(MISER.getName());
         cardList.add(PAGE.getName());
@@ -2611,14 +2451,12 @@ public class KingdomSorter {
         cardList.add(HORSE_TRADERS.getName());
         cardList.add(JESTER.getName());
         cardList.add(MENAGERIE.getName());
-
-        eventList.clear();
+        
         eventList.add(TRAVELLING_FAIR.getName());
 
         saveKingdom(THE_HEROS_RETURN.getName());
 
         // Seacraft and Witchcraft
-        cardList.clear();
         cardList.add(PEASANT.getName());
         cardList.add(STORYTELLER.getName());
         cardList.add(SWAMP_HAG.getName());
@@ -2630,8 +2468,7 @@ public class KingdomSorter {
         cardList.add(TOURNAMENT.getName());
         cardList.add(YOUNG_WITCH.getName());
         cardList.add("Bane: " + GUIDE.getName());
-
-        eventList.clear();
+        
         eventList.add(FERRY.getName());
         eventList.add(SEAWAY.getName());
 
@@ -2640,7 +2477,6 @@ public class KingdomSorter {
 
     private void addAdventuresAndHinterlandsKingdoms() {
         // Traders and Raiders
-        cardList.clear();
         cardList.add(HAUNTED_WOODS.getName());
         cardList.add(LOST_CITY.getName());
         cardList.add(PAGE.getName());
@@ -2651,14 +2487,12 @@ public class KingdomSorter {
         cardList.add(HAGGLER.getName());
         cardList.add(SPICE_MERCHANT.getName());
         cardList.add(TRADER.getName());
-
-        eventList.clear();
+        
         eventList.add(RAID.getName());
 
         saveKingdom(TRADERS_AND_RAIDERS.getName());
 
         // Journeys
-        cardList.clear();
         cardList.add(BRIDGE_TROLL.getName());
         cardList.add(DISTANT_LANDS.getName());
         cardList.add(GIANT.getName());
@@ -2669,8 +2503,7 @@ public class KingdomSorter {
         cardList.add(HIGHWAY.getName());
         cardList.add(INN.getName());
         cardList.add(SILK_ROAD.getName());
-
-        eventList.clear();
+        
         eventList.add(EXPEDITION.getName());
         eventList.add(INHERITANCE.getName());
 
@@ -2679,7 +2512,6 @@ public class KingdomSorter {
 
     private void addAdventuresAndDarkAgesKingdoms() {
         // Cemetery Polka
-        cardList.clear();
         cardList.add(AMULET.getName());
         cardList.add(CARAVAN_GUARD.getName());
         cardList.add(HIRELING.getName());
@@ -2690,14 +2522,12 @@ public class KingdomSorter {
         cardList.add(PROCESSION.getName());
         cardList.add(ROGUE.getName());
         cardList.add(WANDERING_MINSTREL.getName());
-
-        eventList.clear();
+        
         eventList.add(ALMS.getName());
 
         saveKingdom(CEMETERY_POLKA.getName());
 
         // Groovy Decay
-        cardList.clear();
         cardList.add(DUNGEON.getName());
         cardList.add(HAUNTED_WOODS.getName());
         cardList.add(RATCATCHER.getName());
@@ -2708,8 +2538,7 @@ public class KingdomSorter {
         cardList.add(FORTRESS.getName());
         cardList.add(KNIGHTS.getName());
         cardList.add(RATS.getName());
-
-        eventList.clear();
+        
         eventList.add(LOST_ARTS.getName());
         eventList.add(PATHFINDING.getName());
 
@@ -2718,7 +2547,6 @@ public class KingdomSorter {
 
     private void addAdventuresAndGuildsKingdoms() {
         // Spendthrift
-        cardList.clear();
         cardList.add(ARTIFICER.getName());
         cardList.add(GEAR.getName());
         cardList.add(MAGPIE.getName());
@@ -2729,14 +2557,12 @@ public class KingdomSorter {
         cardList.add(MERCHANT_GUILD.getName());
         cardList.add(SOOTHSAYER.getName());
         cardList.add(STONEMASON.getName());
-
-        eventList.clear();
+        
         eventList.add(LOST_ARTS.getName());
 
         saveKingdom(SPENDTHRIFT.getName());
 
         // Queen of Tan
-        cardList.clear();
         cardList.add(COIN_OF_THE_REALM.getName());
         cardList.add(DUPLICATE.getName());
         cardList.add(GUIDE.getName());
@@ -2747,8 +2573,7 @@ public class KingdomSorter {
         cardList.add(CANDLESTICK_MAKER.getName());
         cardList.add(HERALD.getName());
         cardList.add(JOURNEYMAN.getName());
-
-        eventList.clear();
+        
         eventList.add(PATHFINDING.getName());
         eventList.add(SAVE.getName());
 
@@ -2757,7 +2582,6 @@ public class KingdomSorter {
 
     private void addEmpiresKingdoms() {
         // Basic Intro
-        cardList.clear();
         cardList.add(CASTLES.getName());
         cardList.add(CHARIOT_RACE.getName());
         cardList.add(CITY_QUARTER.getName());
@@ -2768,17 +2592,14 @@ public class KingdomSorter {
         cardList.add(PATRICIAN.getName());
         cardList.add(SACRIFICE.getName());
         cardList.add(VILLA.getName());
-
-        eventList.clear();
+        
         eventList.add(WEDDING.getName());
 
-        landmarkList.clear();
         landmarkList.add(TOWER.getName());
 
         saveKingdom(BASIC_INTRO.getName());
 
         // Advanced Intro
-        cardList.clear();
         cardList.add(ARCHIVE.getName());
         cardList.add(CAPITAL.getName());
         cardList.add(CATAPULT.getName());
@@ -2789,8 +2610,7 @@ public class KingdomSorter {
         cardList.add(ROYAL_BLACKSMITH.getName());
         cardList.add(SETTLERS.getName());
         cardList.add(TEMPLE.getName());
-
-        landmarkList.clear();
+        
         landmarkList.add(ARENA.getName());
         landmarkList.add(TRIUMPHAL_ARCH.getName());
 
@@ -2799,7 +2619,6 @@ public class KingdomSorter {
 
     private void addEmpiresAndDominionKingdoms() {
         // Everything in Moderation
-        cardList.clear();
         cardList.add(ENCHANTRESS.getName());
         cardList.add(FORUM.getName());
         cardList.add(LEGIONARY.getName());
@@ -2810,17 +2629,14 @@ public class KingdomSorter {
         cardList.add(REMODEL.getName());
         cardList.add(VILLAGE.getName());
         cardList.add(WORKSHOP.getName());
-
-        eventList.clear();
+        
         eventList.add(WINDFALL.getName());
 
-        landmarkList.clear();
         landmarkList.add(ORCHARD.getName());
 
         saveKingdom(EVERYTHING_IN_MODERATION.getName());
 
         // Silver Bullets
-        cardList.clear();
         cardList.add(CATAPULT.getName());
         cardList.add(CHARM.getName());
         cardList.add(FARMERS_MARKET.getName());
@@ -2831,11 +2647,9 @@ public class KingdomSorter {
         cardList.add(LABORATORY.getName());
         cardList.add(MARKET.getName());
         cardList.add(MONEYLENDER.getName());
-
-        eventList.clear();
+        
         eventList.add(CONQUEST.getName());
 
-        landmarkList.clear();
         landmarkList.add(AQUEDUCT.getName());
 
         saveKingdom(SILVER_BULLETS.getName());
@@ -2843,7 +2657,6 @@ public class KingdomSorter {
 
     private void addEmpiresAndIntrigueKingdoms() {
         // Delicious Torture
-        cardList.clear();
         cardList.add(CASTLES.getName());
         cardList.add(CROWN.getName());
         cardList.add(ENCHANTRESS.getName());
@@ -2854,17 +2667,14 @@ public class KingdomSorter {
         cardList.add(HAREM.getName());
         cardList.add(IRONWORKS.getName());
         cardList.add(TORTURER.getName());
-
-        eventList.clear();
+        
         eventList.add(BANQUET.getName());
-
-        landmarkList.clear();
+        
         landmarkList.add(ARENA.getName());
 
         saveKingdom(DELICIOUS_TORTURE.getName());
 
         // Buddy System
-        cardList.clear();
         cardList.add(ARCHIVE.getName());
         cardList.add(CAPITAL.getName());
         cardList.add(CATAPULT.getName());
@@ -2875,11 +2685,9 @@ public class KingdomSorter {
         cardList.add(NOBLES.getName());
         cardList.add(PAWN.getName());
         cardList.add(TRADING_POST.getName());
-
-        eventList.clear();
+        
         eventList.add(SALT_THE_EARTH.getName());
 
-        landmarkList.clear();
         landmarkList.add(WOLF_DEN.getName());
 
         saveKingdom(BUDDY_SYSTEM.getName());
@@ -2887,7 +2695,6 @@ public class KingdomSorter {
 
     private void addEmpiresAndSeasideKingdoms() {
         // Boxed In
-        cardList.clear();
         cardList.add(CASTLES.getName());
         cardList.add(CHARIOT_RACE.getName());
         cardList.add(ENCAMPMENT.getName());
@@ -2898,17 +2705,14 @@ public class KingdomSorter {
         cardList.add(TACTICIAN.getName());
         cardList.add(WAREHOUSE.getName());
         cardList.add(WHARF.getName());
-
-        eventList.clear();
+        
         eventList.add(TAX.getName());
 
-        landmarkList.clear();
         landmarkList.add(WALL.getName());
 
         saveKingdom(BOXED_IN.getName());
 
         // King of the Sea
-        cardList.clear();
         cardList.add(ARCHIVE.getName());
         cardList.add(FARMERS_MARKET.getName());
         cardList.add(OVERLORD.getName());
@@ -2919,11 +2723,9 @@ public class KingdomSorter {
         cardList.add(NATIVE_VILLAGE.getName());
         cardList.add(PIRATE_SHIP.getName());
         cardList.add(SEA_HAG.getName());
-
-        eventList.clear();
+        
         eventList.add(DELVE.getName());
 
-        landmarkList.clear();
         landmarkList.add(FOUNTAIN.getName());
 
         saveKingdom(KING_OF_THE_SEA.getName());
@@ -2931,7 +2733,6 @@ public class KingdomSorter {
 
     private void addEmpiresAndAlchemyKingdoms() {
         // Collectors
-        cardList.clear();
         cardList.add(CITY_QUARTER.getName());
         cardList.add(CROWN.getName());
         cardList.add(ENCAMPMENT.getName());
@@ -2942,8 +2743,7 @@ public class KingdomSorter {
         cardList.add(HERBALIST.getName());
         cardList.add(TRANSMUTE.getName());
         cardList.add(UNIVERSITY.getName());
-
-        landmarkList.clear();
+        
         landmarkList.add(COLONNADE.getName());
         landmarkList.add(MUSEUM.getName());
 
@@ -2952,7 +2752,6 @@ public class KingdomSorter {
 
     private void addEmpiresAndProsperityKingdoms() {
         // Big Time
-        cardList.clear();
         cardList.add(CAPITAL.getName());
         cardList.add(GLADIATOR.getName());
         cardList.add(PATRICIAN.getName());
@@ -2963,17 +2762,14 @@ public class KingdomSorter {
         cardList.add(GRAND_MARKET.getName());
         cardList.add(LOAN.getName());
         cardList.add(ROYAL_SEAL.getName());
-
-        eventList.clear();
+        
         eventList.add(DOMINATE.getName());
 
-        landmarkList.clear();
         landmarkList.add(OBELISK.getName());
 
         saveKingdom(BIG_TIME.getName());
 
         // Gilded Gates
-        cardList.clear();
         cardList.add(CHARIOT_RACE.getName());
         cardList.add(CITY_QUARTER.getName());
         cardList.add(ENCAMPMENT.getName());
@@ -2985,7 +2781,6 @@ public class KingdomSorter {
         cardList.add(PEDDLER.getName());
         cardList.add(TALISMAN.getName());
 
-        landmarkList.clear();
         landmarkList.add(BASILICA.getName());
         landmarkList.add(PALACE.getName());
 
@@ -2994,7 +2789,6 @@ public class KingdomSorter {
 
     private void addEmpiresAndCornucopiaKingdoms() {
         // Zookeepers
-        cardList.clear();
         cardList.add(OVERLORD.getName());
         cardList.add(SACRIFICE.getName());
         cardList.add(SETTLERS.getName());
@@ -3005,11 +2799,9 @@ public class KingdomSorter {
         cardList.add(MENAGERIE.getName());
         cardList.add(JESTER.getName());
         cardList.add(TOURNAMENT.getName());
-
-        eventList.clear();
+        
         eventList.add(ANNEX.getName());
 
-        landmarkList.clear();
         landmarkList.add(COLONNADE.getName());
 
         saveKingdom(ZOOKEEPERS.getName());
@@ -3017,7 +2809,6 @@ public class KingdomSorter {
 
     private void addEmpiresAndHinterlandsKingdoms() {
         // Simple Plans
-        cardList.clear();
         cardList.add(CATAPULT.getName());
         cardList.add(FORUM.getName());
         cardList.add(PATRICIAN.getName());
@@ -3028,17 +2819,14 @@ public class KingdomSorter {
         cardList.add(HAGGLER.getName());
         cardList.add(ILL_GOTTEN_GAINS.getName());
         cardList.add(STABLES.getName());
-
-        eventList.clear();
+        
         eventList.add(DONATE.getName());
 
-        landmarkList.clear();
         landmarkList.add(LABYRINTH.getName());
 
         saveKingdom(SIMPLE_PLANS.getName());
 
         // Expansion
-        cardList.clear();
         cardList.add(CASTLES.getName());
         cardList.add(CHARM.getName());
         cardList.add(ENCAMPMENT.getName());
@@ -3050,7 +2838,6 @@ public class KingdomSorter {
         cardList.add(SPICE_MERCHANT.getName());
         cardList.add(TUNNEL.getName());
 
-        landmarkList.clear();
         landmarkList.add(BATTLEFIELD.getName());
         landmarkList.add(FOUNTAIN.getName());
 
@@ -3059,7 +2846,6 @@ public class KingdomSorter {
 
     private void addEmpiresAndDarkAgesKingdoms() {
         // Tomb of the Rat King
-        cardList.clear();
         cardList.add(CASTLES.getName());
         cardList.add(CHARIOT_RACE.getName());
         cardList.add(CITY_QUARTER.getName());
@@ -3070,17 +2856,14 @@ public class KingdomSorter {
         cardList.add(PILLAGE.getName());
         cardList.add(RATS.getName());
         cardList.add(STOREROOM.getName());
-
-        eventList.clear();
+        
         eventList.add(ADVANCE.getName());
 
-        landmarkList.clear();
         landmarkList.add(TOMB.getName());
 
         saveKingdom(TOMB_OF_THE_RAT_KING.getName());
 
         // Triumph of the Bandit King
-        cardList.clear();
         cardList.add(CAPITAL.getName());
         cardList.add(CHARM.getName());
         cardList.add(ENGINEER.getName());
@@ -3091,17 +2874,14 @@ public class KingdomSorter {
         cardList.add(HUNTING_GROUNDS.getName());
         cardList.add(MARKET_SQUARE.getName());
         cardList.add(PROCESSION.getName());
-
-        eventList.clear();
+        
         eventList.add(TRIUMPH.getName());
 
-        landmarkList.clear();
         landmarkList.add(DEFILED_SHRINE.getName());
 
         saveKingdom(TRIUMPH_OF_THE_BANDIT_KING.getName());
 
         // The Squire's Ritual
-        cardList.clear();
         cardList.add(ARCHIVE.getName());
         cardList.add(CATAPULT.getName());
         cardList.add(CROWN.getName());
@@ -3112,11 +2892,9 @@ public class KingdomSorter {
         cardList.add(IRONMONGER.getName());
         cardList.add(ROGUE.getName());
         cardList.add(SQUIRE.getName());
-
-        eventList.clear();
+        
         eventList.add(RITUAL.getName());
 
-        landmarkList.clear();
         landmarkList.add(MUSEUM.getName());
 
         saveKingdom(THE_SQUIRES_RITUAL.getName());
@@ -3124,7 +2902,6 @@ public class KingdomSorter {
 
     private void addEmpiresAndGuildsKingdoms() {
         // Cash Flow
-        cardList.clear();
         cardList.add(CASTLES.getName());
         cardList.add(CITY_QUARTER.getName());
         cardList.add(ENGINEER.getName());
@@ -3136,7 +2913,6 @@ public class KingdomSorter {
         cardList.add(HERALD.getName());
         cardList.add(SOOTHSAYER.getName());
 
-        landmarkList.clear();
         landmarkList.add(BATHS.getName());
         landmarkList.add(MOUNTAIN_PASS.getName());
 
@@ -3145,7 +2921,6 @@ public class KingdomSorter {
 
     private void addEmpiresAndAdventuresKingdoms() {
         // Area Control
-        cardList.clear();
         cardList.add(CAPITAL.getName());
         cardList.add(CATAPULT.getName());
         cardList.add(CHARM.getName());
@@ -3156,17 +2931,14 @@ public class KingdomSorter {
         cardList.add(RELIC.getName());
         cardList.add(CardName.TREASURE_TROVE.getName());
         cardList.add(WINE_MERCHANT.getName());
-
-        eventList.clear();
+        
         eventList.add(BANQUET.getName());
 
-        landmarkList.clear();
         landmarkList.add(KEEP.getName());
 
         saveKingdom(AREA_CONTROL.getName());
 
         // No Money No Problems
-        cardList.clear();
         cardList.add(ARCHIVE.getName());
         cardList.add(ENCAMPMENT.getName());
         cardList.add(ROYAL_BLACKSMITH.getName());
@@ -3177,71 +2949,352 @@ public class KingdomSorter {
         cardList.add(HIRELING.getName());
         cardList.add(PEASANT.getName());
         cardList.add(TRANSMOGRIFY.getName());
-
-        eventList.clear();
+        
         eventList.add(MISSION.getName());
 
-        landmarkList.clear();
         landmarkList.add(BANDIT_FORT.getName());
 
         saveKingdom(NO_MONEY_NO_PROBLEMS.getName());
     }
 
     private void addNocturneKingdoms() {
+        // Dusk
+        cardList.add(BLESSED_VILLAGE.getName());
+        cardList.add(COBBLER.getName());
+        cardList.add(DEN_OF_SIN.getName());
+        cardList.add(FAITHFUL_HOUND.getName());
+        cardList.add(FOOL.getName());
+        cardList.add(MONASTERY.getName());
+        cardList.add(NIGHT_WATCHMAN.getName());
+        cardList.add(SHEPHERD.getName());
+        cardList.add(TORMENTOR.getName());
+        cardList.add(TRAGIC_HERO.getName());
 
+        saveKingdom(DUSK.getName());
+
+        // Midnight
+        cardList.add(CONCLAVE.getName());
+        cardList.add(CRYPT.getName());
+        cardList.add(CURSED_VILLAGE.getName());
+        cardList.add(DEVILS_WORKSHOP.getName());
+        cardList.add(DRUID.getName());
+        cardList.add(EXORCIST.getName());
+        cardList.add(LEPRECHAUN.getName());
+        cardList.add(POOKA.getName());
+        cardList.add(RAIDER.getName());
+        cardList.add(SECRET_CAVE.getName());
+        cardList.add("Boon: " + THE_SWAMPS_GIFT.getName());
+        cardList.add("Boon: " + THE_FLAMES_GIFT.getName());
+        cardList.add("Boon: " + THE_WINDS_GIFT.getName());
+
+        saveKingdom(MIDNIGHT.getName());
     }
 
-    private void addOldNocturneAndDominionKingdoms() {
+    private void addNocturneAndDominionKingdoms() {
+        // Night Shift
+        cardList.add(DRUID.getName());
+        cardList.add(EXORCIST.getName());
+        cardList.add(GHOST_TOWN.getName());
+        cardList.add(IDOL.getName());
+        cardList.add(NIGHT_WATCHMAN.getName());
+        cardList.add(BANDIT.getName());
+        cardList.add(GARDENS.getName());
+        cardList.add(MINE.getName());
+        cardList.add(POACHER.getName());
+        cardList.add(SMITHY.getName());
+        cardList.add("Boon: " + THE_EARTHS_GIFT.getName());
+        cardList.add("Boon: " + THE_FLAMES_GIFT.getName());
+        cardList.add("Boon: " + THE_FORESTS_GIFT.getName());
 
+        saveKingdom(NIGHT_SHIFT.getName());
+
+        // Idle Hands
+        cardList.add(BARD.getName());
+        cardList.add(CONCLAVE.getName());
+        cardList.add(CURSED_VILLAGE.getName());
+        cardList.add(DEVILS_WORKSHOP.getName());
+        cardList.add(TRAGIC_HERO.getName());
+        cardList.add(CELLAR.getName());
+        cardList.add(HARBINGER.getName());
+        cardList.add(MARKET.getName());
+        cardList.add(MERCHANT.getName());
+        cardList.add(MONEYLENDER.getName());
+
+        saveKingdom(IDLE_HANDS.getName());
     }
 
-    private void addNewNocturneAndDominionKingdoms() {
+    private void addNocturneAndIntrigueKingdoms() {
+        // Shadowy Figures
+        cardList.add(COBBLER.getName());
+        cardList.add(CONCLAVE.getName());
+        cardList.add(FAITHFUL_HOUND.getName());
+        cardList.add(SHEPHERD.getName());
+        cardList.add(TRAGIC_HERO.getName());
+        cardList.add(BRIDGE.getName());
+        cardList.add(CONSPIRATOR.getName());
+        cardList.add(MILL.getName());
+        cardList.add(NOBLES.getName());
+        cardList.add(SECRET_PASSAGE.getName());
 
-    }
+        saveKingdom(SHADOWY_FIGURES.getName());
 
-    private void addOldNocturneAndIntrigueKingdoms() {
+        // Impending Doom
+        cardList.add(LEPRECHAUN.getName());
+        cardList.add(MONASTERY.getName());
+        cardList.add(NECROMANCER.getName());
+        cardList.add(TORMENTOR.getName());
+        cardList.add(WEREWOLF.getName());
+        cardList.add(COURTIER.getName());
+        cardList.add(LURKER.getName());
+        cardList.add(MINING_VILLAGE.getName());
+        cardList.add(SWINDLER.getName());
+        cardList.add(UPGRADE.getName());
 
-    }
-
-    private void addNewNocturneAndIntrigueKingdoms() {
-
+        saveKingdom(IMPENDING_DOOM.getName());
     }
 
     private void addNocturneAndSeasideKingdoms() {
+        // The New Black
+        cardList.add(COBBLER.getName());
+        cardList.add(DEN_OF_SIN.getName());
+        cardList.add(GHOST_TOWN.getName());
+        cardList.add(RAIDER.getName());
+        cardList.add(SECRET_CAVE.getName());
+        cardList.add(CARAVAN.getName());
+        cardList.add(HAVEN.getName());
+        cardList.add(MERCHANT_SHIP.getName());
+        cardList.add(OUTPOST.getName());
+        cardList.add(TACTICIAN.getName());
 
+        saveKingdom(THE_NEW_BLACK.getName());
+
+        // Forbidden Isle
+        cardList.add(BLESSED_VILLAGE.getName());
+        cardList.add(CEMETERY.getName());
+        cardList.add(IDOL.getName());
+        cardList.add(TRACKER.getName());
+        cardList.add(TRAGIC_HERO.getName());
+        cardList.add(FISHING_VILLAGE.getName());
+        cardList.add(GHOST_SHIP.getName());
+        cardList.add(LOOKOUT.getName());
+        cardList.add(SALVAGER.getName());
+        cardList.add(TREASURE_MAP.getName());
+
+        saveKingdom(FORBIDDEN_ISLE.getName());
     }
 
     private void addNocturneAndAlchemyKingdoms() {
+        // Nightmare Fuel
+        cardList.add(BARD.getName());
+        cardList.add(BLESSED_VILLAGE.getName());
+        cardList.add(CEMETERY.getName());
+        cardList.add(SACRED_GROVE.getName());
+        cardList.add(SKULK.getName());
+        cardList.add(TRACKER.getName());
+        cardList.add(ALCHEMIST.getName());
+        cardList.add(APPRENTICE.getName());
+        cardList.add(TRANSMUTE.getName());
+        cardList.add(VINEYARD.getName());
 
+        saveKingdom(NIGHTMARE_FUEL.getName());
     }
 
     private void addNocturneAndProsperityKingdoms() {
+        // Treasures of the Night
+        cardList.add(CRYPT.getName());
+        cardList.add(GUARDIAN.getName());
+        cardList.add(NIGHT_WATCHMAN.getName());
+        cardList.add(RAIDER.getName());
+        cardList.add(VAMPIRE.getName());
+        cardList.add(BANK.getName());
+        cardList.add(CONTRABAND.getName());
+        cardList.add(LOAN.getName());
+        cardList.add(ROYAL_SEAL.getName());
+        cardList.add(VENTURE.getName());
 
+        saveKingdom(TREASURES_OF_THE_NIGHT.getName());
+
+        // Day at the Races
+        cardList.add(BLESSED_VILLAGE.getName());
+        cardList.add(CEMETERY.getName());
+        cardList.add(DRUID.getName());
+        cardList.add(TORMENTOR.getName());
+        cardList.add(TRAGIC_HERO.getName());
+        cardList.add(BISHOP.getName());
+        cardList.add(PEDDLER.getName());
+        cardList.add(TALISMAN.getName());
+        cardList.add(TRADE_ROUTE.getName());
+        cardList.add(WATCHTOWER.getName());
+        cardList.add("Boon: " + THE_SWAMPS_GIFT.getName());
+        cardList.add("Boon: " + THE_RIVERS_GIFT.getName());
+        cardList.add("Boon: " + THE_FORESTS_GIFT.getName());
+
+        saveKingdom(DAY_AT_THE_RACES.getName());
     }
 
     private void addNocturneAndCornucopiaKingdoms() {
+        // The Endless Fair
+        cardList.add(DEVILS_WORKSHOP.getName());
+        cardList.add(EXORCIST.getName());
+        cardList.add(MONASTERY.getName());
+        cardList.add(PIXIE.getName());
+        cardList.add(SHEPHERD.getName());
+        cardList.add(BAKER.getName());
+        cardList.add(FAIRGROUNDS.getName());
+        cardList.add(FARMING_VILLAGE.getName());
+        cardList.add(FORTUNE_TELLER.getName());
+        cardList.add(MERCHANT_GUILD.getName());
 
+        saveKingdom(THE_ENDLESS_FAIR.getName());
     }
 
     private void addNocturneAndHinterlandsKingdoms() {
+        // Search Party
+        cardList.add(COBBLER.getName());
+        cardList.add(CONCLAVE.getName());
+        cardList.add(DRUID.getName());
+        cardList.add(FAITHFUL_HOUND.getName());
+        cardList.add(WEREWOLF.getName());
+        cardList.add(CARTOGRAPHER.getName());
+        cardList.add(HIGHWAY.getName());
+        cardList.add(INN.getName());
+        cardList.add(OASIS.getName());
+        cardList.add(SCHEME.getName());
+        cardList.add("Boon: " + THE_MOUNTAINS_GIFT.getName());
+        cardList.add("Boon: " + THE_SKYS_GIFT.getName());
+        cardList.add("Boon: " + THE_SUNS_GIFT.getName());
 
+        saveKingdom(SEARCH_PARTY.getName());
+
+        // Counting Sheep
+        cardList.add(BARD.getName());
+        cardList.add(CRYPT.getName());
+        cardList.add(LEPRECHAUN.getName());
+        cardList.add(POOKA.getName());
+        cardList.add(SHEPHERD.getName());
+        cardList.add(CROSSROADS.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(HAGGLER.getName());
+        cardList.add(NOBLE_BRIGAND.getName());
+        cardList.add(TUNNEL.getName());
+
+        saveKingdom(COUNTING_SHEEP.getName());
     }
 
     private void addNocturneAndDarkAgesKingdoms() {
+        // Grave Matters
+        cardList.add(CEMETERY.getName());
+        cardList.add(CURSED_VILLAGE.getName());
+        cardList.add(NECROMANCER.getName());
+        cardList.add(SKULK.getName());
+        cardList.add(TORMENTOR.getName());
+        cardList.add(ARMORY.getName());
+        cardList.add(FORAGER.getName());
+        cardList.add(GRAVEROBBER.getName());
+        cardList.add(MARKET_SQUARE.getName());
+        cardList.add(SQUIRE.getName());
 
+        saveKingdom(GRAVE_MATTERS.getName());
+
+        // Rats and Bats
+        cardList.add(CHANGELING.getName());
+        cardList.add(DEVILS_WORKSHOP.getName());
+        cardList.add(SACRED_GROVE.getName());
+        cardList.add(TRACKER.getName());
+        cardList.add(VAMPIRE.getName());
+        cardList.add(CATACOMBS.getName());
+        cardList.add(COUNT.getName());
+        cardList.add(FORTRESS.getName());
+        cardList.add(HERMIT.getName());
+        cardList.add(RATS.getName());
+
+        saveKingdom(RATS_AND_BATS.getName());
     }
 
     private void addNocturneAndGuildsKingdoms() {
+        // Happy Chaos
+        cardList.add(BLESSED_VILLAGE.getName());
+        cardList.add(CHANGELING.getName());
+        cardList.add(FOOL.getName());
+        cardList.add(FAITHFUL_HOUND.getName());
+        cardList.add(SACRED_GROVE.getName());
+        cardList.add(DOCTOR.getName());
+        cardList.add(HARVEST.getName());
+        cardList.add(HERALD.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(MASTERPIECE.getName());
 
+        saveKingdom(HAPPY_CHAOS.getName());
     }
 
     private void addNocturneAndAdventuresKingdoms() {
+        // Monster Mash
+        cardList.add(CONCLAVE.getName());
+        cardList.add(GUARDIAN.getName());
+        cardList.add(PIXIE.getName());
+        cardList.add(VAMPIRE.getName());
+        cardList.add(WEREWOLF.getName());
+        cardList.add(BRIDGE_TROLL.getName());
+        cardList.add(GIANT.getName());
+        cardList.add(MESSENGER.getName());
+        cardList.add(RATCATCHER.getName());
+        cardList.add(STORYTELLER.getName());
+        
+        eventList.add(QUEST.getName());
 
+        saveKingdom(MONSTER_MASH.getName());
+
+        // Lost in the Woods
+        cardList.add(BLESSED_VILLAGE.getName());
+        cardList.add(DRUID.getName());
+        cardList.add(FOOL.getName());
+        cardList.add(SACRED_GROVE.getName());
+        cardList.add(TRACKER.getName());
+        cardList.add(CARAVAN_GUARD.getName());
+        cardList.add(GUIDE.getName());
+        cardList.add(HAUNTED_WOODS.getName());
+        cardList.add(HIRELING.getName());
+        cardList.add(RANGER.getName());
+        cardList.add("Boon: " + THE_SKYS_GIFT.getName());
+        cardList.add("Boon: " + THE_FIELDS_GIFT.getName());
+        cardList.add("Boon: " + THE_SEAS_GIFT.getName());
+
+        eventList.add(PILGRIMAGE.getName());
+
+        saveKingdom(LOST_IN_THE_WOODS.getName());
     }
 
     private void addNocturneAndEmpiresKingdoms() {
+        // Luftschloss
+        cardList.add(CEMETERY.getName());
+        cardList.add(CHANGELING.getName());
+        cardList.add(EXORCIST.getName());
+        cardList.add(FOOL.getName());
+        cardList.add(SHEPHERD.getName());
+        cardList.add(ARCHIVE.getName());
+        cardList.add(CASTLES.getName());
+        cardList.add(CATAPULT.getName());
+        cardList.add(ENGINEER.getName());
+        cardList.add(TEMPLE.getName());
 
+        landmarkList.add(TOMB.getName());
+
+        saveKingdom(LUFTSCHLOSS.getName());
+
+        // Pooka Pranks
+        cardList.add(FAITHFUL_HOUND.getName());
+        cardList.add(GHOST_TOWN.getName());
+        cardList.add(PIXIE.getName());
+        cardList.add(POOKA.getName());
+        cardList.add(SKULK.getName());
+        cardList.add(CHARIOT_RACE.getName());
+        cardList.add(FORUM.getName());
+        cardList.add(GROUNDSKEEPER.getName());
+        cardList.add(SACRIFICE.getName());
+        cardList.add(SETTLERS.getName());
+
+        eventList.add(BANQUET.getName());
+
+        saveKingdom(POOKA_PRANKS.getName());
     }
 }
-
-

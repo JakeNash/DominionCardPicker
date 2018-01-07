@@ -18,6 +18,7 @@ public enum BoxName {
     GUILDS("Guilds"),
     ADVENTURES("Adventures"),
     EMPIRES("Empires"),
+    NOCTURNE("Nocturne"),
     ;
 
     private String name;

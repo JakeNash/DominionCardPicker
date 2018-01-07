@@ -334,33 +334,49 @@ public enum KingdomName {
     NO_MONEY_NO_PROBLEMS("No Money No Problems"),
 
     // Nocturne
+    DUSK("Dusk"),
+    MIDNIGHT("Midnight"),
 
-    // Old Nocturne + Dominion
+    // Nocturne + Dominion
+    NIGHT_SHIFT("Night Shift"),
+    IDLE_HANDS("Idle Hands"),
 
-    // New Nocturne + Dominion
-
-    // Old Nocturne + Intrigue
-
-    // New Nocturne + Intrigue
+    // Nocturne + Intrigue
+    SHADOWY_FIGURES("Shadowy Figures"),
+    IMPENDING_DOOM("Impending Doom"),
 
     // Nocturne + Seaside
+    THE_NEW_BLACK("The New Black"),
+    FORBIDDEN_ISLE("Forbidden Isle"),
 
     // Nocturne + Alchemy
+    NIGHTMARE_FUEL("Nightmare Fuel"),
 
     // Nocturne + Prosperity
+    TREASURES_OF_THE_NIGHT("Treasures of the Night"),
+    DAY_AT_THE_RACES("Day at the Races"),
 
     // Nocturne + Cornucopia
+    THE_ENDLESS_FAIR("The Endless Fair"),
 
     // Nocturne + Hinterlands
+    SEARCH_PARTY("Search Party"),
+    COUNTING_SHEEP("Counting Sheep"),
 
     // Nocturne + Dark Ages
+    GRAVE_MATTERS("Grave Matters"),
+    RATS_AND_BATS("Rats and Bats"),
 
     // Nocturne + Guilds
+    HAPPY_CHAOS("Happy Chaos"),
 
     // Nocturne + Adventures
+    MONSTER_MASH("Monster Mash"),
+    LOST_IN_THE_WOODS("Lost in the Woods"),
 
     // Nocturne + Empires
-
+    LUFTSCHLOSS("Luftschloss"),
+    POOKA_PRANKS("Pooka Pranks"),
     ;
 
     private String name;

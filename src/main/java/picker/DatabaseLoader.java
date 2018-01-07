@@ -3,16 +3,22 @@ package picker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import picker.boon.Boon;
+import picker.boon.BoonRepository;
 import picker.card.Card;
 import picker.card.CardName;
 import picker.card.CardRepository;
 import picker.card.TypeName;
 import picker.event.Event;
 import picker.event.EventRepository;
+import picker.hex.Hex;
+import picker.hex.HexRepository;
 import picker.kingdom.KingdomRepository;
 import picker.kingdom.KingdomSorter;
 import picker.landmark.Landmark;
 import picker.landmark.LandmarkRepository;
+import picker.state.State;
+import picker.state.StateRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,11 +26,14 @@ import java.util.Collections;
 import java.util.List;
 
 import static picker.BoxName.*;
+import static picker.boon.BoonName.*;
 import static picker.card.CardName.*;
 import static picker.card.SetupText.*;
 import static picker.card.TypeName.*;
 import static picker.event.EventName.*;
+import static picker.hex.HexName.*;
 import static picker.landmark.LandmarkName.*;
+import static picker.state.StateName.*;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
@@ -32,6 +41,9 @@ public class DatabaseLoader implements CommandLineRunner {
 	private final CardRepository cardRepository;
 	private final EventRepository eventRepository;
 	private final LandmarkRepository landmarkRepository;
+	private final BoonRepository boonRepository;
+	private final HexRepository hexRepository;
+	private final StateRepository stateRepository;
 	private final KingdomRepository kingdomRepository;
 
 	// Written card types
@@ -51,6 +63,12 @@ public class DatabaseLoader implements CommandLineRunner {
     private final List<String> travellerCard = Collections.singletonList(TRAVELLER.getName());
     private final List<String> castleCard = Collections.singletonList(CASTLE.getName());
     private final List<String> gatheringCard = Collections.singletonList(GATHERING.getName());
+    private final List<String> fateCard = Collections.singletonList(FATE.getName());
+    private final List<String> nightCard = Collections.singletonList(NIGHT.getName());
+    private final List<String> doomCard = Collections.singletonList(DOOM.getName());
+    private final List<String> heirloomCard = Collections.singletonList(HEIRLOOM.getName());
+    private final List<String> spiritCard = Collections.singletonList(SPIRIT.getName());
+    private final List<String> zombieCard = Collections.singletonList(ZOMBIE.getName());
 
     private String box;
     
@@ -108,12 +126,35 @@ public class DatabaseLoader implements CommandLineRunner {
     private List<String> labyrinthSetup = Collections.singletonList(LABYRINTH_SETUP.getText());
     private List<String> obeliskSetup = Collections.singletonList(OBELISK_SETUP.getText());
     private List<String> debtAndVictorySetup = Arrays.asList(VICTORY_TOKEN_SETUP.getText(), DEBT_TOKEN_SETUP.getText());
+    private List<String> druidSetup = Arrays.asList(BOON_SETUP.getText(), WILL_O_WISP_SETUP.getText(), DRUID_SETUP.getText());
+    private List<String> pixieSetup = Arrays.asList(BOON_SETUP.getText(), WILL_O_WISP_SETUP.getText(), PIXIE_SETUP.getText());
+    private List<String> trackerSetup = Arrays.asList(BOON_SETUP.getText(), WILL_O_WISP_SETUP.getText(), TRACKER_SETUP.getText());
+    private List<String> foolSetup = Arrays.asList(BOON_SETUP.getText(), WILL_O_WISP_SETUP.getText(), FOOL_CARD_SETUP.getText(), FOOL_STATE_SETUP.getText());
+    private List<String> leprechaunSetup = Arrays.asList(WISH_SETUP.getText(), HEX_SETUP.getText(), DELUSION_ENVY_SETUP.getText(), MISERY_SETUP.getText());
+    private List<String> secretCaveSetup = Arrays.asList(WISH_SETUP.getText(), SECRET_CAVE_SETUP.getText());
+    private List<String> boonSetup = Arrays.asList(BOON_SETUP.getText(), WILL_O_WISP_SETUP.getText());
+    private List<String> cemeterySetup = Arrays.asList(CEMETERY_SETUP.getText(), GHOST_SETUP.getText());
+    private List<String> impSetup = Collections.singletonList(IMP_SETUP.getText());
+    private List<String> exorcistSetup = Arrays.asList(WILL_O_WISP_SETUP.getText(), IMP_SETUP.getText(), GHOST_SETUP.getText());
+    private List<String> necromancerSetup = Collections.singletonList(ZOMBIE_SETUP.getText());
+    private List<String> shepherdSetup = Collections.singletonList(SHEPHERD_SETUP.getText());
+    private List<String> hexSetup = Arrays.asList(HEX_SETUP.getText(), DELUSION_ENVY_SETUP.getText(), MISERY_SETUP.getText());
+    private List<String> pookaSetup = Collections.singletonList(POOKA_SETUP.getText());
+    private List<String> tormentorSetup = Arrays.asList(IMP_SETUP.getText(), HEX_SETUP.getText(), DELUSION_ENVY_SETUP.getText(), MISERY_SETUP.getText());
+    private List<String> vampireSetup = Arrays.asList(HEX_SETUP.getText(), DELUSION_ENVY_SETUP.getText(), MISERY_SETUP.getText(), VAMPIRE_SETUP.getText());
+    private List<String> willowispSetup = Collections.singletonList(WILL_O_WISP_SETUP.getText());
+    private List<String> delusionEnvySetup = Collections.singletonList(DELUSION_ENVY_SETUP.getText());
+    private List<String> miserySetup = Collections.singletonList(MISERY_SETUP.getText());
 
     @Autowired
-	public DatabaseLoader(CardRepository cardRepository, EventRepository eventRepository, LandmarkRepository landmarkRepository, KingdomRepository kingdomRepository) {
+	public DatabaseLoader(CardRepository cardRepository, EventRepository eventRepository, LandmarkRepository landmarkRepository,
+                          BoonRepository boonRepository, HexRepository hexRepository, StateRepository stateRepository, KingdomRepository kingdomRepository) {
 		this.cardRepository = cardRepository;
 		this.eventRepository = eventRepository;
 		this.landmarkRepository = landmarkRepository;
+		this.boonRepository = boonRepository;
+		this.hexRepository = hexRepository;
+		this.stateRepository = stateRepository;
 		this.kingdomRepository = kingdomRepository;
 		typeList = new ArrayList<>();
 	}
@@ -124,6 +165,9 @@ public class DatabaseLoader implements CommandLineRunner {
 		cardRepository.deleteAll();
 		eventRepository.deleteAll();
 		landmarkRepository.deleteAll();
+		boonRepository.deleteAll();
+		hexRepository.deleteAll();
+		stateRepository.deleteAll();
 		kingdomRepository.deleteAll();
 
         saveBasicSupplyCards();
@@ -133,6 +177,10 @@ public class DatabaseLoader implements CommandLineRunner {
         saveEvents();
 
         saveLandmarks();
+
+        saveBoons();
+        saveHexes();
+        saveStates();
 
         KingdomSorter kingdomSorter = new KingdomSorter(kingdomRepository, cardRepository, eventRepository, landmarkRepository);
         kingdomSorter.createKingdoms();
@@ -160,6 +208,26 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveLandmark(String name, List<String> setup) {
         landmarkRepository.save(new Landmark(name, box, setup));
+    }
+
+    private void saveBoon(String name) {
+        boonRepository.save(new Boon(name, box));
+    }
+
+    private void saveBoon(String name, List<String> setup) {
+        boonRepository.save(new Boon(name, box, setup));
+    }
+
+    private void saveHex(String name) {
+        hexRepository.save(new Hex(name, box));
+    }
+
+    private void saveHex(String name, List<String> setup) {
+        hexRepository.save(new Hex(name, box, setup));
+    }
+
+    private void saveState(String name) {
+        stateRepository.save(new State(name, box));
     }
 
     private void saveBasicSupplyCards() {
@@ -470,7 +538,21 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
     private void saveSimpleNocturneCards() {
+        box = NOCTURNE.getName();
 
+        saveCard("2", MONASTERY.getName(), nightCard);
+        saveCard("3", CHANGELING.getName(), nightCard);
+        saveCard("3", NIGHT_WATCHMAN.getName(), nightCard);
+        saveCard("4", CEMETERY.getName(), victoryCard, cemeterySetup);
+        saveCard("4", CONCLAVE.getName(), actionCard);
+        saveCard("4", DEVILS_WORKSHOP.getName(), nightCard, impSetup);
+        saveCard("4", EXORCIST.getName(), nightCard, exorcistSetup);
+        saveCard("4", NECROMANCER.getName(), actionCard, necromancerSetup);
+        saveCard("4", SHEPHERD.getName(), actionCard, shepherdSetup);
+        saveCard("5", POOKA.getName(), actionCard, pookaSetup);
+        saveCard("5", TRAGIC_HERO.getName(), actionCard);
+        saveCard("0*", WISH.getName(), actionCard);
+        saveCard("2*", BAT.getName(), nightCard);
     }
 
     private void saveComplexCards() {
@@ -505,6 +587,19 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionTreasureCards();
         saveTreasureVictoryCastleCards();
         saveActionVictoryCastleCards();
+        saveActionFateCards();
+        saveNightDurationCards();
+        saveActionDoomCards();
+        saveActionAttackDoomCards();
+        saveTreasureAttackFateCards();
+        saveNightAttackDoomCards();
+        saveActionNightAttackDoomCards();
+        saveNightDurationAttackCards();
+        saveTreasureHeirloomCards();
+        saveTreasureVictoryHeirloomCards();
+        saveActionSpiritCards();
+        saveActionZombieCards();
+        saveNightDurationSpiritCards();
     }
 
     private void saveActionReactionCards() {
@@ -524,6 +619,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionReactionHinterlandsCards();
 
         saveActionReactionDarkAgesCards();
+
+        saveActionReactionNocturneCards();
     }
 
     private void saveActionReactionDominionCards() {
@@ -567,6 +664,12 @@ public class DatabaseLoader implements CommandLineRunner {
 
         saveCard("2", BEGGAR.getName(), typeList, darkAgesSetup);
         saveCard("3", MARKET_SQUARE.getName(), typeList, darkAgesSetup);
+    }
+
+    private void saveActionReactionNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("2", FAITHFUL_HOUND.getName(), typeList);
     }
 
     private void saveActionAttackCards() {
@@ -772,6 +875,8 @@ public class DatabaseLoader implements CommandLineRunner {
 	    saveActionDurationAdventuresCards();
 
 	    saveActionDurationEmpiresCards();
+
+	    saveActionDurationNocturneCards();
     }
 
     private void saveActionDurationSeasideCards() {
@@ -801,6 +906,12 @@ public class DatabaseLoader implements CommandLineRunner {
         box = EMPIRES.getName();
 
         saveCard("5", ARCHIVE.getName(), typeList);
+    }
+
+    private void saveActionDurationNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("3", SECRET_CAVE.getName(), typeList, secretCaveSetup);
     }
 
     private void saveActionPrizeCards() {
@@ -1224,6 +1335,216 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("7", OPULENT_CASTLE.getName(), typeList);
     }
 
+    private void saveActionFateCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(fateCard);
+
+        saveActionFateNocturneCards();
+    }
+
+    private void saveActionFateNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("2", DRUID.getName(), typeList, druidSetup);
+        saveCard("2", PIXIE.getName(), typeList, pixieSetup);
+        saveCard("2", TRACKER.getName(), typeList, trackerSetup);
+        saveCard("3", FOOL.getName(), typeList, foolSetup);
+        saveCard("4", BARD.getName(), typeList, boonSetup);
+        saveCard("4", BLESSED_VILLAGE.getName(), typeList, boonSetup);
+        saveCard("5", SACRED_GROVE.getName(), typeList, boonSetup);
+    }
+
+    private void saveNightDurationCards() {
+        typeList.clear();
+        typeList.addAll(nightCard);
+        typeList.addAll(durationCard);
+
+        saveNightDurationNocturneCards();
+    }
+
+    private void saveNightDurationNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("2", GUARDIAN.getName(), typeList);
+        saveCard("3", GHOST_TOWN.getName(), typeList);
+        saveCard("5", COBBLER.getName(), typeList);
+        saveCard("5", CRYPT.getName(), typeList);
+        saveCard("5", DEN_OF_SIN.getName(), typeList);
+    }
+
+    private void saveActionDoomCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(doomCard);
+
+        saveActionDoomNocturneCards();
+    }
+
+    private void saveActionDoomNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("3", LEPRECHAUN.getName(), typeList, leprechaunSetup);
+        saveCard("5", CURSED_VILLAGE.getName(), typeList, hexSetup);
+    }
+
+    private void saveActionAttackDoomCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(attackCard);
+        typeList.addAll(doomCard);
+
+        saveActionAttackDoomNocturneCards();
+    }
+
+    private void saveActionAttackDoomNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("4", SKULK.getName(), typeList, hexSetup);
+        saveCard("5", TORMENTOR.getName(), typeList, tormentorSetup);
+    }
+
+    private void saveTreasureAttackFateCards() {
+        typeList.clear();
+        typeList.addAll(treasureCard);
+        typeList.addAll(attackCard);
+        typeList.addAll(fateCard);
+
+        saveTreasureAttackFateNocturneCards();
+    }
+
+    private void saveTreasureAttackFateNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("5", IDOL.getName(), typeList, boonSetup);
+    }
+
+    private void saveNightAttackDoomCards() {
+        typeList.clear();
+        typeList.addAll(nightCard);
+        typeList.addAll(attackCard);
+        typeList.addAll(doomCard);
+
+        saveNightAttackDoomNocturneCards();
+    }
+
+    private void saveNightAttackDoomNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("5", VAMPIRE.getName(), typeList, vampireSetup);
+    }
+
+    private void saveActionNightAttackDoomCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(nightCard);
+        typeList.addAll(attackCard);
+        typeList.addAll(doomCard);
+
+        saveActionNightAttackDoomNocturneCards();
+    }
+
+    private void saveActionNightAttackDoomNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("5", WEREWOLF.getName(), typeList, hexSetup);
+    }
+
+    private void saveNightDurationAttackCards() {
+        typeList.clear();
+        typeList.addAll(nightCard);
+        typeList.addAll(durationCard);
+        typeList.addAll(attackCard);
+
+        saveNightDurationAttackNocturneCards();
+    }
+
+    private void saveNightDurationAttackNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("6", RAIDER.getName(), typeList);
+    }
+
+    private void saveTreasureHeirloomCards() {
+        typeList.clear();
+        typeList.addAll(treasureCard);
+        typeList.addAll(heirloomCard);
+
+        saveTreasureHeirloomNocturneCards();
+    }
+
+    private void saveTreasureHeirloomNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("0", HAUNTED_MIRROR.getName(), typeList);
+        saveCard("0", MAGIC_LAMP.getName(), typeList);
+        saveCard("2", GOAT.getName(), typeList);
+        saveCard("2", POUCH.getName(), typeList);
+        saveCard("4", CURSED_GOLD.getName(), typeList);
+        saveCard("4", LUCKY_COIN.getName(), typeList);
+    }
+
+    private void saveTreasureVictoryHeirloomCards() {
+        typeList.clear();
+        typeList.addAll(treasureCard);
+        typeList.addAll(victoryCard);
+        typeList.addAll(heirloomCard);
+
+        saveTreasureVictoryHeirloomNocturneCards();
+    }
+
+    private void saveTreasureVictoryHeirloomNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("2", PASTURE.getName(), typeList);
+    }
+
+    private void saveActionSpiritCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(spiritCard);
+
+        saveActionSpiritNocturneCards();
+    }
+
+    private void saveActionSpiritNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("0*", WILL_O_WISP.getName(), typeList);
+        saveCard("2*", IMP.getName(), typeList);
+    }
+
+    private void saveActionZombieCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(zombieCard);
+
+        saveActionZombieNocturneCards();
+    }
+
+    private void saveActionZombieNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("3", ZOMBIE_APPRENTICE.getName(), typeList);
+        saveCard("3", ZOMBIE_MASON.getName(), typeList);
+        saveCard("3", ZOMBIE_SPY.getName(), typeList);
+    }
+
+    private void saveNightDurationSpiritCards() {
+        typeList.clear();
+        typeList.addAll(nightCard);
+        typeList.addAll(durationCard);
+        typeList.addAll(spiritCard);
+
+        saveNightDurationSpiritNocturneCards();
+    }
+
+    private void saveNightDurationSpiritNocturneCards() {
+        box = NOCTURNE.getName();
+
+        saveCard("4*", GHOST.getName(), typeList);
+    }
+
     private void saveEvents() {
         saveAdventuresEvents();
 
@@ -1301,5 +1622,61 @@ public class DatabaseLoader implements CommandLineRunner {
         saveLandmark(TRIUMPHAL_ARCH.getName());
         saveLandmark(WALL.getName());
         saveLandmark(WOLF_DEN.getName());
+    }
+
+    private void saveBoons() {
+        saveNocturneBoons();
+    }
+
+    private void saveNocturneBoons() {
+        box = NOCTURNE.getName();
+
+        saveBoon(THE_EARTHS_GIFT.getName());
+        saveBoon(THE_FIELDS_GIFT.getName());
+        saveBoon(THE_FLAMES_GIFT.getName());
+        saveBoon(THE_FORESTS_GIFT.getName());
+        saveBoon(THE_MOONS_GIFT.getName());
+        saveBoon(THE_MOUNTAINS_GIFT.getName());
+        saveBoon(THE_RIVERS_GIFT.getName());
+        saveBoon(THE_SEAS_GIFT.getName());
+        saveBoon(THE_SKYS_GIFT.getName());
+        saveBoon(THE_SUNS_GIFT.getName());
+        saveBoon(THE_SWAMPS_GIFT.getName(), willowispSetup);
+        saveBoon(THE_WINDS_GIFT.getName());
+    }
+
+    private void saveHexes() {
+        saveNocturneHexes();
+    }
+
+    private void saveNocturneHexes() {
+        box = NOCTURNE.getName();
+
+        saveHex(BAD_OMENS.getName());
+        saveHex(DELUSION.getName(), delusionEnvySetup);
+        saveHex(ENVY.getName(), delusionEnvySetup);
+        saveHex(FAMINE.getName());
+        saveHex(FEAR.getName());
+        saveHex(GREED.getName());
+        saveHex(HAUNTING.getName());
+        saveHex(LOCUSTS.getName());
+        saveHex(MISERY.getName(), miserySetup);
+        saveHex(PLAGUE.getName());
+        saveHex(POVERTY.getName());
+        saveHex(WAR.getName());
+    }
+
+    private void saveStates() {
+        saveNocturneStates();
+    }
+
+    private void saveNocturneStates() {
+        box = NOCTURNE.getName();
+
+        saveState(DELUDED.getName());
+        saveState(ENVIOUS.getName());
+        saveState(MISERABLE.getName());
+        saveState(TWICE_MISERABLE.getName());
+        saveState(LOST_IN_THE_WOODS.getName());
     }
 }
