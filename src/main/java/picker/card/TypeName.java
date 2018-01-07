@@ -1,4 +1,4 @@
-package picker;
+package picker.card;
 
 public enum TypeName {
 
@@ -14,6 +14,8 @@ public enum TypeName {
     LOOTER("Looter"),
     KNIGHT("Knight"),
     SHELTER("Shelter"),
+    RESERVE("Reserve"),
+    TRAVELLER("Traveller"),
     ;
 
     private String name;

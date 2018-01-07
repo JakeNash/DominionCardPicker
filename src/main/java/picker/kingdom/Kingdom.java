@@ -1,4 +1,4 @@
-package picker;
+package picker.kingdom;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
@@ -12,6 +12,7 @@ public class Kingdom {
     String id;
     private String name;
     private List<String> cards;
+    private List<String> events;
     private List<String> boxes;
     private List<String> otherSetup;
 
@@ -19,11 +20,12 @@ public class Kingdom {
 
     private Kingdom() {
     }
-
-    public Kingdom(String name, List<String> cards, List<String> boxes, List<String> otherSetup) {
+    
+    public Kingdom(String name, List<String> cards, List<String> events, List<String> boxes, List<String> otherSetup) {
         this.name = name;
         this.cards = cards;
         this.boxes = boxes;
+        this.events = events;
         this.otherSetup = otherSetup;
     }
 
@@ -49,6 +51,14 @@ public class Kingdom {
 
     public void setCards(List<String> cards) {
         this.cards = cards;
+    }
+
+    public List<String> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<String> events) {
+        this.events = events;
     }
 
     public List<String> getBoxes() {

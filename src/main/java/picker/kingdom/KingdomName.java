@@ -1,4 +1,4 @@
-package picker;
+package picker.kingdom;
 
 public enum KingdomName {
 
@@ -245,28 +245,51 @@ public enum KingdomName {
     CLASS_STRUGGLE("Class Struggle"),
 
     // Adventures
+    GENTLE_INTRO("Gentle Intro"),
+    EXPERT_INTRO("Expert Intro"),
 
     // Old Adventures + Dominion
+    LEVEL_UP_1("Level Up 1st Edition"),
+    SON_OF_SIZE_DISTORTION_1("Son of Size Distortion 1st Edition"),
 
     // New Adventures + Dominion
+    LEVEL_UP_2("Level Up 2nd Edition"),
+    SON_OF_SIZE_DISTORTION_2("Son of Size Distortion 2nd Edition"),
 
     // Old Adventures + Intrigue
+    ROYALTY_FACTORY_1("Royalty Factory 1st Edition"),
+    MASTERS_OF_FINANCE("Masters of Finance"),
 
     // New Adventures + Intrigue
+    ROYALTY_FACTORY_2("Royalty Factory 2nd Edition"),
 
     // Adventures + Seaside
+    PRINCE_OF_ORANGE("Prince of Orange"),
+    GIFTS_AND_MATHOMS("Gifts and Mathoms"),
 
     // Adventures + Alchemy
+    HASTE_POTION("Haste Potion"),
+    CURSECATCHERS("Cursecatchers"),
 
     // Adventures + Prosperity
+    LAST_WILL_AND_MONUMENT("Last Will and Monument"),
+    THINK_BIG("Think Big"),
 
     // Adventures + Cornucopia
+    THE_HEROS_RETURN("The Hero's Return"),
+    SEACRAFT_AND_WITCHCRAFT("Seacraft and Witchcraft"),
 
     // Adventures + Hinterlands
+    TRADERS_AND_RAIDERS("Traders and Raiders"),
+    JOURNEYS("Journeys"),
 
     // Adventures + Dark Ages
+    CEMETERY_POLKA("Cemetery Polka"),
+    GROOVY_DECAY("Groovy Decay"),
 
     // Adventures + Guilds
+    SPENDTHRIFT("Spendthrift"),
+    QUEEN_OF_TAN("Queen of Tan"),
 
     // Empires
 

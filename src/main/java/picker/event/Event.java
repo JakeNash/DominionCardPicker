@@ -1,4 +1,4 @@
-package picker;
+package picker.event;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
@@ -6,33 +6,30 @@ import org.springframework.data.annotation.Version;
 
 import java.util.List;
 
-public class Card {
+public class Event {
 
     private @Id String id;
     private String cost;
     private String name;
     private String box;
-    private List<String> types;
-    private List<String> otherSetup;
+    private List<String> setup;
 
     private @Version @JsonIgnore Long version;
 
-    private Card() {}
+    private Event() {}
 
-    public Card(String cost, String name, String box, List<String> types) {
+    public Event(String cost, String name, String box, List<String> setup) {
         this.cost = cost;
         this.name = name;
         this.box = box;
-        this.types = types;
-        this.otherSetup = null;
+        this.setup = setup;
     }
 
-    public Card(String cost, String name, String box, List<String> types, List<String> otherSetup) {
+    public Event(String cost, String name, String box) {
         this.cost = cost;
         this.name = name;
         this.box = box;
-        this.types = types;
-        this.otherSetup = otherSetup;
+        this.setup = null;
     }
 
     public String getId() {
@@ -67,12 +64,12 @@ public class Card {
         this.box = box;
     }
 
-    public List<String> getTypes() {
-        return types;
+    public List<String> getSetup() {
+        return setup;
     }
 
-    public void setTypes(List<String> types) {
-        this.types = types;
+    public void setSetup(List<String> setup) {
+        this.setup = setup;
     }
 
     public Long getVersion() {
@@ -81,13 +78,5 @@ public class Card {
 
     public void setVersion(Long version) {
         this.version = version;
-    }
-
-    public List<String> getOtherSetup() {
-        return otherSetup;
-    }
-
-    public void setOtherSetup(List<String> otherSetup) {
-        this.otherSetup = otherSetup;
     }
 }

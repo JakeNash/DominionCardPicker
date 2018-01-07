@@ -413,6 +413,7 @@ class KingdomList extends React.Component {
 						<tr>
 							<th>Name</th>
 							<th>Cards</th>
+							<th>Events</th>
 							<th>Boxes</th>
 							<th>Other Setup</th>
 						</tr>
@@ -459,6 +460,7 @@ class MatchingKingdomList extends React.Component {
                         <tr>
                             <th>Name</th>
                             <th>Cards</th>
+                            <th>Events</th>
                             <th>Boxes</th>
                             <th>Other Setup</th>
                         </tr>
@@ -488,6 +490,17 @@ class Kingdom extends React.Component {
             otherSetup = <td></td>
         }
 
+        let events = null;
+        if (this.props.kingdom.entity.events !== null) {
+            events = <td>{this.props.kingdom.entity.events.map((event, i) =>
+                            <span key={i}>
+                            {!!i && ", "}
+                            {event}
+                         </span>)}</td>
+        } else {
+            events = <td></td>
+        }
+
         return (
             <tr>
                 <td>{this.props.kingdom.entity.name}</td>
@@ -496,6 +509,7 @@ class Kingdom extends React.Component {
                     {!!i && ", "}
                     {card}
                 </span>)}</td>
+                {events}
                 <td>{this.props.kingdom.entity.boxes.map((box, i) =>
                     <span key={i}>
                     {!!i && ", "}

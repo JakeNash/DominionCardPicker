@@ -1,4 +1,4 @@
-package picker;
+package picker.card;
 
 public enum CardName {
 
@@ -281,6 +281,44 @@ public enum CardName {
     SOOTHSAYER("Soothsayer"),
 
     // Adventures
+    COIN_OF_THE_REALM("Coin of the Realm"),
+    PAGE("Page"),
+    PEASANT("Peasant"),
+    RATCATCHER("Ratcatcher"),
+    RAZE("Raze"),
+    AMULET("Amulet"),
+    CARAVAN_GUARD("Caravan Guard"),
+    DUNGEON("Dungeon"),
+    GEAR("Gear"),
+    GUIDE("Guide"),
+    DUPLICATE("Duplicate"),
+    MAGPIE("Magpie"),
+    MESSENGER("Messenger"),
+    MISER("Miser"),
+    PORT("Port"),
+    RANGER("Ranger"),
+    TRANSMOGRIFY("Transmogrify"),
+    ARTIFICER("Artificer"),
+    BRIDGE_TROLL("Bridge Troll"),
+    DISTANT_LANDS("Distant Lands"),
+    GIANT("Giant"),
+    HAUNTED_WOODS("Haunted Woods"),
+    LOST_CITY("Lost City"),
+    RELIC("Relic"),
+    ROYAL_CARRIAGE("Royal Carriage"),
+    STORYTELLER("Storyteller"),
+    SWAMP_HAG("Swamp Hag"),
+    TREASURE_TROVE("Treasure Trove"),
+    WINE_MERCHANT("Wine Merchant"),
+    HIRELING("Hireling"),
+    TREASURE_HUNTER("Treasure Hunter"),
+    WARRIOR("Warrior"),
+    HERO("Hero"),
+    CHAMPION("Champion"),
+    SOLDIER("Soldier"),
+    FUGITIVE("Fugitive"),
+    DISCIPLE("Disciple"),
+    TEACHER("Teacher"),
 
     // Empires
 

@@ -1,4 +1,4 @@
-package picker;
+package picker.card;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;

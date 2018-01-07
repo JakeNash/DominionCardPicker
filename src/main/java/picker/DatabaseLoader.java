@@ -3,22 +3,31 @@ package picker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import picker.card.Card;
+import picker.card.CardName;
+import picker.card.CardRepository;
+import picker.card.TypeName;
+import picker.event.Event;
+import picker.event.EventRepository;
+import picker.kingdom.KingdomRepository;
+import picker.kingdom.KingdomSorter;
 
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static picker.BoxName.*;
-import static picker.CardName.*;
-import static picker.SetupText.*;
-import static picker.TypeName.*;
+import static picker.card.CardName.*;
+import static picker.card.SetupText.*;
+import static picker.card.TypeName.*;
+import static picker.event.EventName.*;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
 	private final CardRepository cardRepository;
+	private final EventRepository eventRepository;
 	private final KingdomRepository kingdomRepository;
 
 	// Written card types
@@ -34,6 +43,8 @@ public class DatabaseLoader implements CommandLineRunner {
     private final List<String> looterCard = Collections.singletonList(LOOTER.getName());
     private final List<String> knightCard = Collections.singletonList(KNIGHTS.getName());
     private final List<String> shelterCard = Collections.singletonList(SHELTER.getName());
+    private final List<String> reserveCard = Collections.singletonList(RESERVE.getName());
+    private final List<String> travellerCard = Collections.singletonList(TRAVELLER.getName());
 
     private String box;
     
@@ -61,10 +72,24 @@ public class DatabaseLoader implements CommandLineRunner {
     private List<String> marauderSetup = Arrays.asList(SPOILS_SETUP.getText(), RUINS_SETUP.getText(), SHELTERS_SETUP.getText());
     private List<String> coinTokenSetup = Collections.singletonList(COIN_TOKEN_SETUP.getText());
     private List<String> bakerSetup = Arrays.asList(BAKER_SETUP.getText(), COIN_TOKEN_SETUP.getText());
+    private List<String> reserveSetup = Collections.singletonList(RESERVE_SETUP.getText());
+    private List<String> pageSetup = Collections.singletonList(PAGE_SETUP.getText());
+    private List<String> peasantSetup = Arrays.asList(PEASANT_SETUP.getText(), RESERVE_SETUP.getText(), PLUS_CARD_SETUP.getText(), PLUS_ACTION_SETUP.getText(), PLUS_BUY_SETUP.getText(), PLUS_COIN_SETUP.getText());
+    private List<String> journeySetup = Collections.singletonList(JOURNEY_TOKEN_SETUP.getText());
+    private List<String> minusCoinSetup = Collections.singletonList(MINUS_COIN_SETUP.getText());
+    private List<String> minusCardSetup = Collections.singletonList(MINUS_CARD_SETUP.getText());
+    private List<String> minusCostSetup = Collections.singletonList(MINUS_COST_SETUP.getText());
+    private List<String> trashTokenSetup = Collections.singletonList(TRASH_TOKEN.getText());
+    private List<String> plusBuySetup = Collections.singletonList(PLUS_BUY_SETUP.getText());
+    private List<String> plusActionSetup = Collections.singletonList(PLUS_ACTION_SETUP.getText());
+    private List<String> plusCoinSetup = Collections.singletonList(PLUS_COIN_SETUP.getText());
+    private List<String> estateTokenSetup = Collections.singletonList(ESTATE_TOKEN.getText());
+    private List<String> plusCardSetup = Collections.singletonList(PLUS_CARD_SETUP.getText());
 
     @Autowired
-	public DatabaseLoader(CardRepository cardRepository, KingdomRepository kingdomRepository) {
+	public DatabaseLoader(CardRepository cardRepository, EventRepository eventRepository, KingdomRepository kingdomRepository) {
 		this.cardRepository = cardRepository;
+		this.eventRepository = eventRepository;
 		this.kingdomRepository = kingdomRepository;
 		typeList = new ArrayList<>();
 	}
@@ -73,13 +98,16 @@ public class DatabaseLoader implements CommandLineRunner {
 	public void run(String... strings) throws Exception {
 
 		cardRepository.deleteAll();
+		eventRepository.deleteAll();
 		kingdomRepository.deleteAll();
 
         saveBasicSupplyCards();
         saveSimpleCards();
         saveComplexCards();
 
-        KingdomSorter kingdomSorter = new KingdomSorter(kingdomRepository, cardRepository);
+        saveEvents();
+
+        KingdomSorter kingdomSorter = new KingdomSorter(kingdomRepository, cardRepository, eventRepository);
         kingdomSorter.createKingdoms();
 	}
 
@@ -89,6 +117,14 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveCard(String cost, String cardName, List<String> types, List<String> otherSetup) {
 	    cardRepository.save(new Card(cost, cardName, box, types, otherSetup));
+    }
+
+    private void saveEvent(String cost, String name) {
+        eventRepository.save(new Event(cost, name, box));
+    }
+
+    private void saveEvent(String cost, String name, List<String> setup) {
+        eventRepository.save(new Event(cost, name, box, setup));
     }
 
     private void saveBasicSupplyCards() {
@@ -359,7 +395,18 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
     private void saveSimpleAdventuresCards() {
+        box = ADVENTURES.getName();
 
+        saveCard("2", RAZE.getName(), actionCard);
+        saveCard("4", MAGPIE.getName(), actionCard);
+        saveCard("4", MESSENGER.getName(), actionCard);
+        saveCard("4", MISER.getName(), actionCard, reserveSetup);
+        saveCard("4", PORT.getName(), actionCard);
+        saveCard("4", RANGER.getName(), actionCard, journeySetup);
+        saveCard("5", ARTIFICER.getName(), actionCard);
+        saveCard("5", LOST_CITY.getName(), actionCard);
+        saveCard("5", STORYTELLER.getName(), actionCard);
+        saveCard("5", TREASURE_TROVE.getName(), treasureCard);
     }
 
     private void saveSimpleEmpiresCards() {
@@ -389,6 +436,14 @@ public class DatabaseLoader implements CommandLineRunner {
         saveReactionShelterCards();
         saveActionShelterCards();
         saveVictoryShelterCards();
+        saveTreasureReserveCards();
+        saveActionTravellerCards();
+        saveActionReserveCards();
+        saveActionDurationReactionCards();
+        saveActionAttackDurationCards();
+        saveActionReserveVictoryCards();
+        saveTreasureAttackCards();
+        saveActionAttackTravellerCards();
     }
 
     private void saveActionReactionCards() {
@@ -479,6 +534,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionAttackDarkAgesCards();
 
         saveActionAttackGuildsCards();
+
+        saveActionAttackAdventuresCards();
     }
 
     private void saveActionAttackDominionCards() {
@@ -579,6 +636,12 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("5", SOOTHSAYER.getName(), typeList);
     }
 
+    private void saveActionAttackAdventuresCards() {
+        box = ADVENTURES.getName();
+
+        saveCard("5", GIANT.getName(), typeList, journeySetup);
+    }
+
     private void saveActionVictoryCards() {
 	    typeList.clear();
 	    typeList.addAll(actionCard);
@@ -635,6 +698,8 @@ public class DatabaseLoader implements CommandLineRunner {
 	    typeList.addAll(durationCard);
 
 	    saveActionDurationSeasideCards();
+
+	    saveActionDurationAdventuresCards();
     }
 
     private void saveActionDurationSeasideCards() {
@@ -648,6 +713,16 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("5", OUTPOST.getName(), typeList);
         saveCard("5", TACTICIAN.getName(), typeList);
         saveCard("5", WHARF.getName(), typeList);
+    }
+
+    private void saveActionDurationAdventuresCards() {
+        box = ADVENTURES.getName();
+
+        saveCard("3", AMULET.getName(), typeList);
+        saveCard("3", DUNGEON.getName(), typeList);
+        saveCard("3", GEAR.getName(), typeList);
+        saveCard("6", HIRELING.getName(), typeList);
+        saveCard("6*", CHAMPION.getName(), typeList);
     }
 
     private void saveActionPrizeCards() {
@@ -816,10 +891,10 @@ public class DatabaseLoader implements CommandLineRunner {
         typeList.addAll(reactionCard);
         typeList.addAll(shelterCard);
 
-        saveReactionSHelterDarkAgesCards();
+        saveReactionShelterDarkAgesCards();
     }
 
-    private void saveReactionSHelterDarkAgesCards() {
+    private void saveReactionShelterDarkAgesCards() {
         box = DARK_AGES.getName();
 
         saveCard("1", HOVEL.getName(), typeList);
@@ -851,5 +926,164 @@ public class DatabaseLoader implements CommandLineRunner {
         box = DARK_AGES.getName();
 
         saveCard("1", OVERGROWN_ESTATE.getName(), typeList);
+    }
+
+    private void saveTreasureReserveCards() {
+        typeList.clear();
+        typeList.addAll(treasureCard);
+        typeList.addAll(reserveCard);
+
+        saveTreasureReserveAdventureCards();
+    }
+
+    private void saveTreasureReserveAdventureCards() {
+        box = ADVENTURES.getName();
+
+        saveCard("2", COIN_OF_THE_REALM.getName(), typeList, reserveSetup);
+    }
+
+    private void saveActionTravellerCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(travellerCard);
+
+        saveActionTravellerAdventuresCards();
+    }
+
+    private void saveActionTravellerAdventuresCards() {
+        box = ADVENTURES.getName();
+
+        saveCard("2", PAGE.getName(), typeList, pageSetup);
+        saveCard("2", PEASANT.getName(), typeList, peasantSetup);
+        saveCard("3*", TREASURE_HUNTER.getName(), typeList);
+        saveCard("5*", HERO.getName(), typeList);
+        saveCard("4*", FUGITIVE.getName(), typeList);
+        saveCard("5*", DISCIPLE.getName(), typeList);
+    }
+
+    private void saveActionReserveCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(reserveCard);
+
+        saveActionReserveAdventuresCards();
+    }
+
+    private void saveActionReserveAdventuresCards() {
+        box = ADVENTURES.getName();
+
+        saveCard("2", RATCATCHER.getName(), typeList, reserveSetup);
+        saveCard("3", GUIDE.getName(), typeList, reserveSetup);
+        saveCard("4", DUPLICATE.getName(), typeList, reserveSetup);
+        saveCard("4", TRANSMOGRIFY.getName(), typeList, reserveSetup);
+        saveCard("5", ROYAL_CARRIAGE.getName(), typeList, reserveSetup);
+        saveCard("5", WINE_MERCHANT.getName(), typeList, reserveSetup);
+        saveCard("6*", TEACHER.getName(), typeList, peasantSetup);
+    }
+
+    private void saveActionDurationReactionCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(durationCard);
+        typeList.addAll(reactionCard);
+
+        saveActionDurationReactionAdventuresCards();
+    }
+
+    private void saveActionDurationReactionAdventuresCards() {
+        box = ADVENTURES.getName();
+
+        saveCard("3", CARAVAN_GUARD.getName(), typeList);
+    }
+
+    private void saveActionAttackDurationCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(attackCard);
+        typeList.addAll(durationCard);
+
+        saveActionAttackDurationAdventuresCards();
+    }
+
+    private void saveActionAttackDurationAdventuresCards() {
+        box = ADVENTURES.getName();
+
+        saveCard("5", BRIDGE_TROLL.getName(), typeList, minusCoinSetup);
+        saveCard("5", HAUNTED_WOODS.getName(), typeList);
+        saveCard("5", SWAMP_HAG.getName(), typeList);
+    }
+
+    private void saveActionReserveVictoryCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(reserveCard);
+        typeList.addAll(victoryCard);
+
+        saveActionReserveVictoryAdventuresCards();
+    }
+
+    private void saveActionReserveVictoryAdventuresCards() {
+        box = ADVENTURES.getName();
+
+        saveCard("5", DISTANT_LANDS.getName(), typeList, reserveSetup);
+    }
+
+    private void saveTreasureAttackCards() {
+        typeList.clear();
+        typeList.addAll(treasureCard);
+        typeList.addAll(attackCard);
+
+        saveTreasureAttackAdventuresCards();
+    }
+
+    private void saveTreasureAttackAdventuresCards() {
+        box = ADVENTURES.getName();
+
+        saveCard("5", RELIC.getName(), typeList, minusCardSetup);
+    }
+
+    private void saveActionAttackTravellerCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(attackCard);
+        typeList.addAll(travellerCard);
+
+        saveActionAttackTravellerAdventuresCards();
+    }
+
+    private void saveActionAttackTravellerAdventuresCards() {
+        box = ADVENTURES.getName();
+
+        saveCard("4*", WARRIOR.getName(), typeList);
+        saveCard("3*", SOLDIER.getName(), typeList);
+    }
+
+    private void saveEvents() {
+        saveAdventuresEvents();
+    }
+
+    private void saveAdventuresEvents() {
+        box = ADVENTURES.getName();
+
+        saveEvent("0", ALMS.getName());
+        saveEvent("0", BORROW.getName(), minusCardSetup);
+        saveEvent("0", QUEST.getName());
+        saveEvent("1", SAVE.getName());
+        saveEvent("2", SCOUTING_PARTY.getName());
+        saveEvent("2", TRAVELLING_FAIR.getName());
+        saveEvent("3", BONFIRE.getName());
+        saveEvent("3", EXPEDITION.getName());
+        saveEvent("3", FERRY.getName(), minusCostSetup);
+        saveEvent("3", PLAN.getName(), trashTokenSetup);
+        saveEvent("4", MISSION.getName());
+        saveEvent("4", PILGRIMAGE.getName(), journeySetup);
+        saveEvent("5", BALL.getName(), minusCoinSetup);
+        saveEvent("5", RAID.getName(), minusCardSetup);
+        saveEvent("5", SEAWAY.getName(), plusBuySetup);
+        saveEvent("5", TRADE.getName());
+        saveEvent("6", LOST_ARTS.getName(), plusActionSetup);
+        saveEvent("6", TRAINING.getName(), plusCoinSetup);
+        saveEvent("7", INHERITANCE.getName(), estateTokenSetup);
+        saveEvent("8", PATHFINDING.getName(), plusCardSetup);
     }
 }

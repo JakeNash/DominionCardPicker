@@ -1,26 +1,35 @@
-package picker;
+package picker.kingdom;
 
-import org.springframework.aop.Advisor;
+import picker.card.Card;
+import picker.card.CardName;
+import picker.card.CardRepository;
+import picker.event.Event;
+import picker.event.EventRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static picker.CardName.*;
-import static picker.KingdomName.*;
+import static picker.card.CardName.*;
+import static picker.event.EventName.*;
+import static picker.kingdom.KingdomName.*;
 
 public class KingdomSorter {
 
     private final KingdomRepository kingdomRepository;
     private final CardRepository cardRepository;
+    private final EventRepository eventRepository;
 
     private List<String> cardList;
+    private List<String> eventList;
     private List<String> boxList;
     private List<String> otherSetupList;
 
-    public KingdomSorter(KingdomRepository kingdomRepository, CardRepository cardRepository) {
+    public KingdomSorter(KingdomRepository kingdomRepository, CardRepository cardRepository, EventRepository eventRepository) {
         this.kingdomRepository = kingdomRepository;
         this.cardRepository = cardRepository;
+        this.eventRepository = eventRepository;
         cardList = new ArrayList<>();
+        eventList = new ArrayList<>();
         boxList = new ArrayList<>();
         otherSetupList = new ArrayList<>();
     }
@@ -158,9 +167,28 @@ public class KingdomSorter {
         }
     }
 
+    private void extractEventInfo() {
+        for (String event : eventList) {
+            Event foundEvent = eventRepository.findByName(event);
+            String box = foundEvent.getBox();
+            if (!boxList.contains(box)) {
+                boxList.add(box);
+            }
+            List<String> setup = foundEvent.getSetup();
+            if (setup != null) {
+                for (String set : setup) {
+                    if (!otherSetupList.contains(set)) {
+                        otherSetupList.add(set);
+                    }
+                }
+            }
+        }
+    }
+
     private void saveKingdom(String name) {
         extractCardInfo();
-        kingdomRepository.save(new Kingdom(name, cardList, boxList, otherSetupList));
+        extractEventInfo();
+        kingdomRepository.save(new Kingdom(name, cardList, eventList, boxList, otherSetupList));
     }
 
     private void addBasicCards() {
@@ -1659,7 +1687,7 @@ public class KingdomSorter {
         cardList.add(ILL_GOTTEN_GAINS.getName());
         cardList.add(MANDARIN.getName());
 
-        saveKingdom(TREASURE_TROVE.getName());
+        saveKingdom(KingdomName.TREASURE_TROVE.getName());
     }
 
     private void addHinterlandsAndCornucopiaKingdoms() {
@@ -2254,51 +2282,453 @@ public class KingdomSorter {
     }
 
     private void addAdventuresKingdoms() {
+        // Gentle Intro
+        cardList.clear();
+        cardList.add(AMULET.getName());
+        cardList.add(DISTANT_LANDS.getName());
+        cardList.add(DUNGEON.getName());
+        cardList.add(DUPLICATE.getName());
+        cardList.add(GIANT.getName());
+        cardList.add(HIRELING.getName());
+        cardList.add(PORT.getName());
+        cardList.add(RANGER.getName());
+        cardList.add(RATCATCHER.getName());
+        cardList.add(CardName.TREASURE_TROVE.getName());
 
+        eventList.clear();
+        eventList.add(SCOUTING_PARTY.getName());
+
+        saveKingdom(GENTLE_INTRO.getName());
+
+        // Expert Intro
+        cardList.clear();
+        cardList.add(CARAVAN_GUARD.getName());
+        cardList.add(COIN_OF_THE_REALM.getName());
+        cardList.add(HAUNTED_WOODS.getName());
+        cardList.add(LOST_CITY.getName());
+        cardList.add(MAGPIE.getName());
+        cardList.add(PEASANT.getName());
+        cardList.add(RAZE.getName());
+        cardList.add(SWAMP_HAG.getName());
+        cardList.add(TRANSMOGRIFY.getName());
+        cardList.add(WINE_MERCHANT.getName());
+
+        eventList.clear();
+        eventList.add(MISSION.getName());
+        eventList.add(PLAN.getName());
+
+        saveKingdom(EXPERT_INTRO.getName());
     }
 
     private void addOldAdventuresAndDominionKingdoms() {
+        // Level Up
+        cardList.clear();
+        cardList.add(DUNGEON.getName());
+        cardList.add(GEAR.getName());
+        cardList.add(GUIDE.getName());
+        cardList.add(LOST_CITY.getName());
+        cardList.add(MISER.getName());
+        cardList.add(MARKET.getName());
+        cardList.add(MILITIA.getName());
+        cardList.add(SPY.getName());
+        cardList.add(THRONE_ROOM.getName());
+        cardList.add(WORKSHOP.getName());
 
+        eventList.clear();
+        eventList.add(TRAINING.getName());
+
+        saveKingdom(LEVEL_UP_1.getName());
+
+        // Son of Size Distortion
+        cardList.clear();
+        cardList.add(AMULET.getName());
+        cardList.add(DUPLICATE.getName());
+        cardList.add(GIANT.getName());
+        cardList.add(MESSENGER.getName());
+        cardList.add(CardName.TREASURE_TROVE.getName());
+        cardList.add(BUREAUCRAT.getName());
+        cardList.add(GARDENS.getName());
+        cardList.add(MONEYLENDER.getName());
+        cardList.add(THIEF.getName());
+        cardList.add(WITCH.getName());
+
+        eventList.clear();
+        eventList.add(BONFIRE.getName());
+        eventList.add(RAID.getName());
+
+        saveKingdom(SON_OF_SIZE_DISTORTION_1.getName());
     }
 
     private void addNewAdventuresAndDominionKingdoms() {
+        // Level Up
+        cardList.clear();
+        cardList.add(MARKET.getName());
+        cardList.add(MERCHANT.getName());
+        cardList.add(MILITIA.getName());
+        cardList.add(THRONE_ROOM.getName());
+        cardList.add(WORKSHOP.getName());
+        cardList.add(DUNGEON.getName());
+        cardList.add(GEAR.getName());
+        cardList.add(GUIDE.getName());
+        cardList.add(LOST_CITY.getName());
+        cardList.add(MISER.getName());
 
+        eventList.clear();
+        eventList.add(TRAINING.getName());
+
+        saveKingdom(LEVEL_UP_2.getName());
+
+        // Son of Size Distortion
+        cardList.clear();
+        cardList.add(BANDIT.getName());
+        cardList.add(BUREAUCRAT.getName());
+        cardList.add(GARDENS.getName());
+        cardList.add(MONEYLENDER.getName());
+        cardList.add(WITCH.getName());
+        cardList.add(AMULET.getName());
+        cardList.add(DUPLICATE.getName());
+        cardList.add(GIANT.getName());
+        cardList.add(MESSENGER.getName());
+        cardList.add(CardName.TREASURE_TROVE.getName());
+
+        eventList.clear();
+        eventList.add(BONFIRE.getName());
+        eventList.add(RAID.getName());
+
+        saveKingdom(SON_OF_SIZE_DISTORTION_2.getName());
     }
 
     private void addOldAdventuresAndIntrigueKingdoms() {
+        // Royalty Factory
+        cardList.clear();
+        cardList.add(BRIDGE_TROLL.getName());
+        cardList.add(DUPLICATE.getName());
+        cardList.add(PAGE.getName());
+        cardList.add(RAZE.getName());
+        cardList.add(ROYAL_CARRIAGE.getName());
+        cardList.add(CONSPIRATOR.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(NOBLES.getName());
+        cardList.add(SECRET_CHAMBER.getName());
+        cardList.add(SWINDLER.getName());
 
+        eventList.clear();
+        eventList.add(PILGRIMAGE.getName());
+
+        saveKingdom(ROYALTY_FACTORY_1.getName());
+
+        // Masters of Finance
+        cardList.clear();
+        cardList.add(ARTIFICER.getName());
+        cardList.add(DISTANT_LANDS.getName());
+        cardList.add(GEAR.getName());
+        cardList.add(TRANSMOGRIFY.getName());
+        cardList.add(WINE_MERCHANT.getName());
+        cardList.add(BRIDGE.getName());
+        cardList.add(PAWN.getName());
+        cardList.add(SHANTY_TOWN.getName());
+        cardList.add(STEWARD.getName());
+        cardList.add(UPGRADE.getName());
+
+        eventList.clear();
+        eventList.add(BALL.getName());
+        eventList.add(BORROW.getName());
+
+        saveKingdom(MASTERS_OF_FINANCE.getName());
     }
 
     private void addNewAdventuresAndIntrigueKingdoms() {
+        // Royalty Factory
+        cardList.clear();
+        cardList.add(BRIDGE_TROLL.getName());
+        cardList.add(DUPLICATE.getName());
+        cardList.add(PAGE.getName());
+        cardList.add(RAZE.getName());
+        cardList.add(ROYAL_CARRIAGE.getName());
+        cardList.add(CONSPIRATOR.getName());
+        cardList.add(COURTIER.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(NOBLES.getName());
+        cardList.add(SWINDLER.getName());
 
+        eventList.clear();
+        eventList.add(PILGRIMAGE.getName());
+
+        saveKingdom(ROYALTY_FACTORY_2.getName());
     }
 
     private void addAdventuresAndSeasideKingdoms() {
+        // Prince of Orange
+        cardList.clear();
+        cardList.add(AMULET.getName());
+        cardList.add(DUNGEON.getName());
+        cardList.add(HAUNTED_WOODS.getName());
+        cardList.add(PAGE.getName());
+        cardList.add(SWAMP_HAG.getName());
+        cardList.add(CARAVAN.getName());
+        cardList.add(FISHING_VILLAGE.getName());
+        cardList.add(MERCHANT_SHIP.getName());
+        cardList.add(TACTICIAN.getName());
+        cardList.add(TREASURE_MAP.getName());
 
+        eventList.clear();
+        eventList.add(MISSION.getName());
+
+        saveKingdom(PRINCE_OF_ORANGE.getName());
+
+        // Gifts and Mathoms
+        cardList.clear();
+        cardList.add(BRIDGE_TROLL.getName());
+        cardList.add(CARAVAN_GUARD.getName());
+        cardList.add(HIRELING.getName());
+        cardList.add(LOST_CITY.getName());
+        cardList.add(MESSENGER.getName());
+        cardList.add(AMBASSADOR.getName());
+        cardList.add(EMBARGO.getName());
+        cardList.add(HAVEN.getName());
+        cardList.add(SALVAGER.getName());
+        cardList.add(SMUGGLERS.getName());
+
+        eventList.clear();
+        eventList.add(EXPEDITION.getName());
+        eventList.add(QUEST.getName());
+
+        saveKingdom(GIFTS_AND_MATHOMS.getName());
     }
 
     private void addAdventuresAndAlchemyKingdoms() {
+        // Haste Potion
+        cardList.clear();
+        cardList.add(MAGPIE.getName());
+        cardList.add(MESSENGER.getName());
+        cardList.add(PORT.getName());
+        cardList.add(ROYAL_CARRIAGE.getName());
+        cardList.add(CardName.TREASURE_TROVE.getName());
+        cardList.add(APPRENTICE.getName());
+        cardList.add(SCRYING_POOL.getName());
+        cardList.add(TRANSMUTE.getName());
+        cardList.add(UNIVERSITY.getName());
+        cardList.add(VINEYARD.getName());
 
+        eventList.clear();
+        eventList.add(PLAN.getName());
+
+        saveKingdom(HASTE_POTION.getName());
+
+        // Cursecatchers
+        cardList.clear();
+        cardList.add(AMULET.getName());
+        cardList.add(BRIDGE_TROLL.getName());
+        cardList.add(CARAVAN_GUARD.getName());
+        cardList.add(PEASANT.getName());
+        cardList.add(RATCATCHER.getName());
+        cardList.add(APOTHECARY.getName());
+        cardList.add(FAMILIAR.getName());
+        cardList.add(GOLEM.getName());
+        cardList.add(HERBALIST.getName());
+        cardList.add(PHILOSOPHERS_STONE.getName());
+
+        eventList.clear();
+        eventList.add(SAVE.getName());
+        eventList.add(TRADE.getName());
+
+        saveKingdom(CURSECATCHERS.getName());
     }
 
     private void addAdventuresAndProsperityKingdoms() {
+        // Last Will and Monument
+        cardList.clear();
+        cardList.add(COIN_OF_THE_REALM.getName());
+        cardList.add(DUNGEON.getName());
+        cardList.add(MESSENGER.getName());
+        cardList.add(RELIC.getName());
+        cardList.add(CardName.TREASURE_TROVE.getName());
+        cardList.add(BISHOP.getName());
+        cardList.add(COUNTING_HOUSE.getName());
+        cardList.add(MONUMENT.getName());
+        cardList.add(RABBLE.getName());
+        cardList.add(VAULT.getName());
 
+        eventList.clear();
+        eventList.add(INHERITANCE.getName());
+
+        saveKingdom(LAST_WILL_AND_MONUMENT.getName());
+
+        // Think Big
+        cardList.clear();
+        cardList.add(DISTANT_LANDS.getName());
+        cardList.add(GIANT.getName());
+        cardList.add(HIRELING.getName());
+        cardList.add(MISER.getName());
+        cardList.add(STORYTELLER.getName());
+        cardList.add(CONTRABAND.getName());
+        cardList.add(EXPAND.getName());
+        cardList.add(HOARD.getName());
+        cardList.add(KINGS_COURT.getName());
+        cardList.add(PEDDLER.getName());
+
+        eventList.clear();
+        eventList.add(BALL.getName());
+        eventList.add(FERRY.getName());
+
+        saveKingdom(THINK_BIG.getName());
     }
 
     private void addAdventuresAndCornucopiaKingdoms() {
+        // The Hero's Return
+        cardList.clear();
+        cardList.add(ARTIFICER.getName());
+        cardList.add(MISER.getName());
+        cardList.add(PAGE.getName());
+        cardList.add(RANGER.getName());
+        cardList.add(RELIC.getName());
+        cardList.add(FAIRGROUNDS.getName());
+        cardList.add(FARMING_VILLAGE.getName());
+        cardList.add(HORSE_TRADERS.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(MENAGERIE.getName());
 
+        eventList.clear();
+        eventList.add(TRAVELLING_FAIR.getName());
+
+        saveKingdom(THE_HEROS_RETURN.getName());
+
+        // Seacraft and Witchcraft
+        cardList.clear();
+        cardList.add(PEASANT.getName());
+        cardList.add(STORYTELLER.getName());
+        cardList.add(SWAMP_HAG.getName());
+        cardList.add(TRANSMOGRIFY.getName());
+        cardList.add(WINE_MERCHANT.getName());
+        cardList.add(FORTUNE_TELLER.getName());
+        cardList.add(HAMLET.getName());
+        cardList.add(HORN_OF_PLENTY.getName());
+        cardList.add(TOURNAMENT.getName());
+        cardList.add(YOUNG_WITCH.getName());
+        cardList.add("Bane: " + GUIDE.getName());
+
+        eventList.clear();
+        eventList.add(FERRY.getName());
+        eventList.add(SEAWAY.getName());
+
+        saveKingdom(SEACRAFT_AND_WITCHCRAFT.getName());
     }
 
     private void addAdventuresAndHinterlandsKingdoms() {
+        // Traders and Raiders
+        cardList.clear();
+        cardList.add(HAUNTED_WOODS.getName());
+        cardList.add(LOST_CITY.getName());
+        cardList.add(PAGE.getName());
+        cardList.add(PORT.getName());
+        cardList.add(WINE_MERCHANT.getName());
+        cardList.add(DEVELOP.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(HAGGLER.getName());
+        cardList.add(SPICE_MERCHANT.getName());
+        cardList.add(TRADER.getName());
 
+        eventList.clear();
+        eventList.add(RAID.getName());
+
+        saveKingdom(TRADERS_AND_RAIDERS.getName());
+
+        // Journeys
+        cardList.clear();
+        cardList.add(BRIDGE_TROLL.getName());
+        cardList.add(DISTANT_LANDS.getName());
+        cardList.add(GIANT.getName());
+        cardList.add(GUIDE.getName());
+        cardList.add(RANGER.getName());
+        cardList.add(CARTOGRAPHER.getName());
+        cardList.add(CROSSROADS.getName());
+        cardList.add(HIGHWAY.getName());
+        cardList.add(INN.getName());
+        cardList.add(SILK_ROAD.getName());
+
+        eventList.clear();
+        eventList.add(EXPEDITION.getName());
+        eventList.add(INHERITANCE.getName());
+
+        saveKingdom(JOURNEYS.getName());
     }
 
     private void addAdventuresAndDarkAgesKingdoms() {
+        // Cemetery Polka
+        cardList.clear();
+        cardList.add(AMULET.getName());
+        cardList.add(CARAVAN_GUARD.getName());
+        cardList.add(HIRELING.getName());
+        cardList.add(PEASANT.getName());
+        cardList.add(RELIC.getName());
+        cardList.add(GRAVEROBBER.getName());
+        cardList.add(MARAUDER.getName());
+        cardList.add(PROCESSION.getName());
+        cardList.add(ROGUE.getName());
+        cardList.add(WANDERING_MINSTREL.getName());
 
+        eventList.clear();
+        eventList.add(ALMS.getName());
+
+        saveKingdom(CEMETERY_POLKA.getName());
+
+        // Groovy Decay
+        cardList.clear();
+        cardList.add(DUNGEON.getName());
+        cardList.add(HAUNTED_WOODS.getName());
+        cardList.add(RATCATCHER.getName());
+        cardList.add(RAZE.getName());
+        cardList.add(TRANSMOGRIFY.getName());
+        cardList.add(CULTIST.getName());
+        cardList.add(DEATH_CART.getName());
+        cardList.add(FORTRESS.getName());
+        cardList.add(KNIGHTS.getName());
+        cardList.add(RATS.getName());
+
+        eventList.clear();
+        eventList.add(LOST_ARTS.getName());
+        eventList.add(PATHFINDING.getName());
+
+        saveKingdom(GROOVY_DECAY.getName());
     }
 
     private void addAdventuresAndGuildsKingdoms() {
+        // Spendthrift
+        cardList.clear();
+        cardList.add(ARTIFICER.getName());
+        cardList.add(GEAR.getName());
+        cardList.add(MAGPIE.getName());
+        cardList.add(MISER.getName());
+        cardList.add(STORYTELLER.getName());
+        cardList.add(DOCTOR.getName());
+        cardList.add(MASTERPIECE.getName());
+        cardList.add(MERCHANT_GUILD.getName());
+        cardList.add(SOOTHSAYER.getName());
+        cardList.add(STONEMASON.getName());
 
+        eventList.clear();
+        eventList.add(LOST_ARTS.getName());
+
+        saveKingdom(SPENDTHRIFT.getName());
+
+        // Queen of Tan
+        cardList.clear();
+        cardList.add(COIN_OF_THE_REALM.getName());
+        cardList.add(DUPLICATE.getName());
+        cardList.add(GUIDE.getName());
+        cardList.add(RATCATCHER.getName());
+        cardList.add(ROYAL_CARRIAGE.getName());
+        cardList.add(ADVISOR.getName());
+        cardList.add(BUTCHER.getName());
+        cardList.add(CANDLESTICK_MAKER.getName());
+        cardList.add(HERALD.getName());
+        cardList.add(JOURNEYMAN.getName());
+
+        eventList.clear();
+        eventList.add(PATHFINDING.getName());
+        eventList.add(SAVE.getName());
+
+        saveKingdom(QUEEN_OF_TAN.getName());
     }
 
     private void addEmpiresKingdoms() {
