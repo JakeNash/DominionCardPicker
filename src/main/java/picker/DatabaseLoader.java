@@ -11,6 +11,8 @@ import picker.event.Event;
 import picker.event.EventRepository;
 import picker.kingdom.KingdomRepository;
 import picker.kingdom.KingdomSorter;
+import picker.landmark.Landmark;
+import picker.landmark.LandmarkRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,12 +24,14 @@ import static picker.card.CardName.*;
 import static picker.card.SetupText.*;
 import static picker.card.TypeName.*;
 import static picker.event.EventName.*;
+import static picker.landmark.LandmarkName.*;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
 	private final CardRepository cardRepository;
 	private final EventRepository eventRepository;
+	private final LandmarkRepository landmarkRepository;
 	private final KingdomRepository kingdomRepository;
 
 	// Written card types
@@ -45,6 +49,8 @@ public class DatabaseLoader implements CommandLineRunner {
     private final List<String> shelterCard = Collections.singletonList(SHELTER.getName());
     private final List<String> reserveCard = Collections.singletonList(RESERVE.getName());
     private final List<String> travellerCard = Collections.singletonList(TRAVELLER.getName());
+    private final List<String> castleCard = Collections.singletonList(CASTLE.getName());
+    private final List<String> gatheringCard = Collections.singletonList(GATHERING.getName());
 
     private String box;
     
@@ -79,17 +85,35 @@ public class DatabaseLoader implements CommandLineRunner {
     private List<String> minusCoinSetup = Collections.singletonList(MINUS_COIN_SETUP.getText());
     private List<String> minusCardSetup = Collections.singletonList(MINUS_CARD_SETUP.getText());
     private List<String> minusCostSetup = Collections.singletonList(MINUS_COST_SETUP.getText());
-    private List<String> trashTokenSetup = Collections.singletonList(TRASH_TOKEN.getText());
+    private List<String> trashTokenSetup = Collections.singletonList(TRASH_TOKEN_SETUP.getText());
     private List<String> plusBuySetup = Collections.singletonList(PLUS_BUY_SETUP.getText());
     private List<String> plusActionSetup = Collections.singletonList(PLUS_ACTION_SETUP.getText());
     private List<String> plusCoinSetup = Collections.singletonList(PLUS_COIN_SETUP.getText());
-    private List<String> estateTokenSetup = Collections.singletonList(ESTATE_TOKEN.getText());
+    private List<String> estateTokenSetup = Collections.singletonList(ESTATE_TOKEN_SETUP.getText());
     private List<String> plusCardSetup = Collections.singletonList(PLUS_CARD_SETUP.getText());
+    private List<String> debtTokenSetup = Collections.singletonList(DEBT_TOKEN_SETUP.getText());
+    private List<String> encampmentSetup = Arrays.asList(ENCAMPMENT_SETUP.getText(), VICTORY_TOKEN_SETUP.getText());
+    private List<String> patricianSetup = Arrays.asList(PATRICIAN_SETUP.getText(), VICTORY_TOKEN_SETUP.getText());
+    private List<String> settlersSetup = Collections.singletonList(SETTLERS_SETUP.getText());
+    private List<String> catapultSetup = Collections.singletonList(CATAPULT_SETUP.getText());
+    private List<String> gladiatorSetup = Arrays.asList(GLADIATOR_SETUP.getText(), DEBT_TOKEN_SETUP.getText());
+    private List<String> taxSetup = Collections.singletonList(TAX_SETUP.getText());
+    private List<String> aqueductSetup = Collections.singletonList(AQUEDUCT_SETUP.getText());
+    private List<String> arenaSetup = Collections.singletonList(ARENA_SETUP.getText());
+    private List<String> basilicaSetup = Collections.singletonList(BASILICA_SETUP.getText());
+    private List<String> bathsSetup = Collections.singletonList(BATHS_SETUP.getText());
+    private List<String> battlefieldSetup = Collections.singletonList(BATTLEFIELD_SETUP.getText());
+    private List<String> colonnadeSetup = Collections.singletonList(COLONNADE_SETUP.getText());
+    private List<String> defiledShrineSetup = Collections.singletonList(DEFILED_SHRINE_SETUP.getText());
+    private List<String> labyrinthSetup = Collections.singletonList(LABYRINTH_SETUP.getText());
+    private List<String> obeliskSetup = Collections.singletonList(OBELISK_SETUP.getText());
+    private List<String> debtAndVictorySetup = Arrays.asList(VICTORY_TOKEN_SETUP.getText(), DEBT_TOKEN_SETUP.getText());
 
     @Autowired
-	public DatabaseLoader(CardRepository cardRepository, EventRepository eventRepository, KingdomRepository kingdomRepository) {
+	public DatabaseLoader(CardRepository cardRepository, EventRepository eventRepository, LandmarkRepository landmarkRepository, KingdomRepository kingdomRepository) {
 		this.cardRepository = cardRepository;
 		this.eventRepository = eventRepository;
+		this.landmarkRepository = landmarkRepository;
 		this.kingdomRepository = kingdomRepository;
 		typeList = new ArrayList<>();
 	}
@@ -99,6 +123,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
 		cardRepository.deleteAll();
 		eventRepository.deleteAll();
+		landmarkRepository.deleteAll();
 		kingdomRepository.deleteAll();
 
         saveBasicSupplyCards();
@@ -107,7 +132,9 @@ public class DatabaseLoader implements CommandLineRunner {
 
         saveEvents();
 
-        KingdomSorter kingdomSorter = new KingdomSorter(kingdomRepository, cardRepository, eventRepository);
+        saveLandmarks();
+
+        KingdomSorter kingdomSorter = new KingdomSorter(kingdomRepository, cardRepository, eventRepository, landmarkRepository);
         kingdomSorter.createKingdoms();
 	}
 
@@ -125,6 +152,14 @@ public class DatabaseLoader implements CommandLineRunner {
 
     private void saveEvent(String cost, String name, List<String> setup) {
         eventRepository.save(new Event(cost, name, box, setup));
+    }
+
+    private void saveLandmark(String name) {
+        landmarkRepository.save(new Landmark(name, box));
+    }
+
+    private void saveLandmark(String name, List<String> setup) {
+        landmarkRepository.save(new Landmark(name, box, setup));
     }
 
     private void saveBasicSupplyCards() {
@@ -410,7 +445,28 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
     private void saveSimpleEmpiresCards() {
+        box = EMPIRES.getName();
 
+        saveCard("4 Debt", ENGINEER.getName(), actionCard, debtTokenSetup);
+        saveCard("8 Debt", CITY_QUARTER.getName(), actionCard, debtTokenSetup);
+        saveCard("8 Debt", OVERLORD.getName(), actionCard, debtTokenSetup);
+        saveCard("8 Debt", ROYAL_BLACKSMITH.getName(), actionCard, debtTokenSetup);
+        saveCard("2", ENCAMPMENT.getName(), actionCard, encampmentSetup);
+        saveCard("5", PLUNDER.getName(), treasureCard, encampmentSetup);
+        saveCard("2", PATRICIAN.getName(), actionCard, patricianSetup);
+        saveCard("5", EMPORIUM.getName(), actionCard, patricianSetup);
+        saveCard("2", SETTLERS.getName(), actionCard, settlersSetup);
+        saveCard("5", BUSTLING_VILLAGE.getName(), actionCard, settlersSetup);
+        saveCard("4", ROCKS.getName(), treasureCard, catapultSetup);
+        saveCard("3", CHARIOT_RACE.getName(), actionCard, victoryTokenSetup);
+        saveCard("3", GLADIATOR.getName(), actionCard, gladiatorSetup);
+        saveCard("8 & 8 Debt", FORTUNE.getName(), treasureCard, gladiatorSetup);
+        saveCard("4", SACRIFICE.getName(), actionCard, victoryTokenSetup);
+        saveCard("4", VILLA.getName(), actionCard);
+        saveCard("5", CAPITAL.getName(), treasureCard, debtTokenSetup);
+        saveCard("5", CHARM.getName(), treasureCard);
+        saveCard("5", FORUM.getName(), actionCard);
+        saveCard("5", GROUNDSKEEPER.getName(), actionCard, victoryTokenSetup);
     }
 
     private void saveSimpleNocturneCards() {
@@ -444,6 +500,11 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionReserveVictoryCards();
         saveTreasureAttackCards();
         saveActionAttackTravellerCards();
+        saveVictoryCastleCards();
+        saveActionGatheringCards();
+        saveActionTreasureCards();
+        saveTreasureVictoryCastleCards();
+        saveActionVictoryCastleCards();
     }
 
     private void saveActionReactionCards() {
@@ -536,6 +597,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionAttackGuildsCards();
 
         saveActionAttackAdventuresCards();
+
+        saveActionAttackEmpiresCards();
     }
 
     private void saveActionAttackDominionCards() {
@@ -642,6 +705,13 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("5", GIANT.getName(), typeList, journeySetup);
     }
 
+    private void saveActionAttackEmpiresCards() {
+        box = EMPIRES.getName();
+
+        saveCard("3", CATAPULT.getName(), typeList, catapultSetup);
+        saveCard("5", LEGIONARY.getName(), typeList);
+    }
+
     private void saveActionVictoryCards() {
 	    typeList.clear();
 	    typeList.addAll(actionCard);
@@ -700,6 +770,8 @@ public class DatabaseLoader implements CommandLineRunner {
 	    saveActionDurationSeasideCards();
 
 	    saveActionDurationAdventuresCards();
+
+	    saveActionDurationEmpiresCards();
     }
 
     private void saveActionDurationSeasideCards() {
@@ -723,6 +795,12 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("3", GEAR.getName(), typeList);
         saveCard("6", HIRELING.getName(), typeList);
         saveCard("6*", CHAMPION.getName(), typeList);
+    }
+
+    private void saveActionDurationEmpiresCards() {
+        box = EMPIRES.getName();
+
+        saveCard("5", ARCHIVE.getName(), typeList);
     }
 
     private void saveActionPrizeCards() {
@@ -1003,6 +1081,8 @@ public class DatabaseLoader implements CommandLineRunner {
         typeList.addAll(durationCard);
 
         saveActionAttackDurationAdventuresCards();
+
+        saveActionAttackDurationEmpiresCards();
     }
 
     private void saveActionAttackDurationAdventuresCards() {
@@ -1011,6 +1091,12 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("5", BRIDGE_TROLL.getName(), typeList, minusCoinSetup);
         saveCard("5", HAUNTED_WOODS.getName(), typeList);
         saveCard("5", SWAMP_HAG.getName(), typeList);
+    }
+
+    private void saveActionAttackDurationEmpiresCards() {
+        box = EMPIRES.getName();
+
+        saveCard("3", ENCHANTRESS.getName(), typeList);
     }
 
     private void saveActionReserveVictoryCards() {
@@ -1058,8 +1144,90 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("3*", SOLDIER.getName(), typeList);
     }
 
+    private void saveVictoryCastleCards() {
+        typeList.clear();
+        typeList.addAll(victoryCard);
+        typeList.addAll(castleCard);
+
+        saveVictoryCastleEmpiresCards();
+    }
+
+    private void saveVictoryCastleEmpiresCards() {
+        box = EMPIRES.getName();
+
+        saveCard("3", CASTLES.getName(), typeList, victoryTokenSetup);
+        saveCard("4", CRUMBLING_CASTLE.getName(), typeList, victoryTokenSetup);
+        saveCard("6", HAUNTED_CASTLE.getName(), typeList);
+        saveCard("8", SPRAWLING_CASTLE.getName(), typeList);
+        saveCard("9", GRAND_CASTLE.getName(), typeList);
+        saveCard("10", KINGS_CASTLE.getName(), typeList);
+    }
+
+    private void saveActionGatheringCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(gatheringCard);
+
+        saveActionGatheringEmpiresCards();
+    }
+
+    private void saveActionGatheringEmpiresCards() {
+        box = EMPIRES.getName();
+
+        saveCard("3", FARMERS_MARKET.getName(), typeList, victoryTokenSetup);
+        saveCard("4", TEMPLE.getName(), typeList, victoryTokenSetup);
+        saveCard("5", WILD_HUNT.getName(), typeList, victoryTokenSetup);
+    }
+
+    private void saveActionTreasureCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(treasureCard);
+
+        saveActionTreasureEmpiresCards();
+    }
+
+    private void saveActionTreasureEmpiresCards() {
+        box = EMPIRES.getName();
+
+        saveCard("5", CROWN.getName(), typeList);
+    }
+
+    private void saveTreasureVictoryCastleCards() {
+        typeList.clear();
+        typeList.addAll(treasureCard);
+        typeList.addAll(victoryCard);
+        typeList.addAll(castleCard);
+
+        saveTreasureVictoryCastleEmpiresCards();
+    }
+
+    private void saveTreasureVictoryCastleEmpiresCards() {
+        box = EMPIRES.getName();
+
+        saveCard("3", HUMBLE_CASTLE.getName(), typeList);
+    }
+
+    private void saveActionVictoryCastleCards() {
+        typeList.clear();
+        typeList.addAll(actionCard);
+        typeList.addAll(victoryCard);
+        typeList.addAll(castleCard);
+
+        saveActionVictoryCastleEmpiresCards();
+    }
+
+    private void saveActionVictoryCastleEmpiresCards() {
+        box = EMPIRES.getName();
+
+        saveCard("5", SMALL_CASTLE.getName(), typeList);
+        saveCard("7", OPULENT_CASTLE.getName(), typeList);
+    }
+
     private void saveEvents() {
         saveAdventuresEvents();
+
+        saveEmpiresEvents();
     }
 
     private void saveAdventuresEvents() {
@@ -1085,5 +1253,53 @@ public class DatabaseLoader implements CommandLineRunner {
         saveEvent("6", TRAINING.getName(), plusCoinSetup);
         saveEvent("7", INHERITANCE.getName(), estateTokenSetup);
         saveEvent("8", PATHFINDING.getName(), plusCardSetup);
+    }
+
+    private void saveEmpiresEvents() {
+        box = EMPIRES.getName();
+
+        saveEvent("5 Debt", TRIUMPH.getName(), debtAndVictorySetup);
+        saveEvent("8 Debt", ANNEX.getName(), debtTokenSetup);
+        saveEvent("8 Debt", DONATE.getName(), debtTokenSetup);
+        saveEvent("0", ADVANCE.getName());
+        saveEvent("2", DELVE.getName());
+        saveEvent("2", TAX.getName(), taxSetup);
+        saveEvent("3", BANQUET.getName());
+        saveEvent("4", RITUAL.getName(), victoryTokenSetup);
+        saveEvent("4", SALT_THE_EARTH.getName(), victoryTokenSetup);
+        saveEvent("4 & 3 Debt", WEDDING.getName(), debtAndVictorySetup);
+        saveEvent("5", WINDFALL.getName());
+        saveEvent("6", CONQUEST.getName(), victoryTokenSetup);
+        saveEvent("14", DOMINATE.getName(), victoryTokenSetup);
+    }
+
+    private void saveLandmarks() {
+        saveEmpiresLandmarks();
+    }
+
+    private void saveEmpiresLandmarks() {
+        box = EMPIRES.getName();
+
+        saveLandmark(AQUEDUCT.getName(), aqueductSetup);
+        saveLandmark(ARENA.getName(), arenaSetup);
+        saveLandmark(BANDIT_FORT.getName());
+        saveLandmark(BASILICA.getName(), basilicaSetup);
+        saveLandmark(BATHS.getName(), bathsSetup);
+        saveLandmark(BATTLEFIELD.getName(), battlefieldSetup);
+        saveLandmark(COLONNADE.getName(), colonnadeSetup);
+        saveLandmark(DEFILED_SHRINE.getName(), defiledShrineSetup);
+        saveLandmark(FOUNTAIN.getName());
+        saveLandmark(KEEP.getName());
+        saveLandmark(LABYRINTH.getName(), labyrinthSetup);
+        saveLandmark(MOUNTAIN_PASS.getName(), debtAndVictorySetup);
+        saveLandmark(MUSEUM.getName());
+        saveLandmark(OBELISK.getName(), obeliskSetup);
+        saveLandmark(ORCHARD.getName());
+        saveLandmark(PALACE.getName());
+        saveLandmark(TOMB.getName(), victoryTokenSetup);
+        saveLandmark(TOWER.getName());
+        saveLandmark(TRIUMPHAL_ARCH.getName());
+        saveLandmark(WALL.getName());
+        saveLandmark(WOLF_DEN.getName());
     }
 }

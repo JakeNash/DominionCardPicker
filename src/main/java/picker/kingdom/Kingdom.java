@@ -13,6 +13,7 @@ public class Kingdom {
     private String name;
     private List<String> cards;
     private List<String> events;
+    private List<String> landmarks;
     private List<String> boxes;
     private List<String> otherSetup;
 
@@ -20,12 +21,13 @@ public class Kingdom {
 
     private Kingdom() {
     }
-    
-    public Kingdom(String name, List<String> cards, List<String> events, List<String> boxes, List<String> otherSetup) {
+
+    public Kingdom(String name, List<String> cards, List<String> events, List<String> landmarks, List<String> boxes, List<String> otherSetup) {
         this.name = name;
         this.cards = cards;
         this.boxes = boxes;
         this.events = events;
+        this.landmarks = landmarks;
         this.otherSetup = otherSetup;
     }
 
@@ -59,6 +61,14 @@ public class Kingdom {
 
     public void setEvents(List<String> events) {
         this.events = events;
+    }
+
+    public List<String> getLandmarks() {
+        return landmarks;
+    }
+
+    public void setLandmarks(List<String> landmarks) {
+        this.landmarks = landmarks;
     }
 
     public List<String> getBoxes() {

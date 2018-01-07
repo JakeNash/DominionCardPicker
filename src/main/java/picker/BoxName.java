@@ -17,6 +17,7 @@ public enum BoxName {
     DARK_AGES("Dark Ages"),
     GUILDS("Guilds"),
     ADVENTURES("Adventures"),
+    EMPIRES("Empires"),
     ;
 
     private String name;

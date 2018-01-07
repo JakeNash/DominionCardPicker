@@ -2,6 +2,7 @@ package picker.event;
 
 public enum EventName {
 
+    // Adventures
     ALMS("Alms"),
     BORROW("Borrow"),
     QUEST("Quest"),
@@ -22,6 +23,21 @@ public enum EventName {
     TRAINING("Training"),
     INHERITANCE("Inheritance"),
     PATHFINDING("Pathfinding"),
+
+    // Empires
+    TRIUMPH("Triumph"),
+    ANNEX("Annex"),
+    DONATE("Donate"),
+    ADVANCE("Advance"),
+    DELVE("Delve"),
+    TAX("Tax"),
+    BANQUET("Banquet"),
+    RITUAL("Ritual"),
+    SALT_THE_EARTH("Salt the Earth"),
+    WEDDING("Wedding"),
+    WINDFALL("Windfall"),
+    CONQUEST("Conquest"),
+    DOMINATE("Dominate"),
     ;
 
     private String name;

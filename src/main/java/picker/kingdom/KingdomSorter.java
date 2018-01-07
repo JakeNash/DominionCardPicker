@@ -5,6 +5,8 @@ import picker.card.CardName;
 import picker.card.CardRepository;
 import picker.event.Event;
 import picker.event.EventRepository;
+import picker.landmark.Landmark;
+import picker.landmark.LandmarkRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,24 +14,29 @@ import java.util.List;
 import static picker.card.CardName.*;
 import static picker.event.EventName.*;
 import static picker.kingdom.KingdomName.*;
+import static picker.landmark.LandmarkName.*;
 
 public class KingdomSorter {
 
     private final KingdomRepository kingdomRepository;
     private final CardRepository cardRepository;
     private final EventRepository eventRepository;
+    private final LandmarkRepository landmarkRepository;
 
     private List<String> cardList;
     private List<String> eventList;
+    private List<String> landmarkList;
     private List<String> boxList;
     private List<String> otherSetupList;
 
-    public KingdomSorter(KingdomRepository kingdomRepository, CardRepository cardRepository, EventRepository eventRepository) {
+    public KingdomSorter(KingdomRepository kingdomRepository, CardRepository cardRepository, EventRepository eventRepository, LandmarkRepository landmarkRepository) {
         this.kingdomRepository = kingdomRepository;
         this.cardRepository = cardRepository;
         this.eventRepository = eventRepository;
+        this.landmarkRepository = landmarkRepository;
         cardList = new ArrayList<>();
         eventList = new ArrayList<>();
+        landmarkList = new ArrayList<>();
         boxList = new ArrayList<>();
         otherSetupList = new ArrayList<>();
     }
@@ -114,10 +121,8 @@ public class KingdomSorter {
         addAdventuresAndGuildsKingdoms();
 
         addEmpiresKingdoms();
-        addOldEmpiresAndDominionKingdoms();
-        addNewEmpiresAndDominionKingdoms();
-        addOldEmpiresAndIntrigueKingdoms();
-        addNewEmpiresAndIntrigueKingdoms();
+        addEmpiresAndDominionKingdoms();
+        addEmpiresAndIntrigueKingdoms();
         addEmpiresAndSeasideKingdoms();
         addEmpiresAndAlchemyKingdoms();
         addEmpiresAndProsperityKingdoms();
@@ -185,10 +190,29 @@ public class KingdomSorter {
         }
     }
 
+    private void extractLandmarkInfo() {
+        for (String landmark : landmarkList) {
+            Landmark foundLandmark = landmarkRepository.findByName(landmark);
+            String box = foundLandmark.getBox();
+            if (!boxList.contains(box)) {
+                boxList.add(box);
+            }
+            List<String> setup = foundLandmark.getSetup();
+            if (setup != null) {
+                for (String set : setup) {
+                    if (!otherSetupList.contains(set)) {
+                        otherSetupList.add(set);
+                    }
+                }
+            }
+        }
+    }
+
     private void saveKingdom(String name) {
         extractCardInfo();
         extractEventInfo();
-        kingdomRepository.save(new Kingdom(name, cardList, eventList, boxList, otherSetupList));
+        extractLandmarkInfo();
+        kingdomRepository.save(new Kingdom(name, cardList, eventList, landmarkList, boxList, otherSetupList));
     }
 
     private void addBasicCards() {
@@ -2732,55 +2756,435 @@ public class KingdomSorter {
     }
 
     private void addEmpiresKingdoms() {
+        // Basic Intro
+        cardList.clear();
+        cardList.add(CASTLES.getName());
+        cardList.add(CHARIOT_RACE.getName());
+        cardList.add(CITY_QUARTER.getName());
+        cardList.add(ENGINEER.getName());
+        cardList.add(FARMERS_MARKET.getName());
+        cardList.add(FORUM.getName());
+        cardList.add(LEGIONARY.getName());
+        cardList.add(PATRICIAN.getName());
+        cardList.add(SACRIFICE.getName());
+        cardList.add(VILLA.getName());
 
+        eventList.clear();
+        eventList.add(WEDDING.getName());
+
+        landmarkList.clear();
+        landmarkList.add(TOWER.getName());
+
+        saveKingdom(BASIC_INTRO.getName());
+
+        // Advanced Intro
+        cardList.clear();
+        cardList.add(ARCHIVE.getName());
+        cardList.add(CAPITAL.getName());
+        cardList.add(CATAPULT.getName());
+        cardList.add(CROWN.getName());
+        cardList.add(ENCHANTRESS.getName());
+        cardList.add(GLADIATOR.getName());
+        cardList.add(GROUNDSKEEPER.getName());
+        cardList.add(ROYAL_BLACKSMITH.getName());
+        cardList.add(SETTLERS.getName());
+        cardList.add(TEMPLE.getName());
+
+        landmarkList.clear();
+        landmarkList.add(ARENA.getName());
+        landmarkList.add(TRIUMPHAL_ARCH.getName());
+
+        saveKingdom(ADVANCED_INTRO.getName());
     }
 
-    private void addOldEmpiresAndDominionKingdoms() {
+    private void addEmpiresAndDominionKingdoms() {
+        // Everything in Moderation
+        cardList.clear();
+        cardList.add(ENCHANTRESS.getName());
+        cardList.add(FORUM.getName());
+        cardList.add(LEGIONARY.getName());
+        cardList.add(OVERLORD.getName());
+        cardList.add(TEMPLE.getName());
+        cardList.add(CELLAR.getName());
+        cardList.add(LIBRARY.getName());
+        cardList.add(REMODEL.getName());
+        cardList.add(VILLAGE.getName());
+        cardList.add(WORKSHOP.getName());
 
+        eventList.clear();
+        eventList.add(WINDFALL.getName());
+
+        landmarkList.clear();
+        landmarkList.add(ORCHARD.getName());
+
+        saveKingdom(EVERYTHING_IN_MODERATION.getName());
+
+        // Silver Bullets
+        cardList.clear();
+        cardList.add(CATAPULT.getName());
+        cardList.add(CHARM.getName());
+        cardList.add(FARMERS_MARKET.getName());
+        cardList.add(GROUNDSKEEPER.getName());
+        cardList.add(PATRICIAN.getName());
+        cardList.add(BUREAUCRAT.getName());
+        cardList.add(GARDENS.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(MARKET.getName());
+        cardList.add(MONEYLENDER.getName());
+
+        eventList.clear();
+        eventList.add(CONQUEST.getName());
+
+        landmarkList.clear();
+        landmarkList.add(AQUEDUCT.getName());
+
+        saveKingdom(SILVER_BULLETS.getName());
     }
 
-    private void addNewEmpiresAndDominionKingdoms() {
+    private void addEmpiresAndIntrigueKingdoms() {
+        // Delicious Torture
+        cardList.clear();
+        cardList.add(CASTLES.getName());
+        cardList.add(CROWN.getName());
+        cardList.add(ENCHANTRESS.getName());
+        cardList.add(SACRIFICE.getName());
+        cardList.add(SETTLERS.getName());
+        cardList.add(BARON.getName());
+        cardList.add(BRIDGE.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(IRONWORKS.getName());
+        cardList.add(TORTURER.getName());
 
-    }
+        eventList.clear();
+        eventList.add(BANQUET.getName());
 
-    private void addOldEmpiresAndIntrigueKingdoms() {
+        landmarkList.clear();
+        landmarkList.add(ARENA.getName());
 
-    }
+        saveKingdom(DELICIOUS_TORTURE.getName());
 
-    private void addNewEmpiresAndIntrigueKingdoms() {
+        // Buddy System
+        cardList.clear();
+        cardList.add(ARCHIVE.getName());
+        cardList.add(CAPITAL.getName());
+        cardList.add(CATAPULT.getName());
+        cardList.add(ENGINEER.getName());
+        cardList.add(FORUM.getName());
+        cardList.add(MASQUERADE.getName());
+        cardList.add(MINING_VILLAGE.getName());
+        cardList.add(NOBLES.getName());
+        cardList.add(PAWN.getName());
+        cardList.add(TRADING_POST.getName());
 
+        eventList.clear();
+        eventList.add(SALT_THE_EARTH.getName());
+
+        landmarkList.clear();
+        landmarkList.add(WOLF_DEN.getName());
+
+        saveKingdom(BUDDY_SYSTEM.getName());
     }
 
     private void addEmpiresAndSeasideKingdoms() {
+        // Boxed In
+        cardList.clear();
+        cardList.add(CASTLES.getName());
+        cardList.add(CHARIOT_RACE.getName());
+        cardList.add(ENCAMPMENT.getName());
+        cardList.add(ENCHANTRESS.getName());
+        cardList.add(GLADIATOR.getName());
+        cardList.add(SALVAGER.getName());
+        cardList.add(SMUGGLERS.getName());
+        cardList.add(TACTICIAN.getName());
+        cardList.add(WAREHOUSE.getName());
+        cardList.add(WHARF.getName());
 
+        eventList.clear();
+        eventList.add(TAX.getName());
+
+        landmarkList.clear();
+        landmarkList.add(WALL.getName());
+
+        saveKingdom(BOXED_IN.getName());
+
+        // King of the Sea
+        cardList.clear();
+        cardList.add(ARCHIVE.getName());
+        cardList.add(FARMERS_MARKET.getName());
+        cardList.add(OVERLORD.getName());
+        cardList.add(TEMPLE.getName());
+        cardList.add(WILD_HUNT.getName());
+        cardList.add(EXPLORER.getName());
+        cardList.add(HAVEN.getName());
+        cardList.add(NATIVE_VILLAGE.getName());
+        cardList.add(PIRATE_SHIP.getName());
+        cardList.add(SEA_HAG.getName());
+
+        eventList.clear();
+        eventList.add(DELVE.getName());
+
+        landmarkList.clear();
+        landmarkList.add(FOUNTAIN.getName());
+
+        saveKingdom(KING_OF_THE_SEA.getName());
     }
 
     private void addEmpiresAndAlchemyKingdoms() {
+        // Collectors
+        cardList.clear();
+        cardList.add(CITY_QUARTER.getName());
+        cardList.add(CROWN.getName());
+        cardList.add(ENCAMPMENT.getName());
+        cardList.add(ENCHANTRESS.getName());
+        cardList.add(FARMERS_MARKET.getName());
+        cardList.add(APOTHECARY.getName());
+        cardList.add(APPRENTICE.getName());
+        cardList.add(HERBALIST.getName());
+        cardList.add(TRANSMUTE.getName());
+        cardList.add(UNIVERSITY.getName());
 
+        landmarkList.clear();
+        landmarkList.add(COLONNADE.getName());
+        landmarkList.add(MUSEUM.getName());
+
+        saveKingdom(COLLECTORS.getName());
     }
 
     private void addEmpiresAndProsperityKingdoms() {
+        // Big Time
+        cardList.clear();
+        cardList.add(CAPITAL.getName());
+        cardList.add(GLADIATOR.getName());
+        cardList.add(PATRICIAN.getName());
+        cardList.add(ROYAL_BLACKSMITH.getName());
+        cardList.add(VILLA.getName());
+        cardList.add(BANK.getName());
+        cardList.add(FORGE.getName());
+        cardList.add(GRAND_MARKET.getName());
+        cardList.add(LOAN.getName());
+        cardList.add(ROYAL_SEAL.getName());
 
+        eventList.clear();
+        eventList.add(DOMINATE.getName());
+
+        landmarkList.clear();
+        landmarkList.add(OBELISK.getName());
+
+        saveKingdom(BIG_TIME.getName());
+
+        // Gilded Gates
+        cardList.clear();
+        cardList.add(CHARIOT_RACE.getName());
+        cardList.add(CITY_QUARTER.getName());
+        cardList.add(ENCAMPMENT.getName());
+        cardList.add(GROUNDSKEEPER.getName());
+        cardList.add(WILD_HUNT.getName());
+        cardList.add(BISHOP.getName());
+        cardList.add(MONUMENT.getName());
+        cardList.add(MINT.getName());
+        cardList.add(PEDDLER.getName());
+        cardList.add(TALISMAN.getName());
+
+        landmarkList.clear();
+        landmarkList.add(BASILICA.getName());
+        landmarkList.add(PALACE.getName());
+
+        saveKingdom(GILDED_GATES.getName());
     }
 
     private void addEmpiresAndCornucopiaKingdoms() {
+        // Zookeepers
+        cardList.clear();
+        cardList.add(OVERLORD.getName());
+        cardList.add(SACRIFICE.getName());
+        cardList.add(SETTLERS.getName());
+        cardList.add(VILLA.getName());
+        cardList.add(WILD_HUNT.getName());
+        cardList.add(FAIRGROUNDS.getName());
+        cardList.add(HORSE_TRADERS.getName());
+        cardList.add(MENAGERIE.getName());
+        cardList.add(JESTER.getName());
+        cardList.add(TOURNAMENT.getName());
 
+        eventList.clear();
+        eventList.add(ANNEX.getName());
+
+        landmarkList.clear();
+        landmarkList.add(COLONNADE.getName());
+
+        saveKingdom(ZOOKEEPERS.getName());
     }
 
     private void addEmpiresAndHinterlandsKingdoms() {
+        // Simple Plans
+        cardList.clear();
+        cardList.add(CATAPULT.getName());
+        cardList.add(FORUM.getName());
+        cardList.add(PATRICIAN.getName());
+        cardList.add(TEMPLE.getName());
+        cardList.add(VILLA.getName());
+        cardList.add(BORDER_VILLAGE.getName());
+        cardList.add(DEVELOP.getName());
+        cardList.add(HAGGLER.getName());
+        cardList.add(ILL_GOTTEN_GAINS.getName());
+        cardList.add(STABLES.getName());
 
+        eventList.clear();
+        eventList.add(DONATE.getName());
+
+        landmarkList.clear();
+        landmarkList.add(LABYRINTH.getName());
+
+        saveKingdom(SIMPLE_PLANS.getName());
+
+        // Expansion
+        cardList.clear();
+        cardList.add(CASTLES.getName());
+        cardList.add(CHARM.getName());
+        cardList.add(ENCAMPMENT.getName());
+        cardList.add(ENGINEER.getName());
+        cardList.add(LEGIONARY.getName());
+        cardList.add(CACHE.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(HIGHWAY.getName());
+        cardList.add(SPICE_MERCHANT.getName());
+        cardList.add(TUNNEL.getName());
+
+        landmarkList.clear();
+        landmarkList.add(BATTLEFIELD.getName());
+        landmarkList.add(FOUNTAIN.getName());
+
+        saveKingdom(EXPANSION.getName());
     }
 
     private void addEmpiresAndDarkAgesKingdoms() {
+        // Tomb of the Rat King
+        cardList.clear();
+        cardList.add(CASTLES.getName());
+        cardList.add(CHARIOT_RACE.getName());
+        cardList.add(CITY_QUARTER.getName());
+        cardList.add(LEGIONARY.getName());
+        cardList.add(SACRIFICE.getName());
+        cardList.add(DEATH_CART.getName());
+        cardList.add(FORTRESS.getName());
+        cardList.add(PILLAGE.getName());
+        cardList.add(RATS.getName());
+        cardList.add(STOREROOM.getName());
 
+        eventList.clear();
+        eventList.add(ADVANCE.getName());
+
+        landmarkList.clear();
+        landmarkList.add(TOMB.getName());
+
+        saveKingdom(TOMB_OF_THE_RAT_KING.getName());
+
+        // Triumph of the Bandit King
+        cardList.clear();
+        cardList.add(CAPITAL.getName());
+        cardList.add(CHARM.getName());
+        cardList.add(ENGINEER.getName());
+        cardList.add(GROUNDSKEEPER.getName());
+        cardList.add(LEGIONARY.getName());
+        cardList.add(BANDIT_CAMP.getName());
+        cardList.add(CATACOMBS.getName());
+        cardList.add(HUNTING_GROUNDS.getName());
+        cardList.add(MARKET_SQUARE.getName());
+        cardList.add(PROCESSION.getName());
+
+        eventList.clear();
+        eventList.add(TRIUMPH.getName());
+
+        landmarkList.clear();
+        landmarkList.add(DEFILED_SHRINE.getName());
+
+        saveKingdom(TRIUMPH_OF_THE_BANDIT_KING.getName());
+
+        // The Squire's Ritual
+        cardList.clear();
+        cardList.add(ARCHIVE.getName());
+        cardList.add(CATAPULT.getName());
+        cardList.add(CROWN.getName());
+        cardList.add(PATRICIAN.getName());
+        cardList.add(SETTLERS.getName());
+        cardList.add(FEODUM.getName());
+        cardList.add(HERMIT.getName());
+        cardList.add(IRONMONGER.getName());
+        cardList.add(ROGUE.getName());
+        cardList.add(SQUIRE.getName());
+
+        eventList.clear();
+        eventList.add(RITUAL.getName());
+
+        landmarkList.clear();
+        landmarkList.add(MUSEUM.getName());
+
+        saveKingdom(THE_SQUIRES_RITUAL.getName());
     }
 
     private void addEmpiresAndGuildsKingdoms() {
+        // Cash Flow
+        cardList.clear();
+        cardList.add(CASTLES.getName());
+        cardList.add(CITY_QUARTER.getName());
+        cardList.add(ENGINEER.getName());
+        cardList.add(GLADIATOR.getName());
+        cardList.add(ROYAL_BLACKSMITH.getName());
+        cardList.add(BAKER.getName());
+        cardList.add(BUTCHER.getName());
+        cardList.add(DOCTOR.getName());
+        cardList.add(HERALD.getName());
+        cardList.add(SOOTHSAYER.getName());
 
+        landmarkList.clear();
+        landmarkList.add(BATHS.getName());
+        landmarkList.add(MOUNTAIN_PASS.getName());
+
+        saveKingdom(CASH_FLOW.getName());
     }
 
     private void addEmpiresAndAdventuresKingdoms() {
+        // Area Control
+        cardList.clear();
+        cardList.add(CAPITAL.getName());
+        cardList.add(CATAPULT.getName());
+        cardList.add(CHARM.getName());
+        cardList.add(CROWN.getName());
+        cardList.add(FARMERS_MARKET.getName());
+        cardList.add(COIN_OF_THE_REALM.getName());
+        cardList.add(PAGE.getName());
+        cardList.add(RELIC.getName());
+        cardList.add(CardName.TREASURE_TROVE.getName());
+        cardList.add(WINE_MERCHANT.getName());
 
+        eventList.clear();
+        eventList.add(BANQUET.getName());
+
+        landmarkList.clear();
+        landmarkList.add(KEEP.getName());
+
+        saveKingdom(AREA_CONTROL.getName());
+
+        // No Money No Problems
+        cardList.clear();
+        cardList.add(ARCHIVE.getName());
+        cardList.add(ENCAMPMENT.getName());
+        cardList.add(ROYAL_BLACKSMITH.getName());
+        cardList.add(TEMPLE.getName());
+        cardList.add(VILLA.getName());
+        cardList.add(DUNGEON.getName());
+        cardList.add(DUPLICATE.getName());
+        cardList.add(HIRELING.getName());
+        cardList.add(PEASANT.getName());
+        cardList.add(TRANSMOGRIFY.getName());
+
+        eventList.clear();
+        eventList.add(MISSION.getName());
+
+        landmarkList.clear();
+        landmarkList.add(BANDIT_FORT.getName());
+
+        saveKingdom(NO_MONEY_NO_PROBLEMS.getName());
     }
 
     private void addNocturneKingdoms() {

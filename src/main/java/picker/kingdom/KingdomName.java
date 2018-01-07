@@ -292,30 +292,46 @@ public enum KingdomName {
     QUEEN_OF_TAN("Queen of Tan"),
 
     // Empires
+    BASIC_INTRO("Basic Intro"),
+    ADVANCED_INTRO("Advanced Intro"),
 
-    // Old Empires + Dominion
+    // Empires + Dominion
+    EVERYTHING_IN_MODERATION("Everything in Moderation"),
+    SILVER_BULLETS("Silver Bullets"),
 
-    // New Empires + Dominion
-
-    // Old Empires + Intrigue
-
-    // New Empires + Intrigue
+    // Empires + Intrigue
+    DELICIOUS_TORTURE("Delicious Torture"),
+    BUDDY_SYSTEM("Buddy System"),
 
     // Empires + Seaside
+    BOXED_IN("Boxed In"),
+    KING_OF_THE_SEA("King of the Sea"),
 
     // Empires + Alchemy
+    COLLECTORS("Collectors"),
 
     // Empires + Prosperity
+    BIG_TIME("Big Time"),
+    GILDED_GATES("Gilded Gates"),
 
     // Empires + Cornucopia
+    ZOOKEEPERS("Zookeepers"),
 
     // Empires + Hinterlands
+    SIMPLE_PLANS("Simple Plans"),
+    EXPANSION("Expansion"),
 
     // Empires + Dark Ages
+    TOMB_OF_THE_RAT_KING("Tomb of the Rat King"),
+    TRIUMPH_OF_THE_BANDIT_KING("Triumph of the Bandit King"),
+    THE_SQUIRES_RITUAL("The Squire's Ritual"),
 
     // Empires + Guilds
+    CASH_FLOW("Cash Flow"),
 
     // Empires + Adventures
+    AREA_CONTROL("Area Control"),
+    NO_MONEY_NO_PROBLEMS("No Money No Problems"),
 
     // Nocturne
 

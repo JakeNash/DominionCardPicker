@@ -16,6 +16,8 @@ public enum TypeName {
     SHELTER("Shelter"),
     RESERVE("Reserve"),
     TRAVELLER("Traveller"),
+    CASTLE("Castle"),
+    GATHERING("Gathering"),
     ;
 
     private String name;

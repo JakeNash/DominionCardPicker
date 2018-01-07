@@ -321,8 +321,47 @@ public enum CardName {
     TEACHER("Teacher"),
 
     // Empires
+    ENGINEER("Engineer"),
+    CITY_QUARTER("City Quarter"),
+    OVERLORD("Overlord"),
+    ROYAL_BLACKSMITH("Royal Blacksmith"),
+    ENCAMPMENT("Encampment"),
+    PLUNDER("Plunder"),
+    PATRICIAN("Patrician"),
+    EMPORIUM("Emporium"),
+    SETTLERS("Settlers"),
+    BUSTLING_VILLAGE("Bustling Village"),
+    CASTLES("Castles"),
+    CATAPULT("Catapult"),
+    ROCKS("Rocks"),
+    CHARIOT_RACE("Chariot Race"),
+    ENCHANTRESS("Enchantress"),
+    FARMERS_MARKET("Farmers' Market"),
+    GLADIATOR("Gladiator"),
+    FORTUNE("Fortune"),
+    SACRIFICE("Sacrifice"),
+    TEMPLE("Temple"),
+    VILLA("VIlla"),
+    ARCHIVE("Archive"),
+    CAPITAL("Capital"),
+    CHARM("Charm"),
+    CROWN("Crown"),
+    FORUM("Forum"),
+    GROUNDSKEEPER("Groundskeeper"),
+    LEGIONARY("Legionary"),
+    WILD_HUNT("Wild Hunt"),
+    HUMBLE_CASTLE("Humble Castle"),
+    CRUMBLING_CASTLE("Crumbling Castle"),
+    SMALL_CASTLE("Small Castle"),
+    HAUNTED_CASTLE("Haunted Castle"),
+    OPULENT_CASTLE("Opulent Castle"),
+    SPRAWLING_CASTLE("Sprawling Castle"),
+    GRAND_CASTLE("Grand Castle"),
+    KINGS_CASTLE("King's Castle"),
 
     // Nocturne
+
+    // Promos
     ;
 
     private String name;
