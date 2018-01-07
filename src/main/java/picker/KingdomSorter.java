@@ -1,5 +1,7 @@
 package picker;
 
+import org.springframework.aop.Advisor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,15 +82,12 @@ public class KingdomSorter {
         addDarkAgesAndCornucopiaKingdoms();
         addDarkAgesAndHinterlandsKingdoms();
 
-        addGuildsKingdoms();
         addOldGuildsAndDominionKingdoms();
         addNewGuildsAndDominionKingdoms();
         addOldGuildsAndIntrigueKingdoms();
         addNewGuildsAndIntrigueKingdoms();
         addGuildsAndSeasideKingdoms();
-        addGuildsAndAlchemyKingdoms();
         addGuildsAndProsperityKingdoms();
-        addGuildsAndCornucopiaKingdoms();
         addGuildsAndHinterlandsKingdoms();
         addGuildsAndDarkAgesKingdoms();
 
@@ -1983,48 +1982,275 @@ public class KingdomSorter {
         saveKingdom(EXPEDITIONS.getName());
     }
 
-    private void addGuildsKingdoms() {
-
-    }
-
     private void addOldGuildsAndDominionKingdoms() {
+        // Arts and Crafts
+        cardList.clear();
+        cardList.add(STONEMASON.getName());
+        cardList.add(ADVISOR.getName());
+        cardList.add(BAKER.getName());
+        cardList.add(JOURNEYMAN.getName());
+        cardList.add(MERCHANT_GUILD.getName());
+        cardList.add(LABORATORY.getName());
+        cardList.add(CELLAR.getName());
+        cardList.add(WORKSHOP.getName());
+        cardList.add(FESTIVAL.getName());
+        cardList.add(MONEYLENDER.getName());
 
+        saveKingdom(ARTS_AND_CRAFTS.getName());
+
+        // Clean Living
+        cardList.clear();
+        cardList.add(BUTCHER.getName());
+        cardList.add(BAKER.getName());
+        cardList.add(CANDLESTICK_MAKER.getName());
+        cardList.add(DOCTOR.getName());
+        cardList.add(SOOTHSAYER.getName());
+        cardList.add(MILITIA.getName());
+        cardList.add(THIEF.getName());
+        cardList.add(MONEYLENDER.getName());
+        cardList.add(GARDENS.getName());
+        cardList.add(VILLAGE.getName());
+
+        saveKingdom(CLEAN_LIVING_1.getName());
+
+        // Gilding the Lily
+        cardList.clear();
+        cardList.add(PLAZA.getName());
+        cardList.add(MASTERPIECE.getName());
+        cardList.add(CANDLESTICK_MAKER.getName());
+        cardList.add(TAXMAN.getName());
+        cardList.add(HERALD.getName());
+        cardList.add(LIBRARY.getName());
+        cardList.add(REMODEL.getName());
+        cardList.add(ADVENTURER.getName());
+        cardList.add(MARKET.getName());
+        cardList.add(CHANCELLOR.getName());
+
+        saveKingdom(GILDING_THE_LILY_1.getName());
     }
 
     private void addNewGuildsAndDominionKingdoms() {
+        // Clean Living
+        cardList.clear();
+        cardList.add(BANDIT.getName());
+        cardList.add(MILITIA.getName());
+        cardList.add(MONEYLENDER.getName());
+        cardList.add(GARDENS.getName());
+        cardList.add(VILLAGE.getName());
+        cardList.add(BUTCHER.getName());
+        cardList.add(BAKER.getName());
+        cardList.add(CANDLESTICK_MAKER.getName());
+        cardList.add(DOCTOR.getName());
+        cardList.add(SOOTHSAYER.getName());
 
+        saveKingdom(CLEAN_LIVING_2.getName());
+
+        // Gilding the Lily
+        cardList.clear();
+        cardList.add(LIBRARY.getName());
+        cardList.add(MERCHANT.getName());
+        cardList.add(REMODEL.getName());
+        cardList.add(MARKET.getName());
+        cardList.add(SENTRY.getName());
+        cardList.add(PLAZA.getName());
+        cardList.add(MASTERPIECE.getName());
+        cardList.add(CANDLESTICK_MAKER.getName());
+        cardList.add(TAXMAN.getName());
+        cardList.add(HERALD.getName());
+
+        saveKingdom(GILDING_THE_LILY_2.getName());
     }
 
     private void addOldGuildsAndIntrigueKingdoms() {
+        // Name That Card
+        cardList.clear();
+        cardList.add(BAKER.getName());
+        cardList.add(DOCTOR.getName());
+        cardList.add(PLAZA.getName());
+        cardList.add(ADVISOR.getName());
+        cardList.add(MASTERPIECE.getName());
+        cardList.add(COURTYARD.getName());
+        cardList.add(WISHING_WELL.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(TRIBUTE.getName());
+        cardList.add(NOBLES.getName());
 
+        saveKingdom(NAME_THAT_CARD_1.getName());
+
+        // Tricks of the Trade
+        cardList.clear();
+        cardList.add(STONEMASON.getName());
+        cardList.add(HERALD.getName());
+        cardList.add(SOOTHSAYER.getName());
+        cardList.add(JOURNEYMAN.getName());
+        cardList.add(BUTCHER.getName());
+        cardList.add(GREAT_HALL.getName());
+        cardList.add(NOBLES.getName());
+        cardList.add(CONSPIRATOR.getName());
+        cardList.add(MASQUERADE.getName());
+        cardList.add(COPPERSMITH.getName());
+
+        saveKingdom(TRICKS_OF_THE_TRADE_1.getName());
+
+        // Decisions, Decisions
+        cardList.clear();
+        cardList.add(MERCHANT_GUILD.getName());
+        cardList.add(CANDLESTICK_MAKER.getName());
+        cardList.add(MASTERPIECE.getName());
+        cardList.add(TAXMAN.getName());
+        cardList.add(BUTCHER.getName());
+        cardList.add(BRIDGE.getName());
+        cardList.add(PAWN.getName());
+        cardList.add(MINING_VILLAGE.getName());
+        cardList.add(UPGRADE.getName());
+        cardList.add(DUKE.getName());
+
+        saveKingdom(DECISIONS_DECISIONS.getName());
     }
 
     private void addNewGuildsAndIntrigueKingdoms() {
+        // Name That Card
+        cardList.clear();
+        cardList.add(BAKER.getName());
+        cardList.add(DOCTOR.getName());
+        cardList.add(PLAZA.getName());
+        cardList.add(ADVISOR.getName());
+        cardList.add(MASTERPIECE.getName());
+        cardList.add(COURTYARD.getName());
+        cardList.add(HAREM.getName());
+        cardList.add(NOBLES.getName());
+        cardList.add(REPLACE.getName());
+        cardList.add(WISHING_WELL.getName());
 
+        saveKingdom(NAME_THAT_CARD_2.getName());
+
+        // Tricks of the Trade
+        cardList.clear();
+        cardList.add(STONEMASON.getName());
+        cardList.add(HERALD.getName());
+        cardList.add(SOOTHSAYER.getName());
+        cardList.add(JOURNEYMAN.getName());
+        cardList.add(BUTCHER.getName());
+        cardList.add(CONSPIRATOR.getName());
+        cardList.add(MASQUERADE.getName());
+        cardList.add(MILL.getName());
+        cardList.add(NOBLES.getName());
+        cardList.add(SECRET_PASSAGE.getName());
+
+        saveKingdom(TRICKS_OF_THE_TRADE_2.getName());
     }
 
     private void addGuildsAndSeasideKingdoms() {
+        // Ghosts & Taxes
+        cardList.clear();
+        cardList.add(CUTPURSE.getName());
+        cardList.add(GHOST_SHIP.getName());
+        cardList.add(HAVEN.getName());
+        cardList.add(OUTPOST.getName());
+        cardList.add(SMUGGLERS.getName());
+        cardList.add(BUTCHER.getName());
+        cardList.add(CANDLESTICK_MAKER.getName());
+        cardList.add(HERALD.getName());
+        cardList.add(SOOTHSAYER.getName());
+        cardList.add(TAXMAN.getName());
 
-    }
+        saveKingdom(GHOSTS_AND_TAXES.getName());
 
-    private void addGuildsAndAlchemyKingdoms() {
+        // Island Builder
+        cardList.clear();
+        cardList.add(ISLAND.getName());
+        cardList.add(NATIVE_VILLAGE.getName());
+        cardList.add(SALVAGER.getName());
+        cardList.add(TACTICIAN.getName());
+        cardList.add(TREASURY.getName());
+        cardList.add(BAKER.getName());
+        cardList.add(DOCTOR.getName());
+        cardList.add(MERCHANT_GUILD.getName());
+        cardList.add(PLAZA.getName());
+        cardList.add(STONEMASON.getName());
 
+        saveKingdom(ISLAND_BUILDER.getName());
     }
 
     private void addGuildsAndProsperityKingdoms() {
+        // Quarrymen
+        cardList.clear();
+        cardList.add(MOUNTEBANK.getName());
+        cardList.add(CITY.getName());
+        cardList.add(EXPAND.getName());
+        cardList.add(GRAND_MARKET.getName());
+        cardList.add(QUARRY.getName());
+        cardList.add(BAKER.getName());
+        cardList.add(MERCHANT_GUILD.getName());
+        cardList.add(SOOTHSAYER.getName());
+        cardList.add(STONEMASON.getName());
+        cardList.add(TAXMAN.getName());
 
-    }
-
-    private void addGuildsAndCornucopiaKingdoms() {
-
+        saveKingdom(QUARRYMEN.getName());
     }
 
     private void addGuildsAndHinterlandsKingdoms() {
+        // Exchanges
+        cardList.clear();
+        cardList.add(BUTCHER.getName());
+        cardList.add(HERALD.getName());
+        cardList.add(MASTERPIECE.getName());
+        cardList.add(SOOTHSAYER.getName());
+        cardList.add(STONEMASON.getName());
+        cardList.add(BORDER_VILLAGE.getName());
+        cardList.add(DEVELOP.getName());
+        cardList.add(ILL_GOTTEN_GAINS.getName());
+        cardList.add(STABLES.getName());
+        cardList.add(TRADER.getName());
 
+        saveKingdom(EXCHANGES.getName());
+
+        // Road to Riches
+        cardList.clear();
+        cardList.add(ADVISOR.getName());
+        cardList.add(BAKER.getName());
+        cardList.add(CANDLESTICK_MAKER.getName());
+        cardList.add(JOURNEYMAN.getName());
+        cardList.add(MERCHANT_GUILD.getName());
+        cardList.add(CROSSROADS.getName());
+        cardList.add(FARMLAND.getName());
+        cardList.add(HIGHWAY.getName());
+        cardList.add(SPICE_MERCHANT.getName());
+        cardList.add(TUNNEL.getName());
+
+        saveKingdom(ROAD_TO_RICHES.getName());
     }
 
     private void addGuildsAndDarkAgesKingdoms() {
+        // Stoneground
+        cardList.clear();
+        cardList.add(HUNTING_GROUNDS.getName());
+        cardList.add(IRONMONGER.getName());
+        cardList.add(PROCESSION.getName());
+        cardList.add(MARAUDER.getName());
+        cardList.add(ROGUE.getName());
+        cardList.add(ADVISOR.getName());
+        cardList.add(BAKER.getName());
+        cardList.add(CANDLESTICK_MAKER.getName());
+        cardList.add(PLAZA.getName());
+        cardList.add(STONEMASON.getName());
 
+        saveKingdom(STONEGROUND.getName());
+
+        // Class Struggle
+        cardList.clear();
+        cardList.add(FEODUM.getName());
+        cardList.add(FORTRESS.getName());
+        cardList.add(KNIGHTS.getName());
+        cardList.add(MARKET_SQUARE.getName());
+        cardList.add(POOR_HOUSE.getName());
+        cardList.add(BUTCHER.getName());
+        cardList.add(DOCTOR.getName());
+        cardList.add(JOURNEYMAN.getName());
+        cardList.add(MERCHANT_GUILD.getName());
+        cardList.add(TAXMAN.getName());
+
+        saveKingdom(CLASS_STRUGGLE.getName());
     }
 
     private void addAdventuresKingdoms() {

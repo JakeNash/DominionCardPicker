@@ -211,27 +211,38 @@ public enum KingdomName {
     FAR_FROM_HOME("Far From Home"),
     EXPEDITIONS("Expeditions"),
 
-    // Guilds
-
     // Old Guilds + Dominion
+    ARTS_AND_CRAFTS("Arts and Crafts"),
+    CLEAN_LIVING_1("Clean Living 1st Edition"),
+    GILDING_THE_LILY_1("Gilding the Lily 1st Edition"),
 
     // New Guilds + Dominion
+    CLEAN_LIVING_2("Clean Living 2nd Edition"),
+    GILDING_THE_LILY_2("Gilding the Lily 2nd Edition"),
 
     // Old Guilds + Intrigue
+    NAME_THAT_CARD_1("Name That Card 1st Edition"),
+    TRICKS_OF_THE_TRADE_1("Tricks of the Trade 1st Edition"),
+    DECISIONS_DECISIONS("Decisions, Decisions"),
 
     // New Guilds + Intrigue
+    NAME_THAT_CARD_2("Name That Card 2nd Edition"),
+    TRICKS_OF_THE_TRADE_2("Tricks of the Trade 2nd Edition"),
 
     // Guilds + Seaside
-
-    // Guilds + Alchemy
+    GHOSTS_AND_TAXES("Ghosts & Taxes"),
+    ISLAND_BUILDER("Island Builder"),
 
     // Guilds + Prosperity
-
-    // Guilds + Cornucopia
+    QUARRYMEN("Quarrymen"),
 
     // Guilds + Hinterlands
+    EXCHANGES("Exchanges"),
+    ROAD_TO_RICHES("Road to Riches"),
 
     // Guilds + Dark Ages
+    STONEGROUND("Stoneground"),
+    CLASS_STRUGGLE("Class Struggle"),
 
     // Adventures
 

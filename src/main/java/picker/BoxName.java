@@ -15,6 +15,7 @@ public enum BoxName {
     CORNUCOPIA("Cornucopia"),
     HINTERLANDS("Hinterlands"),
     DARK_AGES("Dark Ages"),
+    GUILDS("Guilds"),
     ;
 
     private String name;

@@ -20,6 +20,7 @@ public enum SetupText {
     RUINS_SETUP("Shuffle Ruins & place face down except top card"),
     SPOILS_SETUP("Spoils"),
     KNIGHTS_SETUP("Shuffle Knights & place face down except top card"),
+    BAKER_SETUP("Give everyone a coin token"),
     ;
 
     private String text;

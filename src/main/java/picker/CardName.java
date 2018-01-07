@@ -266,6 +266,19 @@ public enum CardName {
     OVERGROWN_ESTATE("Overgrown Estate"),
 
     // Guilds
+    CANDLESTICK_MAKER("Candlestick Maker"),
+    STONEMASON("Stonemason"),
+    DOCTOR("Doctor"),
+    MASTERPIECE("Masterpiece"),
+    ADVISOR("Advisor"),
+    PLAZA("Plaza"),
+    TAXMAN("Taxman"),
+    HERALD("Herald"),
+    BAKER("Baker"),
+    BUTCHER("Butcher"),
+    JOURNEYMAN("Journeyman"),
+    MERCHANT_GUILD("Merchant Guild"),
+    SOOTHSAYER("Soothsayer"),
 
     // Adventures
 

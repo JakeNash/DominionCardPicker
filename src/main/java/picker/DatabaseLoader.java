@@ -59,6 +59,8 @@ public class DatabaseLoader implements CommandLineRunner {
     private List<String> spoilsAndDarkAgesSetup = Arrays.asList(SPOILS_SETUP.getText(), SHELTERS_SETUP.getText());
     private List<String> knightsSetup = Arrays.asList(KNIGHTS_SETUP.getText(), SHELTERS_SETUP.getText());
     private List<String> marauderSetup = Arrays.asList(SPOILS_SETUP.getText(), RUINS_SETUP.getText(), SHELTERS_SETUP.getText());
+    private List<String> coinTokenSetup = Collections.singletonList(COIN_TOKEN_SETUP.getText());
+    private List<String> bakerSetup = Arrays.asList(BAKER_SETUP.getText(), COIN_TOKEN_SETUP.getText());
 
     @Autowired
 	public DatabaseLoader(CardRepository cardRepository, KingdomRepository kingdomRepository) {
@@ -341,7 +343,19 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
     private void saveSimpleGuildsCards() {
+        box = GUILDS.getName();
 
+        saveCard("2", CANDLESTICK_MAKER.getName(), actionCard, coinTokenSetup);
+        saveCard("2+", STONEMASON.getName(), actionCard);
+        saveCard("3+", DOCTOR.getName(), actionCard);
+        saveCard("3+", MASTERPIECE.getName(), treasureCard);
+        saveCard("4", ADVISOR.getName(), actionCard);
+        saveCard("4", PLAZA.getName(), actionCard, coinTokenSetup);
+        saveCard("4+", HERALD.getName(), actionCard);
+        saveCard("5", BAKER.getName(), actionCard, bakerSetup);
+        saveCard("5", BUTCHER.getName(), actionCard, coinTokenSetup);
+        saveCard("5", JOURNEYMAN.getName(), actionCard);
+        saveCard("5", MERCHANT_GUILD.getName(), actionCard, coinTokenSetup);
     }
 
     private void saveSimpleAdventuresCards() {
@@ -463,6 +477,8 @@ public class DatabaseLoader implements CommandLineRunner {
         saveActionAttackHinterlandsCards();
 
         saveActionAttackDarkAgesCards();
+
+        saveActionAttackGuildsCards();
     }
 
     private void saveActionAttackDominionCards() {
@@ -554,6 +570,13 @@ public class DatabaseLoader implements CommandLineRunner {
         saveCard("5", PILLAGE.getName(), typeList, spoilsAndDarkAgesSetup);
         saveCard("5", ROGUE.getName(), typeList, darkAgesSetup);
         saveCard("0*", MERCENARY.getName(), typeList, darkAgesSetup);
+    }
+
+    private void saveActionAttackGuildsCards() {
+        box = GUILDS.getName();
+
+        saveCard("4", TAXMAN.getName(), typeList);
+        saveCard("5", SOOTHSAYER.getName(), typeList);
     }
 
     private void saveActionVictoryCards() {
