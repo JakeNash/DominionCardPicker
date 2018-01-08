@@ -8,4 +8,5 @@ import java.util.List;
 public interface KingdomRepository extends MongoRepository<Kingdom, String> {
 
     List<Kingdom> findByCards(@Param("card") String card);
+    List<Kingdom> findByBoxes(@Param("box") String box);
 }
