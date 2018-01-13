@@ -9,4 +9,6 @@ public interface KingdomRepository extends MongoRepository<Kingdom, String> {
 
     List<Kingdom> findByCards(@Param("card") String card);
     List<Kingdom> findByBoxes(@Param("box") String box);
+    List<Kingdom> findByEvents(@Param("event") String event);
+    List<Kingdom> findByLandmarks(@Param("landmark") String landmark);
 }

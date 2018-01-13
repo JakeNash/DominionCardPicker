@@ -16,24 +16,21 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {cards: [], attributes: [], page: 1, pageSize: 2, links: {},
-		              kingdoms: [], kingdomAttributes: [], kingdomPage: 1, kingdomPageSize: 2, kingdomLinks: {},
-		              matchingKingdoms: [], wantedCard: "", wantedBox: ""};
+		              matchingKingdoms: [], wantedCard: "", wantedBox: "", wantedEvent: "", wantedLandmark: ""};
 		this.updatePageSize = this.updatePageSize.bind(this);
 		this.onNavigate = this.onNavigate.bind(this);
-		this.updateKingdomPageSize = this.updateKingdomPageSize.bind(this);
-		this.onKingdomNavigate = this.onKingdomNavigate.bind(this);
 		this.updateMatchingKingdomWantedComponents = this.updateMatchingKingdomWantedComponents.bind(this);
 	}
 
-	mergeUnionArrays(keyName, array1, array2) {
-	    var index = {}, i, len, merge = [], arr, name;
+	mergeUnionArrays(keyName) {
+	    var index = {}, i, len, merge = [], arr, elem;
 
         for (var j = 1; j < arguments.length; j++) {
             arr = arguments[j];
             for (i = 0, len = arr.length; i < len; i++) {
-                name = arr[i][keyName];
-                if ((typeof name != "undefined") && !(name in index)) {
-                    index[name] = true;
+                elem = arr[i][keyName];
+                if ((typeof elem != "undefined") && !(elem in index)) {
+                    index[elem] = true;
                     merge.push(arr[i]);
                 }
             }
@@ -42,7 +39,7 @@ class App extends React.Component {
 	}
 
 	mergeIntersectArrays(keyName, array1, array2) {
-	    var index = {}, i, len, merge = [], arr, name;
+	    var index = {}, i, len, merge = [], arr, elem;
 
         if (array2.length == 0) {
 	        return(array1);
@@ -50,14 +47,14 @@ class App extends React.Component {
 	        return(array2);
 	    } else {
 	        for (i = 0, len = array1.length; i < len; i++) {
-	            name = array1[i][keyName];
-	            if ((typeof name != "undefined")) {
-	                index[name] = true;
+	            elem = array1[i][keyName];
+	            if ((typeof elem != "undefined")) {
+	                index[elem] = true;
 	            }
 	        }
 	        for (i = 0, len = array2.length; i < len; i++) {
-	            name = array2[i][keyName];
-	            if ((typeof name != "undefined") && (name in index)) {
+	            elem = array2[i][keyName];
+	            if ((typeof elem != "undefined") && (elem in index)) {
 	                merge.push(array2[i]);
 	            }
 	        }
@@ -99,58 +96,13 @@ class App extends React.Component {
 		});
 	}
 
-	loadKingdomsFromServer(kingdomPageSize) {
-	    follow(client, root, [
-	        {rel: 'kingdoms', params: {size: kingdomPageSize}}]
-        ).then(kingdomCollection => {
-            return client({
-        	    method: 'GET',
-        		path: kingdomCollection.entity._links.profile.href,
-        		headers: {'Accept': 'application/schema+json'}
-        	}).then(schema => {
-        	    this.kingdomSchema = schema.entity;
-        		this.kingdomLinks = kingdomCollection.entity._links;
-        		return kingdomCollection;
-        	});
-        }).then(kingdomCollection => {
-        	this.kingdomPage = kingdomCollection.entity.page;
-        	return kingdomCollection.entity._embedded.kingdoms.map(kingdom =>
-            	client({
-        	    	method: 'GET',
-        			path: kingdom._links.self.href
-        		})
-        	);
-        }).then(kingdomPromises => {
-        	return when.all(kingdomPromises);
-        }).done(kingdoms => {
-        	this.setState({
-        		kingdomPage: this.kingdomPage,
-        		kingdoms: kingdoms,
-        		kingdomAttributes: Object.keys(this.kingdomSchema.properties),
-        		kingdomPageSize: kingdomPageSize,
-        		kingdomLinks: this.kingdomLinks
-        	});
-        });
-    }
+    loadMatchingKingdomsFromServer(wantedCard, wantedBox, wantedEvent, wantedLandmark) {
+        var cardKingdoms = [], boxKingdoms = [], mergedKingdoms1 = [], cardKingdomPromises, boxKingdomPromises,
+            eventKingdoms = [], landmarkKingdoms = [], eventKingdomPromises, landmarkKingdomPromises,
+            mergedKingdoms2 = [], mergedKingdoms3 = [], promises = [];
 
-    loadMatchingKingdomsFromServer(wantedCard, wantedBox) {
-        var cardKingdoms = [], boxKingdoms = [], mergedKingdoms = [];
-
-        follow(client, root, [
-            {rel: 'kingdoms'}, {rel: 'search'}, {rel: 'findByCards', params: {card: wantedCard}}]
-        ).then(kingdomCollection => {
-            return kingdomCollection.entity._embedded.kingdoms.map(kingdom =>
-                client({
-                    method: 'GET',
-                    path: kingdom._links.self.href
-                    })
-            );
-        }).then(kingdomPromises => {
-            return when.all(kingdomPromises);
-        }).done(kingdoms => {
-            cardKingdoms = kingdoms;
-            follow(client, root, [
-                {rel: 'kingdoms'}, {rel: 'search'}, {rel: 'findByBoxes', params: {box: wantedBox}}]
+        cardKingdomPromises = follow(client, root, [
+                {rel: 'kingdoms'}, {rel: 'search'}, {rel: 'findByCards', params: {card: wantedCard}}]
             ).then(kingdomCollection => {
                 return kingdomCollection.entity._embedded.kingdoms.map(kingdom =>
                     client({
@@ -160,19 +112,68 @@ class App extends React.Component {
                 );
             }).then(kingdomPromises => {
                 return when.all(kingdomPromises);
-            }).done(kingdoms => {
-                boxKingdoms = kingdoms;
-                mergedKingdoms = this.mergeIntersectArrays("url", cardKingdoms, boxKingdoms);
-
-                this.setState({
-                    matchingKingdoms: mergedKingdoms
-                });
             });
+
+        boxKingdomPromises = follow(client, root, [
+                 {rel: 'kingdoms'}, {rel: 'search'}, {rel: 'findByBoxes', params: {box: wantedBox}}]
+             ).then(kingdomCollection => {
+                 return kingdomCollection.entity._embedded.kingdoms.map(kingdom =>
+                     client({
+                         method: 'GET',
+                         path: kingdom._links.self.href
+                         })
+                 );
+             }).then(kingdomPromises => {
+                 return when.all(kingdomPromises);
+             });
+
+        eventKingdomPromises = follow(client, root, [
+                 {rel: 'kingdoms'}, {rel: 'search'}, {rel: 'findByEvents', params: {event: wantedEvent}}]
+             ).then(kingdomCollection => {
+                 return kingdomCollection.entity._embedded.kingdoms.map(kingdom =>
+                     client({
+                         method: 'GET',
+                         path: kingdom._links.self.href
+                         })
+                 );
+             }).then(kingdomPromises => {
+                 return when.all(kingdomPromises);
+             });
+
+        landmarkKingdomPromises = follow(client, root, [
+                 {rel: 'kingdoms'}, {rel: 'search'}, {rel: 'findByLandmarks', params: {landmark: wantedLandmark}}]
+             ).then(kingdomCollection => {
+                 return kingdomCollection.entity._embedded.kingdoms.map(kingdom =>
+                     client({
+                         method: 'GET',
+                         path: kingdom._links.self.href
+                         })
+                 );
+             }).then(kingdomPromises => {
+                 return when.all(kingdomPromises);
+             });
+
+        cardKingdomPromises.then(kingdoms1 => {
+            cardKingdoms = kingdoms1;
+            boxKingdomPromises.then(kingdoms2 => {
+                boxKingdoms = kingdoms2;
+                eventKingdomPromises.then(kingdoms3 => {
+                    eventKingdoms = kingdoms3;
+                    landmarkKingdomPromises.then(kingdoms4 => {
+                        landmarkKingdoms = kingdoms4;
+                        mergedKingdoms1 = this.mergeIntersectArrays("url", cardKingdoms, boxKingdoms);
+                        mergedKingdoms2 = this.mergeIntersectArrays("url", mergedKingdoms1, eventKingdoms);
+                        mergedKingdoms3 = this.mergeIntersectArrays("url", mergedKingdoms2, landmarkKingdoms);
+
+                        this.setState({
+                            matchingKingdoms: mergedKingdoms3
+                        });
+                    }).catch(err => {
+                        console.error(err);
+                    })
+                })
+            })
         });
-
-
-
-
     }
 
 	onNavigate(navUri) {
@@ -201,33 +202,6 @@ class App extends React.Component {
 			});
 		});
 	}
-	
-    onKingdomNavigate(navUri) {
-        client({
-            method: 'GET',
-            path: navUri
-        }).then(kingdomCollection => {
-            this.kingdomLinks = kingdomCollection.entity._links;
-            this.kingdomPage = kingdomCollection.entity.page;
-
-            return kingdomCollection.entity._embedded.kingdoms.map(kingdom =>
-                    client({
-                        method: 'GET',
-                        path: kingdom._links.self.href
-                    })
-            );
-        }).then(kingdomPromises => {
-            return when.all(kingdomPromises);
-        }).done(kingdoms => {
-            this.setState({
-                kingdomPage: this.kingdomPage,
-                kingdoms: kingdoms,
-                kingdomAttributes: Object.keys(this.kingdomSchema.properties),
-                kingdomPageSize: this.state.kingdomPageSize,
-                kingdomLinks: this.kingdomLinks
-            });
-        });
-    }
 
 	updatePageSize(pageSize) {
 		if (pageSize !== this.state.pageSize) {
@@ -235,22 +209,16 @@ class App extends React.Component {
 		}
 	}
 
-	updateKingdomPageSize(kingdomPageSize) {
-	    if (kingdomPageSize !== this.state.kingdomPageSize) {
-	        this.loadKingdomsFromServer(kingdomPageSize);
-	    }
-	}
-
-	updateMatchingKingdomWantedComponents(wantedCard, wantedBox) {
-	    if (wantedCard !== this.state.wantedCard || wantedBox !== this.state.wantedBox) {
-	        this.loadMatchingKingdomsFromServer(wantedCard, wantedBox);
+	updateMatchingKingdomWantedComponents(wantedCard, wantedBox, wantedEvent, wantedLandmark) {
+	    if (wantedCard !== this.state.wantedCard || wantedBox !== this.state.wantedBox
+	        || wantedEvent !== this.state.wantedEvent || wantedLandmark !== this.state.wantedLandmark) {
+	        this.loadMatchingKingdomsFromServer(wantedCard, wantedBox, wantedEvent, wantedLandmark);
 	    }
 	}
 
 	componentDidMount() {
 		this.loadFromServer(this.state.pageSize);
-		this.loadKingdomsFromServer(this.state.kingdomPageSize);
-		this.loadMatchingKingdomsFromServer(this.state.wantedCard, this.state.wantedBox);
+		this.loadMatchingKingdomsFromServer(this.state.wantedCard, this.state.wantedBox, this.state.wantedEvent, this.state.wantedLandmark);
 	}
 
 	render() {
@@ -263,16 +231,11 @@ class App extends React.Component {
 							 attributes={this.state.attributes}
 							 onNavigate={this.onNavigate}
 							 updatePageSize={this.updatePageSize} />
-				<KingdomList page={this.state.kingdomPage}
-				             kingdoms={this.state.kingdoms}
-				             links={this.state.kingdomLinks}
-				             pageSize={this.state.kingdomPageSize}
-				             attributes={this.state.kingdomAttributes}
-				             onNavigate={this.onKingdomNavigate}
-				             updatePageSize={this.updateKingdomPageSize} />
 				<MatchingKingdomList kingdoms={this.state.matchingKingdoms}
 				                     wantedCard={this.state.wantedCard}
 				                     wantedBox={this.state.wantedBox}
+				                     wantedEvent={this.state.wantedEvent}
+				                     wantedLandmark={this.state.wantedLandmark}
 				                     updateKingdom={this.updateMatchingKingdomWantedComponents} />
 			</div>
 		)
@@ -403,96 +366,6 @@ class Card extends React.Component {
     }
 }
 
-class KingdomList extends React.Component {
-
-	constructor(props) {
-		super(props);
-		this.handleNavFirst = this.handleNavFirst.bind(this);
-		this.handleNavPrev = this.handleNavPrev.bind(this);
-		this.handleNavNext = this.handleNavNext.bind(this);
-		this.handleNavLast = this.handleNavLast.bind(this);
-		this.handleInput = this.handleInput.bind(this);
-	}
-
-	handleInput(e) {
-		e.preventDefault();
-		var pageSize = ReactDOM.findDOMNode(this.refs.pageSize).value;
-		if (/^[0-9]+$/.test(pageSize)) {
-			this.props.updatePageSize(pageSize);
-		} else {
-			ReactDOM.findDOMNode(this.pageSize).value = pageSize.substring(0, pageSize.length - 1);
-		}
-	}
-
-	handleNavFirst(e) {
-		e.preventDefault();
-		this.props.onNavigate(this.props.links.first.href);
-	}
-
-	handleNavPrev(e) {
-		e.preventDefault();
-		this.props.onNavigate(this.props.links.prev.href);
-	}
-
-	handleNavNext(e) {
-		e.preventDefault();
-		this.props.onNavigate(this.props.links.next.href);
-	}
-
-	handleNavLast(e) {
-		e.preventDefault();
-		this.props.onNavigate(this.props.links.last.href);
-	}
-
-	render() {
-		var pageInfo = this.props.page.hasOwnProperty("number") ?
-			<h3>Kingdoms - Page {this.props.page.number + 1} of {this.props.page.totalPages}</h3> : null;
-
-		var kingdoms = this.props.kingdoms.map(kingdom =>
-			<Kingdom key={kingdom.entity._links.self.href}
-					 kingdom={kingdom}
-					 />
-		);
-
-		var navLinks = [];
-		if ("first" in this.props.links) {
-			navLinks.push(<button key="first" onClick={this.handleNavFirst}>&lt;&lt;</button>);
-		}
-		if ("prev" in this.props.links) {
-			navLinks.push(<button key="prev" onClick={this.handleNavPrev}>&lt;</button>);
-		}
-		if ("next" in this.props.links) {
-			navLinks.push(<button key="next" onClick={this.handleNavNext}>&gt;</button>);
-		}
-		if ("last" in this.props.links) {
-			navLinks.push(<button key="last" onClick={this.handleNavLast}>&gt;&gt;</button>);
-		}
-
-		return (
-			<div>
-				{pageInfo}
-				<input ref="pageSize" defaultValue={this.props.pageSize} onInput={this.handleInput}/>
-				<table>
-					<tbody>
-						<tr>
-							<th>Name</th>
-							<th>Cards</th>
-							<th>Events</th>
-							<th>Landmarks</th>
-							<th>Boxes</th>
-							<th>Other Setup</th>
-						</tr>
-						{kingdoms}
-					</tbody>
-				</table>
-				<div>
-					{navLinks}
-				</div>
-			</div>
-		)
-	}
-}
-
 class MatchingKingdomList extends React.Component {
     constructor(props) {
         super(props);
@@ -503,11 +376,10 @@ class MatchingKingdomList extends React.Component {
         e.preventDefault();
         var wantedCard = ReactDOM.findDOMNode(this.refs.wantedCard).value;
         var wantedBox = ReactDOM.findDOMNode(this.refs.wantedBox).value;
-        if (/^[a-zA-Z '-]+$/.test(wantedCard) || /^[a-zA-Z ]+$/.test(wantedBox)) {
-            this.props.updateKingdom(wantedCard, wantedBox);
-        } else {
-            ReactDOM.findDOMNode(this.wantedCard).value = wantedCard.substring(0, wantedCard.length - 1);
-            ReactDOM.findDOMNode(this.wantedBox).value = wantedBox.substring(0, wantedBox.length - 1);
+        var wantedEvent = ReactDOM.findDOMNode(this.refs.wantedEvent).value;
+        var wantedLandmark = ReactDOM.findDOMNode(this.refs.wantedLandmark).value;
+        if (/^[a-zA-Z '-]+$/.test(wantedCard) || /^[a-zA-Z ]+$/.test(wantedBox) || /^[a-zA-Z ]+$/.test(wantedEvent) || /^[a-zA-Z ]+$/.test(wantedLandmark)) {
+            this.props.updateKingdom(wantedCard, wantedBox, wantedEvent, wantedLandmark);
         }
     }
 
@@ -523,6 +395,8 @@ class MatchingKingdomList extends React.Component {
                 <h3>Matching Kingdoms</h3>
                 <input ref="wantedCard" placeholder="Enter Card Here" defaultValue={this.props.wantedCard} onInput={this.handleInput}/>
                 <input ref="wantedBox" placeholder="Enter Box Here" defaultValue={this.props.wantedBox} onInput={this.handleInput}/>
+                <input ref="wantedEvent" placeholder="Enter Event Here" defaultValue={this.props.wantedEvent} onInput={this.handleInput}/>
+                <input ref="wantedLandmark" placeholder="Enter Landmark Here" defaultValue={this.props.wantedLandmark} onInput={this.handleInput}/>
                 <table>
                     <tbody>
                         <tr>
