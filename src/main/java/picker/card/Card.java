@@ -14,25 +14,28 @@ public class Card {
     private String box;
     private List<String> types;
     private List<String> otherSetup;
+    private Boolean supply;
 
     private @Version @JsonIgnore Long version;
 
     private Card() {}
 
-    public Card(String cost, String name, String box, List<String> types) {
+    public Card(String cost, String name, String box, List<String> types, Boolean supply) {
         this.cost = cost;
         this.name = name;
         this.box = box;
         this.types = types;
         this.otherSetup = null;
+        this.supply = supply;
     }
 
-    public Card(String cost, String name, String box, List<String> types, List<String> otherSetup) {
+    public Card(String cost, String name, String box, List<String> types, List<String> otherSetup, Boolean supply) {
         this.cost = cost;
         this.name = name;
         this.box = box;
         this.types = types;
         this.otherSetup = otherSetup;
+        this.supply = supply;
     }
 
     public String getId() {
@@ -89,5 +92,13 @@ public class Card {
 
     public void setOtherSetup(List<String> otherSetup) {
         this.otherSetup = otherSetup;
+    }
+
+    public Boolean getSupply() {
+        return supply;
+    }
+
+    public void setSupply(Boolean supply) {
+        this.supply = supply;
     }
 }

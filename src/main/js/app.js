@@ -372,14 +372,124 @@ class MatchingKingdomList extends React.Component {
 		this.handleInput = this.handleInput.bind(this);
     }
 
+    testWantedCard(text) {
+        return(/^[a-zA-Z '-]+$/.test(text))
+    }
+
+    testWantedBox(text) {
+        return(/^[a-zA-Z ]+$/.test(text))
+    }
+
+    testWantedEvent(text) {
+        return(/^[a-zA-Z ]+$/.test(text))
+    }
+
+    testWantedLandmark(text) {
+        return(/^[a-zA-Z ]+$/.test(text))
+    }
+
+    getCorrectSubString(text) {
+        return(text.substring(0, text.length - 1))
+    }
+
     handleInput(e) {
         e.preventDefault();
         var wantedCard = ReactDOM.findDOMNode(this.refs.wantedCard).value;
         var wantedBox = ReactDOM.findDOMNode(this.refs.wantedBox).value;
         var wantedEvent = ReactDOM.findDOMNode(this.refs.wantedEvent).value;
         var wantedLandmark = ReactDOM.findDOMNode(this.refs.wantedLandmark).value;
-        if (/^[a-zA-Z '-]+$/.test(wantedCard) || /^[a-zA-Z ]+$/.test(wantedBox) || /^[a-zA-Z ]+$/.test(wantedEvent) || /^[a-zA-Z ]+$/.test(wantedLandmark)) {
+        if (this.testWantedCard(wantedCard) && this.testWantedBox(wantedBox) && this.testWantedEvent(wantedEvent) && this.testWantedLandmark(wantedLandmark)) {
+
             this.props.updateKingdom(wantedCard, wantedBox, wantedEvent, wantedLandmark);
+        } else if (this.testWantedCard(wantedCard) && this.testWantedBox(wantedBox) && this.testWantedEvent(wantedEvent) && !this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(wantedCard, wantedBox, wantedEvent, this.getCorrectSubString(wantedLandmark));
+
+            ReactDOM.findDOMNode(this.refs.wantedLandmark).value = this.getCorrectSubString(wantedLandmark);
+        } else if (this.testWantedCard(wantedCard) && this.testWantedBox(wantedBox) && !this.testWantedEvent(wantedEvent) && this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(wantedCard, wantedBox, this.getCorrectSubString(wantedEvent), wantedLandmark);
+
+            ReactDOM.findDOMNode(this.refs.wantedEvent).value = this.getCorrectSubString(wantedEvent);
+        } else if (this.testWantedCard(wantedCard) && !this.testWantedBox(wantedBox) && this.testWantedEvent(wantedEvent) && this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(wantedCard, this.getCorrectSubString(wantedBox), wantedEvent, wantedLandmark);
+
+            ReactDOM.findDOMNode(this.refs.wantedBox).value = this.getCorrectSubString(wantedBox);
+        } else if (!this.testWantedCard(wantedCard) && this.testWantedBox(wantedBox) && this.testWantedEvent(wantedEvent) && this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(this.getCorrectSubString(wantedCard), wantedBox, wantedEvent, wantedLandmark);
+
+            ReactDOM.findDOMNode(this.refs.wantedCard).value = this.getCorrectSubString(wantedCard);
+        } else if (this.testWantedCard(wantedCard) && this.testWantedBox(wantedBox) && !this.testWantedEvent(wantedEvent) && !this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(wantedCard, wantedBox, this.getCorrectSubString(wantedEvent), this.getCorrectSubString(wantedLandmark));
+
+            ReactDOM.findDOMNode(this.refs.wantedEvent).value = this.getCorrectSubString(wantedEvent);
+            ReactDOM.findDOMNode(this.refs.wantedLandmark).value = this.getCorrectSubString(wantedLandmark);
+        } else if (this.testWantedCard(wantedCard) && !this.testWantedBox(wantedBox) && this.testWantedEvent(wantedEvent) && !this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(wantedCard, this.getCorrectSubString(wantedBox), wantedEvent, this.getCorrectSubString(wantedLandmark));
+
+            ReactDOM.findDOMNode(this.refs.wantedBox).value = this.getCorrectSubString(wantedBox);
+            ReactDOM.findDOMNode(this.refs.wantedLandmark).value = this.getCorrectSubString(wantedLandmark);
+        } else if (!this.testWantedCard(wantedCard) && this.testWantedBox(wantedBox) && this.testWantedEvent(wantedEvent) && !this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(this.getCorrectSubString(wantedCard), wantedBox, wantedEvent, this.getCorrectSubString(wantedLandmark));
+
+            ReactDOM.findDOMNode(this.refs.wantedCard).value = this.getCorrectSubString(wantedCard);
+            ReactDOM.findDOMNode(this.refs.wantedLandmark).value = this.getCorrectSubString(wantedLandmark);
+        } else if (this.testWantedCard(wantedCard) && !this.testWantedBox(wantedBox) && !this.testWantedEvent(wantedEvent) && this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(wantedCard, this.getCorrectSubString(wantedBox), this.getCorrectSubString(wantedEvent), wantedLandmark);
+
+            ReactDOM.findDOMNode(this.refs.wantedBox).value = this.getCorrectSubString(wantedBox);
+            ReactDOM.findDOMNode(this.refs.wantedEvent).value = this.getCorrectSubString(wantedEvent);
+        } else if (!this.testWantedCard(wantedCard) && this.testWantedBox(wantedBox) && !this.testWantedEvent(wantedEvent) && this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(this.getCorrectSubString(wantedCard), wantedBox, this.getCorrectSubString(wantedEvent), wantedLandmark);
+
+            ReactDOM.findDOMNode(this.refs.wantedCard).value = this.getCorrectSubString(wantedCard);
+            ReactDOM.findDOMNode(this.refs.wantedEvent).value = this.getCorrectSubString(wantedEvent);
+        } else if (!this.testWantedCard(wantedCard) && !this.testWantedBox(wantedBox) && this.testWantedEvent(wantedEvent) && this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(this.getCorrectSubString(wantedCard), this.getCorrectSubString(wantedBox), wantedEvent, wantedLandmark);
+
+            ReactDOM.findDOMNode(this.refs.wantedCard).value = this.getCorrectSubString(wantedCard);
+            ReactDOM.findDOMNode(this.refs.wantedBox).value = this.getCorrectSubString(wantedBox);
+        } else if (this.testWantedCard(wantedCard) && !this.testWantedBox(wantedBox) && !this.testWantedEvent(wantedEvent) && !this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(wantedCard, this.getCorrectSubString(wantedBox), this.getCorrectSubString(wantedEvent), this.getCorrectSubString(wantedLandmark));
+
+            ReactDOM.findDOMNode(this.refs.wantedBox).value = this.getCorrectSubString(wantedBox);
+            ReactDOM.findDOMNode(this.refs.wantedEvent).value = this.getCorrectSubString(wantedEvent);
+            ReactDOM.findDOMNode(this.refs.wantedLandmark).value = this.getCorrectSubString(wantedLandmark);
+        } else if (!this.testWantedCard(wantedCard) && this.testWantedBox(wantedBox) && !this.testWantedEvent(wantedEvent) && !this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(this.getCorrectSubString(wantedCard), wantedBox, this.getCorrectSubString(wantedEvent), this.getCorrectSubString(wantedLandmark));
+
+            ReactDOM.findDOMNode(this.refs.wantedCard).value = this.getCorrectSubString(wantedCard);
+            ReactDOM.findDOMNode(this.refs.wantedEvent).value = this.getCorrectSubString(wantedEvent);
+            ReactDOM.findDOMNode(this.refs.wantedLandmark).value = this.getCorrectSubString(wantedLandmark);
+        } else if (!this.testWantedCard(wantedCard) && !this.testWantedBox(wantedBox) && this.testWantedEvent(wantedEvent) && !this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(this.getCorrectSubString(wantedCard), this.getCorrectSubString(wantedBox), wantedEvent, this.getCorrectSubString(wantedLandmark));
+
+            ReactDOM.findDOMNode(this.refs.wantedCard).value = this.getCorrectSubString(wantedCard);
+            ReactDOM.findDOMNode(this.refs.wantedBox).value = this.getCorrectSubString(wantedBox);
+            ReactDOM.findDOMNode(this.refs.wantedLandmark).value = this.getCorrectSubString(wantedLandmark);
+        } else if (!this.testWantedCard(wantedCard) && !this.testWantedBox(wantedBox) && !this.testWantedEvent(wantedEvent) && this.testWantedLandmark(wantedLandmark)) {
+
+            this.props.updateKingdom(this.getCorrectSubString(wantedCard), this.getCorrectSubString(wantedBox), this.getCorrectSubString(wantedEvent), wantedLandmark);
+
+            ReactDOM.findDOMNode(this.refs.wantedCard).value = this.getCorrectSubString(wantedCard);
+            ReactDOM.findDOMNode(this.refs.wantedBox).value = this.getCorrectSubString(wantedBox);
+            ReactDOM.findDOMNode(this.refs.wantedEvent).value = this.getCorrectSubString(wantedEvent);
+        } else {
+            ReactDOM.findDOMNode(this.refs.wantedCard).value = this.getCorrectSubString(wantedCard);
+            ReactDOM.findDOMNode(this.refs.wantedBox).value = this.getCorrectSubString(wantedBox);
+            ReactDOM.findDOMNode(this.refs.wantedEvent).value = this.getCorrectSubString(wantedEvent);
+            ReactDOM.findDOMNode(this.refs.wantedLandmark).value = this.getCorrectSubString(wantedLandmark);
         }
     }
 
